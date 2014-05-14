@@ -36,7 +36,7 @@ class NormalizadorDirecciones:
     def __init__(self, partido, aceptarCallesSinAlturas = False):
         '''
         @param partido: Indica el partido del callejero
-        @type partido: String  
+        @type partido: Partido
         @param aceptarCallesSinAlturas: Indica al normalizador si debe permitir como altura S/N para las calles sin numero. Por defecto es False. Ej: de los italianos S/N
         @type aceptarCallesSinAlturas: Boolean  
         '''
@@ -46,7 +46,7 @@ class NormalizadorDirecciones:
                 raise Exception('Debe indicar el partido.')
             self.c = Callejero(partido)
             self.partido = partido
-        except Exception,  e:
+        except Exception, e:
             raise e
         
     def normalizar(self, direccion, maxOptions = 10):
@@ -58,10 +58,12 @@ class NormalizadorDirecciones:
         @return: Las opciones halladas que se corresponden con dir
         @rtype: Array de Direccion
         '''
+        
         direccion = direccion.upper()
         if type(direccion) != unicode:
             direccion = unicode(direccion, 'utf-8')
-            
+        
+        
         strDir = StringDireccion(direccion, self.aceptarCallesSinAlturas)
         res = []
         if strDir.tipo == CALLE:
