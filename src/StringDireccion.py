@@ -1,11 +1,9 @@
 # coding: UTF-8
 '''
-Created on Apr 29, 2010
+Created on Apr 16, 2014
 
 @author: hernan
-@note: Version de documentacion hasta revision 1717
 '''
-#from string import maketrans
 import re
 from settings import *
 
@@ -20,7 +18,7 @@ class StringDireccion:
     @ivar aceptarCallesSinAlturas: Indica si debe permitir como altura S/N para las calles sin numero. Por defecto es False. Ej: de los italianos S/N
     @type aceptarCallesSinAlturas: Boolean 
     @ivar strInput: El texto a analizar
-    @type strInput: String
+    @type strInput: Unicode
     @ivar tipo: Constante que indica la tipificacion asignada al string de entrada
     @type tipo: Integer
     @ivar strCalles: String que representa el presunto nombre de la calle o array de strings que representan las presuntas calles que se intersectan
@@ -30,7 +28,7 @@ class StringDireccion:
     '''
 
     aceptarCallesSinAlturas = False
-    strInput = '' 
+    strInput = u''
 
     tipo = INVALIDO
     strCalles = ''
@@ -38,16 +36,10 @@ class StringDireccion:
 
     def __init__(self, strInput, aceptarCallesSinAlturas = False):
         self.aceptarCallesSinAlturas = aceptarCallesSinAlturas
-        # t = maketrans(".,","  ")
-        # self.strInput = strInput.translate(t,"\"").upper().strip()
-            
-        self.strInput = strInput.upper()
-        self.strInput = re.sub(unicode(r'[.,\"\']', 'utf-8'), lambda mo: ' ', self.strInput)
-        self.strInput = re.sub(unicode(re.escape("("),'utf-8'),' ',self.strInput)
-        self.strInput = re.sub(unicode(re.escape(")"),'utf-8'),' ',self.strInput)
-        self.strInput = re.sub(unicode(r'\s+','utf-8'),' ',self.strInput).strip()
+        if(len(strInput) > 0):
+            self.strInput = re.sub(r'[.,\"\'()]', ' ', strInput.upper()) # Elimino simbolos
+            self.strInput = re.sub(r'\s+', ' ', self.strInput).strip() # Elimino los doble espacios
 
-        if(len(self.strInput) > 0):
             palabras = self.strInput.split(" Y ")
             if(len(palabras) >= 2):
                 s = self.fixCallesConY(self.strInput)
@@ -82,13 +74,20 @@ class StringDireccion:
             self.strCalles = self.strInput                
     
     def __str__(self):
-        retval = "- CLASE: StringDireccion\n"
-        retval += "\taceptarCallesSinAlturas: %s \n"%str(self.aceptarCallesSinAlturas)
-        retval += "\tstrInput: %s \n"%self.strInput
-        retval += "\ttipo: %s\n"%str(self.tipo)
-        retval += "\tstrCalles: %s\n"%self.strCalles
-        retval += "\tstrAltura: %s\n"%self.strAltura
-        return retval
+        return self.__unicode__().encode('utf8','ignore')
+
+    def __unicode__(self):
+        retval = u'''-- StringDireccion
+    aceptarCallesSinAlturas = %s
+    tipo = %s
+    strInput = %s
+    strCalles = %s
+    strAltura = %s'''
+        return retval % (str(self.aceptarCallesSinAlturas),
+                         self.tipo,
+                         self.strInput,
+                         self.strCalles,
+                         self.strAltura)
 
     def esAlturaSN(self, str):
         return (re.match('(?i)s(/|\\\\)n$',str) != None)
