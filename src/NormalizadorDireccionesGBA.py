@@ -4,12 +4,14 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
-import urllib2
+import urllib2, re
 import simplejson as json
 
 from NormalizadorDirecciones import NormalizadorDirecciones
 from settings import CALLEJERO_GBA_SERVER
 from Partido import *
+from commons import *
+from Errors import *
 
 class NormalizadorDireccionesGBA:
     server = CALLEJERO_GBA_SERVER
@@ -30,12 +32,42 @@ class NormalizadorDireccionesGBA:
             e.detalle = 'Se produjo un error al intentar cargar la información de partidos.'
             raise e
     
-    def normalizar(self, direccion):
-        res = []
+    def normalizar(self, direccion, maxOptions = 10):
+        try:
+            res = []
+            patt_partido = r'(.*),(.*)'
+            re_partido = re.match(patt_partido, direccion)
+            if re_partido:
+                res = self.normalizarPorPartido(re_partido.group(1), re_partido.group(2), maxOptions)
+            
+            if len(res) == 0:
+                res = self.normalizarPorPartido(direccion, maxOptions = maxOptions)
+                
+            for r in res:
+                print r.toString()
+        except Exception, e:
+            pass
+        
+        return res
+
+    def normalizarPorPartido(self, direccion, partido='', maxOptions = 10):
+        res = [[],[],[],[]]
         for nd in self.normalizadores:
             try:
-                res += nd.normalizar(direccion)
+                if partido == '':
+                    res[2] += nd.normalizar(direccion, maxOptions)
+                else:
+                    m = matcheaTexto(partido, nd.partido.nombre)
+                    if m:
+                        result = nd.normalizar(direccion,maxOptions)
+                        if m == MATCH_EXACTO:
+                            res[0] += result
+                        elif m == MATCH_PERMUTADO:
+                            res[1] += result
+                        elif m == MATCH:
+                            res[2] += result
             except Exception, e:
-                print e
                 pass
-        return res
+            
+        return (res[0]+res[1]+res[2])[:maxOptions]
+        
