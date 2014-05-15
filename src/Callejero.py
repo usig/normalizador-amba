@@ -11,6 +11,7 @@ from Calle import Calle
 from bisect import bisect_left
 
 from settings import *
+from commons import *
 
 class Callejero:
     '''
@@ -18,14 +19,14 @@ class Callejero:
     @type server: String 
     @cvar data: La base de datos del callejero [id_calle, nombre_calle, keywords, array_de_rango_de_alturas, array_de_cruces]
     @type data: Array
-    @cvar codigos: Array con los codigos de calle para la busqueda binaria [id_calle]
-    @type codigos: Array
+#    @cvar codigos: Array con los codigos de calle para la busqueda binaria [id_calle]
+#    @type codigos: Array
     @ivar partido: Partido de la direccion
     @type partido: Partido
     '''
-    server = CALLEJERO_GBA_SERVER
+    server = ''
     data = []
-    codigos = []
+#    codigos = []
     partido = None
     
     # Minicache [calle, opts]
@@ -39,8 +40,8 @@ class Callejero:
         '''
         try:
             self.partido = partido
-            self.server += partido.codigo
-            self.cargarCalles()
+            self.server = CALLEJERO_GBA_SERVER + partido.codigo
+            self.cargarCallejero()
 #            self.cargarCruces()
 #            self.codigos = [k[0] for k in self.data]
         except Exception, e:
@@ -92,7 +93,7 @@ class Callejero:
                 break
         return match
      
-    def cargarCalles(self):
+    def cargarCallejero(self):
         '''
         Carga las calles en el atributo data sin los cruces 
         '''
@@ -101,9 +102,12 @@ class Callejero:
             self.data = json.loads(data, "utf8")
 
             for i in range(len(self.data)):
-                if isinstance(self.data[i][2], str):
-                    self.data[i][2] = unicode(self.data[i][2])
-                self.data[i][2] = ''.join((c for c in unicodedata.normalize('NFD', self.data[i][2]) if unicodedata.category(c) != 'Mn'))
+                self.data[i][2] = normalizarTexto(self.data[i][1], separador=' ', lower=False)
+                #self.agregarSinonimos
+            
+#                if isinstance(self.data[i][2], str):
+#                    self.data[i][2] = unicode(self.data[i][2])
+#                self.data[i][2] = ''.join((c for c in unicodedata.normalize('NFD', self.data[i][2]) if unicodedata.category(c) != 'Mn'))
 
         except urllib2.HTTPError, e:
             e.detalle = 'Se produjo un error al intentar cargar la información de calles.'
@@ -111,39 +115,46 @@ class Callejero:
 #        except Exception, e:
 #            print e, self.data[i][2], i
     
-    def cargarCruces(self):
-        '''
-        Carga los cruces de calles en el atributo data 
-        '''
-        try:
-            params = urllib.urlencode({"full": "1", "cruces": "1" })
-            data = urllib2.urlopen(self.server, params).read()
-            cruces = json.loads(data, "latin-1")
-            self.mergeDatosCruces(cruces)
-        except urllib2.HTTPError, e:
-            e.detalle = 'Se produjo un error al intentar cargar la información de los cruces de calles.'
-            raise e
-
-    def mergeDatosCruces(self, cruces):
-        if(len(self.data) != len(cruces)):
-            raise urllib2.HTTPError
-        for i in range(len(cruces)):
-            self.data[i].append(cruces[i])
-    
-    def tieneTramosComoAv(self, calle):
-        ''' 
-        Determina si una calle tiene tramos como Av.
-        @attention: ATTENTI RAGAZZI
-        Esto funciona estrictamente porque la base de calles viene ordenada por codigo de calles y
-        la unica posibilidad de que una calle tenga tramos como av y calle simultaneamente es que
-        haya un par de registros consecutivos con el mismo codigo (uno para c/caso)
-        @param calle: Instancia de Calle
-        @type calle: Calle
-        @return: Retorna True en caso de que la calle tenga tramos como Av.
-        @rtype: Boolean
-        '''
-        retval = False
-        pos = bisect_left(self.codigos, calle.cod)
-        if(pos < len(self.codigos) and self.codigos[pos] == calle.cod):
-            retval = (self.codigos[pos-1] == calle.cod or self.codigos[pos+1] == calle.cod)
-        return retval
+    def buscarCodigo(self, codigo):
+        for calle in self.data:
+            if calle[0] == codigo:
+                return calle
+        return None
+        
+        
+#    def cargarCruces(self):
+#        '''
+#        Carga los cruces de calles en el atributo data 
+#        '''
+#        try:
+#            params = urllib.urlencode({"full": "1", "cruces": "1" })
+#            data = urllib2.urlopen(self.server, params).read()
+#            cruces = json.loads(data, "latin-1")
+#            self.mergeDatosCruces(cruces)
+#        except urllib2.HTTPError, e:
+#            e.detalle = 'Se produjo un error al intentar cargar la información de los cruces de calles.'
+#            raise e
+#
+#    def mergeDatosCruces(self, cruces):
+#        if(len(self.data) != len(cruces)):
+#            raise urllib2.HTTPError
+#        for i in range(len(cruces)):
+#            self.data[i].append(cruces[i])
+#    
+#    def tieneTramosComoAv(self, calle):
+#        ''' 
+#        Determina si una calle tiene tramos como Av.
+#        @attention: ATTENTI RAGAZZI
+#        Esto funciona estrictamente porque la base de calles viene ordenada por codigo de calles y
+#        la unica posibilidad de que una calle tenga tramos como av y calle simultaneamente es que
+#        haya un par de registros consecutivos con el mismo codigo (uno para c/caso)
+#        @param calle: Instancia de Calle
+#        @type calle: Calle
+#        @return: Retorna True en caso de que la calle tenga tramos como Av.
+#        @rtype: Boolean
+#        '''
+#        retval = False
+#        pos = bisect_left(self.codigos, calle.cod)
+#        if(pos < len(self.codigos) and self.codigos[pos] == calle.cod):
+#            retval = (self.codigos[pos-1] == calle.cod or self.codigos[pos+1] == calle.cod)
+#        return retval
