@@ -6,13 +6,13 @@ Created on May 12, 2014
 '''
 import re, unicodedata
 
-
 NO_MATCH = 0
 MATCH = 1
-MATCH_PERMUTADO = 2
-MATCH_EXACTO = 3
+MATCH_INCLUIDO = 2
+MATCH_PERMUTADO = 3
+MATCH_EXACTO = 4
 
-def matcheaTexto(txt1, txt2):
+def matcheaTexto(txt1, txt2, normalizar=True):
     '''
     Verifica si las palabras de txt1 estan contenidas en txt2
     @param txt1: texto a buscar
@@ -23,20 +23,21 @@ def matcheaTexto(txt1, txt2):
     @rtype: Int
     '''
     try:
-        txt1 = normalizarTexto(txt1)
-        txt2 = normalizarTexto(txt2)
-
+        if normalizar:
+            txt1 = normalizarTexto(txt1)
+            txt2 = normalizarTexto(txt2)
+        
         if txt1 == txt2:
             return MATCH_EXACTO
-
-        words1 = txt1.split(' ')
-        words2 = txt2.split(' ')
-        if (len(words1) == len(words2)):
-            intersec = set(words1) & set(words2)
-            if (len(words1) == len(intersec)):
-                return MATCH_PERMUTADO
-
-
+        
+        words1 = set(txt1.split(' '))
+        words2 = set(txt2.split(' '))
+        if (words1 == words2):
+            return MATCH_PERMUTADO
+        
+        if (words1 == words1 & words2):
+            return MATCH_INCLUIDO
+        
         regexps1 = map(lambda x: re.compile(r"^%s| %s" % (re.escape(x), re.escape(x))), txt1.split(' '))
         for regexp in regexps1:
             if regexp.search(txt2) == None:

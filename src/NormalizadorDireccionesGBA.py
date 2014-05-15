@@ -51,7 +51,7 @@ class NormalizadorDireccionesGBA:
         return res
 
     def normalizarPorPartido(self, direccion, partido='', maxOptions = 10):
-        res = [[],[],[],[]]
+        res = [[],[],[],[],[]]
         for nd in self.normalizadores:
             try:
                 if partido == '':
@@ -64,10 +64,12 @@ class NormalizadorDireccionesGBA:
                             res[0] += result
                         elif m == MATCH_PERMUTADO:
                             res[1] += result
-                        elif m == MATCH:
+                        elif m == MATCH_INCLUIDO:
                             res[2] += result
+                        elif m == MATCH:
+                            res[3] += result
             except Exception, e:
                 pass
             
-        return (res[0]+res[1]+res[2])[:maxOptions]
+        return (res[0]+res[1]+res[2]+res[3])[:maxOptions]
         

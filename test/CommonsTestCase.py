@@ -38,18 +38,8 @@ class CommonsTestCase(unittest.TestCase):
     def test_matcheaTexto_exacto(self):
         res = matcheaTexto('Lomas de Zamora', 'Lomas de Zamora')
         self.assertEqual(res, MATCH_EXACTO)
-
-    def test_matcheaTexto_match(self):
-        res = matcheaTexto('', 'Lomas de Zamora')
-        self.assertEqual(res, MATCH)
-        res = matcheaTexto('Lomas', 'Lomas de Zamora')
-        self.assertEqual(res, MATCH)
-        res = matcheaTexto('Lomas de', 'Lomas de Zamora')
-        self.assertEqual(res, MATCH)
-        res = matcheaTexto('Lomas ZAMORA', 'Lomas de Zamora')
-        self.assertEqual(res, MATCH)
-        res = matcheaTexto('Lom ZAM', 'Lomas de Zamora')
-        self.assertEqual(res, MATCH)
+        res = matcheaTexto('Lanus', u'Lanús')
+        self.assertEqual(res, MATCH_EXACTO)
 
     def test_matcheaTexto_permutado(self):
         res = matcheaTexto('de lomas zamora', 'Lomas de Zamora')
@@ -61,6 +51,22 @@ class CommonsTestCase(unittest.TestCase):
         res = matcheaTexto('zamora de lomas', 'Lomas de Zamora')
         self.assertEqual(res, MATCH_PERMUTADO)
 
+    def test_matcheaTexto_incluido(self):
+        res = matcheaTexto('Lomas', 'Lomas de Zamora')
+        self.assertEqual(res, MATCH_INCLUIDO)
+        res = matcheaTexto('Lomas de', 'Lomas de Zamora')
+        self.assertEqual(res, MATCH_INCLUIDO)
+        res = matcheaTexto('Lomas ZAMORA', 'Lomas de Zamora')
+        self.assertEqual(res, MATCH_INCLUIDO)
+        res = matcheaTexto('ZAMORA Lomas', 'Lomas de Zamora')
+        self.assertEqual(res, MATCH_INCLUIDO)
+
+    def test_matcheaTexto_match(self):
+        res = matcheaTexto('', 'Lomas de Zamora')
+        self.assertEqual(res, MATCH)
+        res = matcheaTexto('Lom ZAM', 'Lomas de Zamora')
+        self.assertEqual(res, MATCH)
+
     def test_matcheaTexto_normalizacion(self):
         res = matcheaTexto(u'-  (lomas, dé,  zámórá)-', 'Lomas de Zamora')
         self.assertEqual(res, MATCH_EXACTO)
@@ -68,3 +74,13 @@ class CommonsTestCase(unittest.TestCase):
     def test_matcheaTexto_case(self):
         res = matcheaTexto('lOMAS DE zAMORA', 'Lomas de Zamora')
         self.assertEqual(res, MATCH_EXACTO)
+
+    def test_matcheaTexto_no_normalizar_no_match(self):
+        res = matcheaTexto('Lanus', u'Lanús', normalizar=False)
+        self.assertEqual(res, NO_MATCH)
+        res = matcheaTexto(u'-  (lomas, dé,  zámórá)-', 'Lomas de Zamora', normalizar=False)
+        self.assertEqual(res, NO_MATCH)
+        res = matcheaTexto('de lomas zamora', 'Lomas de Zamora', normalizar=False)
+        self.assertEqual(res, NO_MATCH)
+        res = matcheaTexto('lOMAS DE zAMORA', 'Lomas de Zamora', normalizar=False)
+        self.assertEqual(res, NO_MATCH)
