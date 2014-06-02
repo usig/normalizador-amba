@@ -38,7 +38,7 @@ def matcheaTexto(txt1, txt2, normalizar=True):
         if (words1 == words1 & words2):
             return MATCH_INCLUIDO
         
-        regexps1 = map(lambda x: re.compile(r"^%s| %s" % (re.escape(x), re.escape(x))), txt1.split(' '))
+        regexps1 = map(lambda x: re.compile(r"^%s| %s" % (re.escape(x), re.escape(x))), words1)
         for regexp in regexps1:
             if regexp.search(txt2) == None:
                 return NO_MATCH
