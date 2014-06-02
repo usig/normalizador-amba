@@ -135,6 +135,24 @@ class CallejeroTestCase(unittest.TestCase):
     def testCallejero_buscarCodigo_codigo_invalido(self):
         res = self.c.buscarCodigo(666)
         self.assertTrue(res == None)
+
+    def testCallejero_matcheaCalle_sinonimos_01(self):
+        res1 = self.c.matcheaCalle(u'11')
+        self.assertTrue(isinstance(res1, list))
+        self.assertEqual(len(res1), 1, u'Debería haber 1 matching.')
+        res2 = self.c.matcheaCalle(u'once')
+        self.assertTrue(isinstance(res2, list))
+        self.assertEqual(len(res2), 1, u'Debería haber 1 matching.')
+        self.assertEqual(res1[0].codigo,res2[0].codigo)
+
+        res1 = self.c.matcheaCalle(u'3')
+        self.assertTrue(isinstance(res1, list))
+        self.assertEqual(len(res1), 1, u'Debería haber 1 matching.')
+        res2 = self.c.matcheaCalle(u'tres')
+        self.assertTrue(isinstance(res2, list))
+        self.assertEqual(len(res2), 1, u'Debería haber 1 matching.')
+        self.assertEqual(res1[0].codigo,res2[0].codigo)
+
         
 #    def testCalleConEnieEscritaConNConAlturaValida2(self):
 #        res = self.nd.normalizar("el nandu 3144")
