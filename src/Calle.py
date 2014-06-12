@@ -64,40 +64,40 @@ class Calle:
     
     def __unicode__(self):
         retval = u'''-- Calle
-    codigo = %s
-    nombre = %s
-    alturas = %s
-    cruces = %s
-    partido = %s'''
-        return retval % (self.codigo, 
+    codigo = {0}
+    nombre = {1}
+    alturas = {2}
+    cruces = {3}
+    partido = {4}'''
+        return retval.format(self.codigo, 
                          self.nombre, 
                          self.alturas.__str__(), 
                          self.cruces.__str__(),
                          self.partido.nombre)
 
-    def alturaValida(self, altura):
-        '''
-        Verifica si la altura es valida para esta calle. En caso de tratarse de una calle sin alturas oficiales
-        asiganadas se lanza la excepcion <code>ErrorCalleSinAlturas</code>. 
-        @param altura: Altura a validar
-        @type altura: Integer
-        @return: True si la altura es valida para esta calle
-        @rtype: Boolean
-        '''
-        try:
-            if (len(self.alturas) == 0):
-                raise ErrorCalleSinAlturas(self.nombre)
-
-            retval = False
-            alt = int(altura)
-            for rango in self.alturas:
-                if ((int(rango[0]) <= alt) and (alt <= int(rango[1]))):
-                    retval = True
-                    break
-                
-            return retval
-        except Exception, e:
-            raise e
+#    def alturaValida(self, altura):
+#        '''
+#        Verifica si la altura es valida para esta calle. En caso de tratarse de una calle sin alturas oficiales
+#        asiganadas se lanza la excepcion <code>ErrorCalleSinAlturas</code>. 
+#        @param altura: Altura a validar
+#        @type altura: Integer
+#        @return: True si la altura es valida para esta calle
+#        @rtype: Boolean
+#        '''
+#        try:
+#            if (len(self.alturas) == 0):
+#                raise ErrorCalleSinAlturas(self.nombre)
+#
+#            retval = False
+#            alt = int(altura)
+#            for rango in self.alturas:
+#                if ((int(rango[0]) <= alt) and (alt <= int(rango[1]))):
+#                    retval = True
+#                    break
+#                
+#            return retval
+#        except Exception, e:
+#            raise e
 
     def seCruzaCon(self, calle):
         '''
@@ -115,4 +115,4 @@ class Calle:
         @return: Calle como texto
         @rtype: String
         '''
-        return "%s (%s)" % (self.nombre, self.partido.nombre) 
+        return u'{0}, {1}'.format(self.nombre, self.partido.nombre) 

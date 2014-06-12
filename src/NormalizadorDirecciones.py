@@ -67,14 +67,14 @@ class NormalizadorDirecciones:
         strDir = StringDireccion(direccion, self.aceptarCallesSinAlturas)
         res = []
         if strDir.tipo == CALLE:
-            res = self.c.matcheaCalle(strDir.strInput, maxOptions)
-        elif strDir.tipo == CALLE_ALTURA:
-            res = self.normalizarCalleAltura(strDir, maxOptions)
+            res = self.c.buscarCalle(strDir.strInput, maxOptions)
+#        elif strDir.tipo == CALLE_ALTURA:
+#            res = self.normalizarCalleAltura(strDir, maxOptions)
         elif strDir.tipo == CALLE_Y_CALLE:
             res = self.normalizarCalleYCalle(strDir, maxOptions)
-            if len(res) == 0:
-                strDir.setearCalleAltura()
-                res = self.normalizarCalleAltura(strDir, maxOptions)
+#            if len(res) == 0:
+#                strDir.setearCalleAltura()
+#                res = self.normalizarCalleAltura(strDir, maxOptions)
         elif strDir.tipo == INVALIDO:
             res = []
         if isinstance(res, list):
@@ -85,68 +85,68 @@ class NormalizadorDirecciones:
         else:
             return res
 
-    def normalizarCalleAltura(self, strDir, maxOptions):
-        '''
-        Normaliza una direccion de tipo Calle-altura
-        @param strDir: La direccion a ser normalizada
-        @type strDir: StringDireccion
-        @param maxOptions: Maximo numero de opciones a retornar.
-        @type maxOptions: Integer
-        @return: Las opciones halladas que se corresponden con dir
-        @rtype: Array
-        '''
-        calles = self.c.matcheaCalle(strDir.strCalles)
-        try:
-            opts = self.validarAlturas(strDir, calles, maxOptions)
-        except ErrorCalleSinAlturas, e:
-            raise e
-        if(len(opts) == 0 and len(calles) > 0):
-            strDir.quitarAvsCalle()
-            calles = self.c.matcheaCalle(strDir.strCalles)
-            try:
-                opts = self.validarAlturas(strDir, calles, maxOptions)
-            except Exception,  e:
-                raise e
-            opts = self.filtrarCallesQueNoSonAv(opts)
-            if(len(opts) == 0):
-                raise ErrorCalleInexistenteAEsaAltura(strDir.strCalles, calles, strDir.strAltura)
-        elif(len(opts) == 0 and len(calles) == 0):
-            strDir.quitarPasajes()
-            calles = self.c.matcheaCalle(strDir.strCalles)
-            try:
-                opts = self.validarAlturas(strDir, calles, maxOptions)
-            except Exception,  e:
-                raise e
-        return opts
+#    def normalizarCalleAltura(self, strDir, maxOptions):
+#        '''
+#        Normaliza una direccion de tipo Calle-altura
+#        @param strDir: La direccion a ser normalizada
+#        @type strDir: StringDireccion
+#        @param maxOptions: Maximo numero de opciones a retornar.
+#        @type maxOptions: Integer
+#        @return: Las opciones halladas que se corresponden con dir
+#        @rtype: Array
+#        '''
+#        calles = self.c.buscarCalle(strDir.strCalles)
+#        try:
+#            opts = self.validarAlturas(strDir, calles, maxOptions)
+#        except ErrorCalleSinAlturas, e:
+#            raise e
+#        if(len(opts) == 0 and len(calles) > 0):
+#            strDir.quitarAvsCalle()
+#            calles = self.c.buscarCalle(strDir.strCalles)
+#            try:
+#                opts = self.validarAlturas(strDir, calles, maxOptions)
+#            except Exception,  e:
+#                raise e
+#            opts = self.filtrarCallesQueNoSonAv(opts)
+#            if(len(opts) == 0):
+#                raise ErrorCalleInexistenteAEsaAltura(strDir.strCalles, calles, strDir.strAltura)
+#        elif(len(opts) == 0 and len(calles) == 0):
+#            strDir.quitarPasajes()
+#            calles = self.c.buscarCalle(strDir.strCalles)
+#            try:
+#                opts = self.validarAlturas(strDir, calles, maxOptions)
+#            except Exception,  e:
+#                raise e
+#        return opts
 
-    def validarAlturas(self, strDir, calles, maxOptions):
-        '''
-        Verifica si la altura es valida para las calles matcheadas
-        @param strDir: La direccion a ser verificada
-        @type strDir: StringDireccion
-        @param calles: Calles que matchean con strDir
-        @type calles: Array de Calle
-        @param maxOptions: Maximo numero de opciones a retornar.
-        @type maxOptions: Integer
-        @return: Las Calles que matchean y que son validas a la altura especificada
-        @rtype: Array de Direccion
-        '''
-        retval = []
-        hayCalleSN = False
-        for i in range(len(calles)):
-            try:
-                if(calles[i].alturaValida(strDir.strAltura)):
-                    retval.append(Direccion(calles[i],strDir.strAltura))
-            except ErrorCalleSinAlturas:
-                if(self.aceptarCallesSinAlturas and strDir.esAlturaSN(strDir.strAltura)):
-                    retval.append(Direccion(calles[i],0))
-                hayCalleSN = True
-                    
-            if(maxOptions != 0 and len(retval) >= int(maxOptions)):
-                break
-        if(hayCalleSN and len(retval) == 0):
-            raise ErrorCalleSinAlturas(strDir.strInput)
-        return retval
+#    def validarAlturas(self, strDir, calles, maxOptions):
+#        '''
+#        Verifica si la altura es valida para las calles matcheadas
+#        @param strDir: La direccion a ser verificada
+#        @type strDir: StringDireccion
+#        @param calles: Calles que matchean con strDir
+#        @type calles: Array de Calle
+#        @param maxOptions: Maximo numero de opciones a retornar.
+#        @type maxOptions: Integer
+#        @return: Las Calles que matchean y que son validas a la altura especificada
+#        @rtype: Array de Direccion
+#        '''
+#        retval = []
+#        hayCalleSN = False
+#        for i in range(len(calles)):
+#            try:
+#                if(calles[i].alturaValida(strDir.strAltura)):
+#                    retval.append(Direccion(calles[i],strDir.strAltura))
+#            except ErrorCalleSinAlturas:
+#                if(self.aceptarCallesSinAlturas and strDir.esAlturaSN(strDir.strAltura)):
+#                    retval.append(Direccion(calles[i],0))
+#                hayCalleSN = True
+#                    
+#            if(maxOptions != 0 and len(retval) >= int(maxOptions)):
+#                break
+#        if(hayCalleSN and len(retval) == 0):
+#            raise ErrorCalleSinAlturas(strDir.strInput)
+#        return retval
         
     def filtrarCallesQueNoSonAv(self, dirs, getFunc='getCalle'):
         '''
@@ -179,8 +179,8 @@ class NormalizadorDirecciones:
         @return: Las opciones halladas que se corresponden con dir
         @rtype: Array de Direccion 
         '''
-        calles1 = self.c.matcheaCalle(strDir.strCalles[0], 50)
-        calles2 = self.c.matcheaCalle(strDir.strCalles[1], 50)
+        calles1 = self.c.buscarCalle(strDir.strCalles[0], 50)
+        calles2 = self.c.buscarCalle(strDir.strCalles[1], 50)
 
 # Armo una lista tabu para evitar agregar 2 veces una interseccion
 # de una calle con otra que es calle y avenida a la vez
@@ -227,7 +227,7 @@ class NormalizadorDirecciones:
 # que aun no estan escritas completas
 # Ej. ORTEGA Y GA
         if(len(opts) < maxOptions):
-            calles = self.c.matcheaCalle(strDir.strInput)
+            calles = self.c.buscarCalle(strDir.strInput)
             for i in range(len(calles)):
                 opts.append(calles[i])
                 if(len(opts) >= maxOptions):

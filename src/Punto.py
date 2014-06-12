@@ -16,7 +16,7 @@ class Punto:
     '''
     x = 0
     y = 0
-    srid = 0
+    srid = -1
     
     def __init__(self, x, y, srid=0):
         '''
@@ -40,7 +40,7 @@ class Punto:
         @return: Representacion del punto como cadena con la forma '(x,y)'
         @rtype: String
         '''
-        return '(%s,%s)' % (self.x,self.y)
+        return u'({0},{1})'.format(self.x,self.y)
     
     def __unicode__(self):
         return unicode(self.__str__())
@@ -51,7 +51,7 @@ class Punto:
         @return: Representacion del punto como cadena JSON con la forma '{'x':XXXXX,'y':YYYYY,'srid':ZZZZ}'
         @rtype: String
         '''
-        return '{"x":%s,"y":%s,"srid":%s}' % (self.x,self.y,self.srid)
+        return u'{"x":{0},"y":{1},"srid":{2}}'.format(self.x,self.y,self.srid)
 
     def toGeoJson(self):
         '''
@@ -59,7 +59,7 @@ class Punto:
         @return: Representacion del punto como cadena GeoJSON
         @rtype: String
         '''
-        return '{"type": "Feature", "geometry": {"type": "Point", "coordinates": [%s, %s]}}' % (self.x,self.y)
+        return u'{"type": "Feature", "geometry": {"type": "Point", "coordinates": [{0}, {1}]}}'.format(self.x,self.y)
 
     def toWKT(self):
         '''
@@ -67,4 +67,4 @@ class Punto:
         @return: Representacion del punto como cadena WKT
         @rtype: String
         '''
-        return 'POINT (%s,%s)' % (self.x,self.y)
+        return u'POINT ({0},{1})'.format(self.x,self.y)

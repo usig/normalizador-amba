@@ -45,11 +45,11 @@ class Partido:
 
     def __unicode__(self):
         retval = u'''-- Partido
-    codigo = %s
-    nombre = %s
-    nombre largo = %s
-    codigo OSM = %s'''
-        return retval % (self.codigo,
+    codigo = {0}
+    nombre = {1}
+    nombre largo = {2}
+    codigo OSM = {3}'''
+        return retval.format(self.codigo,
                          self.nombre,
                          self.nombre_largo,
                          self.codigo_osm)

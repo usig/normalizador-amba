@@ -31,7 +31,6 @@ class Direccion:
     altura = 0
     cruce = None
     tipo = INVALIDO
-    smp = ''
     coordenadas = None
     partido = None
 
@@ -73,11 +72,11 @@ class Direccion:
 
     def __unicode__(self):
         retval = u'''-- Dirección
-    calle = %s
-    altura = %s
-    cruce = %s
-    partido = %s'''
-        return retval % (self.calle.nombre, 
+    calle = {0}
+    altura = {1}
+    cruce = {2}
+    partido = {3}'''
+        return retval.format(self.calle.nombre, 
                          self.altura,
                          self.cruce.nombre if self.cruce != None else '',
                          self.partido.nombre)
@@ -93,13 +92,13 @@ class Direccion:
                 altura = self.altura
             else:
                 altura = 'S/N'
-            retval = '%s %s (%s)' % (self.calle.nombre, altura, self.partido.nombre)            
+            retval = u'{0} {1}, {2}'.format(self.calle.nombre, altura, self.partido.nombre)            
         elif (self.tipo == CALLE_Y_CALLE):
             if(re.match('(?i)(I|Hi|HI)', self.cruce.nombre) != None):
                 separador = 'e'
             else:
                 separador = 'y'
-            retval = '%s %s %s (%s)' % (self.calle.nombre, separador, self.cruce.nombre, self.partido.nombre)
+            retval = u'{0} {1} {2}, {3}'.format(self.calle.nombre, separador, self.cruce.nombre, self.partido.nombre)
         else:
             retval = ''
              

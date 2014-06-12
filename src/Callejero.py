@@ -106,7 +106,6 @@ class Callejero:
             if calle[0] == codigo:
                 return calle
         return None
-
     
     def buscarCalle(self, calle, limit=0):
         '''
@@ -120,12 +119,12 @@ class Callejero:
         '''
 
         if self.minicache[0] == calle:
-            return self._recortarRespuesta(self.minicache[1], limit)
+            return self.minicache[1] if limit == 0 else self.minicache[1][:limit]
         
         res = [[],[],[],[]]
         calleNorm1 = normalizarTexto(calle, separador=' ', lower=False)
         words1 = set(calleNorm1.split(' '))
-        regexps1 = map(lambda x: re.compile(r"^%s| %s" % (re.escape(x), re.escape(x))), words1)
+        regexps1 = map(lambda x: re.compile(ur'^{0}| {1}'.format(re.escape(x), re.escape(x))), words1)
 ## No utilizo commons.matcheaTexto por cuestiones de optimizacion
 ## No podo la busqueda en limit para buscar las mejores soluciones
         for data in self.data:
@@ -146,103 +145,107 @@ class Callejero:
                             break
                     if match:
                         res[3].append(Calle(data[0], data[1], data[3], data[4], self.partido))
-
+        
+        res = res[0]+res[1]+res[2]+res[3]
         self.minicache = [calle, res]
-        
-        return self._recortarRespuesta(res, limit)
+
+        return res if limit == 0 else res[:limit] 
+#        return self._recortarRespuesta(res, limit)
     
-    def _recortarRespuesta(self, resCalles, limit):
-        if limit == 0:
-            return resCalles
-        else:
-            retval = [[],[],[],[]]
-            cant = limit
-            for i in range(len(retval)):
-                retval[i] = resCalles[i][:cant]
-                cant -= len(resCalles[i])
-                if cant < 0:
-                    cant = 0
-            return retval
+#    def _recortarRespuesta(self, resCalles, limit):
+#        if limit == 0:
+#            return resCalles
+#        else:
+#            retval = [[],[],[],[]]
+#            cant = limit
+#            for i in range(len(retval)):
+#                retval[i] = resCalles[i][:cant]
+#                cant -= len(resCalles[i])
+#                if cant < 0:
+#                    cant = 0
+#            return retval
                 
-
-## DEPRECADO
-    def matcheaCalle(self, calle, limit=0):
-        '''
-        Busca calles cuyo nombre se corresponda con calle y devuelve un array con todas las instancias de Calle halladas
-        @param calle: String a matchear
-        @type calle: String
-        @param limit: Maximo numero de respuestas a devolver. Cero es sin limite.
-        @type limit: Integer
-        @return: Array de instancias de Calle que matchearon calle
-        @rtype: Array de Calle 
-        '''
-        if self.minicache[0] == calle:
-            return self.minicache[1]
-        
-        opts = []
-        if isinstance(calle, str):
-            calle = unicode(calle)
-        input = ''.join((c for c in unicodedata.normalize('NFD', calle) if unicodedata.category(c) != 'Mn'))
-        input = input.upper()
-        words = input.split(' ')
-        words = map(lambda x: re.compile("^%s| %s" % (re.escape(x), re.escape(x))), words)
-        for data in self.data:
-            if(self.matchea(words, data)):
-                opts.append(Calle(data[0], data[1], data[3], data[4], self.partido))
-                if(limit != 0 and len(opts) >= int(limit)):
-                    break
-
-        self.minicache = [calle, opts]
-        return opts
-
-## DEPRECADO        
-    def matchea(self, words, calle):
-        '''
-        Busca las palabra de la lista words en la keyword de la calle
-        @param words: palabras a buscar
-        @type words: List of Compiled Regular Expression
-        @param calle: calle
-        @type calle: List of String
-        @return: Indica si las palabras estan en las keywords de calle
-        @rtype: Boolean
-        '''
-        match = True
-        for word in words:
-            if word.search(calle[2]) == None:
-                match = False
-                break
-        return match
+#    matcheaCalle = buscarCalle
+    
+### DEPRECADO
+#    def matcheaCalle(self, calle, limit=0):
+#        '''
+#        Busca calles cuyo nombre se corresponda con calle y devuelve un array con todas las instancias de Calle halladas
+#        @param calle: String a matchear
+#        @type calle: String
+#        @param limit: Maximo numero de respuestas a devolver. Cero es sin limite.
+#        @type limit: Integer
+#        @return: Array de instancias de Calle que matchearon calle
+#        @rtype: Array de Calle 
+#        '''
+#        if self.minicache[0] == calle:
+#            return self.minicache[1]
+#        
+#        opts = []
+#        if isinstance(calle, str):
+#            calle = unicode(calle)
+#        input = ''.join((c for c in unicodedata.normalize('NFD', calle) if unicodedata.category(c) != 'Mn'))
+#        input = input.upper()
+#        words = input.split(' ')
+#        print words
+#        words = map(lambda x: re.compile(ur'^{0}| {0}'.format(re.escape(x))), words)
+#        for data in self.data:
+#            if(self.matchea(words, data)):
+#                opts.append(Calle(data[0], data[1], data[3], data[4], self.partido))
+#                if(limit != 0 and len(opts) >= int(limit)):
+#                    break
+#
+#        self.minicache = [calle, opts]
+#        return opts
+#
+### DEPRECADO        
+#    def matchea(self, words, calle):
+#        '''
+#        Busca las palabra de la lista words en la keyword de la calle
+#        @param words: palabras a buscar
+#        @type words: List of Compiled Regular Expression
+#        @param calle: calle
+#        @type calle: List of String
+#        @return: Indica si las palabras estan en las keywords de calle
+#        @rtype: Boolean
+#        '''
+#        match = True
+#        for word in words:
+#            if word.search(calle[2]) == None:
+#                match = False
+#                break
+#        return match
      
-class BusquedaCallejero():
-    '''
-    Resultado de la busqueda en el callejero
-    '''
-    resultado = [[],[],[],[]]
-    
-    def __init__(self):
-        pass
-    
-    def agregar(self,nivel,valor):
-        try:
-            self.resultado[nivel].append(valor)
-        except Exception, e:
-            raise e
-    
-    def aplanar(self):
-        return self.resultado[0]+self.resultado[1]+self.resultado[2]+self.resultado[3]
-
-    def recortar(self, limit=0):
-        if limit == 0:
-            return self.resultado
-        else:
-            retval = [[],[],[],[]]
-            cant = limit
-            for i in range(len(retval)):
-                retval[i] = resCalles[i][:cant]
-                cant -= len(resCalles[i])
-                if cant < 0:
-                    cant = 0
-            return retval
+#class BusquedaCallejero():
+#    '''
+#    Resultado de la busqueda en el callejero
+#    '''
+#    resultado = [[],[],[],[]]
+#    
+#    def __init__(self):
+#        pass
+#    
+#    def agregar(self,nivel,valor):
+#        try:
+#            self.resultado[nivel].append(valor)
+#        except Exception, e:
+#            raise e
+#    
+#    def aplanar(self):
+#        return self.resultado[0]+self.resultado[1]+self.resultado[2]+self.resultado[3]
+#
+#    def recortar(self, limit=0):
+#        if limit == 0:
+#            return self.resultado
+#        else:
+#            retval = [[],[],[],[]]
+#            cant = limit
+#            for i in range(len(retval)):
+#                retval[i] = resCalles[i][:cant]
+#                cant -= len(resCalles[i])
+#                if cant < 0:
+#                    cant = 0
+#            return retval
 
 #    def cargarCruces(self):
 #        '''

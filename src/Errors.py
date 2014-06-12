@@ -44,7 +44,7 @@ class ErrorCalleInexistente(Exception):
         return self.__unicode__().encode('utf8','ignore')
         
     def __unicode__(self):
-        return u'Calle inexistente: %s' % self.calle.strInput
+        return u'Calle inexistente: {0}'.format(self.calle.strInput)
         
     def getNombreCalle(self):
         '''
@@ -91,7 +91,7 @@ class ErrorCalleInexistenteAEsaAltura(Exception):
         @return: Mensaje de error
         @rtype: String
         '''
-        return "La calle "+self.calle+" no existe a la altura "+self.altura 
+        return u'La calle {0} no existe a la altura {1}'.format(self.calle,self.altura)
 
     def getCalle(self):
         '''

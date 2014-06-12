@@ -72,4 +72,10 @@ class NormalizadorDireccionesGBA:
                 pass
             
         return (res[0]+res[1]+res[2]+res[3])[:maxOptions]
-        
+    
+    def buscarCodigo(self, codigo):
+        for nd in self.normalizadores:
+            res = nd.c.buscarCodigo(codigo)
+            if res:
+                return res
+        return None

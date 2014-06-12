@@ -78,12 +78,12 @@ class StringDireccion:
 
     def __unicode__(self):
         retval = u'''-- StringDireccion
-    aceptarCallesSinAlturas = %s
-    tipo = %s
-    strInput = %s
-    strCalles = %s
-    strAltura = %s'''
-        return retval % (str(self.aceptarCallesSinAlturas),
+    aceptarCallesSinAlturas = {0}
+    tipo = {1}
+    strInput = {2}
+    strCalles = {3}
+    strAltura = {4}'''
+        return retval.format(str(self.aceptarCallesSinAlturas),
                          self.tipo,
                          self.strInput,
                          self.strCalles,
