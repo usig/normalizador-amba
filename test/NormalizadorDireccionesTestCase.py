@@ -1,7 +1,6 @@
 # coding: UTF-8
 import unittest
 import sys, os
-from urllib2 import HTTPError
 sys.path.append(os.path.join('..','src'))
 
 from NormalizadorDirecciones import *

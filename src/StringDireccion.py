@@ -6,6 +6,7 @@ Created on Apr 16, 2014
 '''
 import re
 from settings import *
+from commons import *
 
 class StringDireccion:
     '''
@@ -28,27 +29,35 @@ class StringDireccion:
     '''
 
     aceptarCallesSinAlturas = False
-    strInput = u''
+    strInput = ''
+    strOriginal = ''
 
     tipo = INVALIDO
     strCalles = ''
     strAltura = ''
 
-    def __init__(self, strInput, aceptarCallesSinAlturas = False):
-        self.aceptarCallesSinAlturas = aceptarCallesSinAlturas
-        if(len(strInput) > 0):
-            self.strInput = re.sub(r'[.,\"\'()]', ' ', strInput.upper()) # Elimino simbolos
-            self.strInput = re.sub(r'\s+', ' ', self.strInput).strip() # Elimino los doble espacios
 
-            palabras = self.strInput.split(" Y ")
+    def __init__(self, strInput, aceptarCallesSinAlturas = False):
+        self.strOriginal = strInput
+        self.aceptarCallesSinAlturas = aceptarCallesSinAlturas
+        
+        if(len(strInput) > 0):
+#            self.strInput = re.sub(r'[.,\"\'()]', ' ', strInput.upper()) # Elimino simbolos
+#            self.strInput = re.sub(r'\s+', ' ', self.strInput).strip() # Elimino los multi espacios
+            self.strInput = normalizarTexto(strInput, separador=' ', lower=False)
+
+            palabras = self.strInput.split(' Y ')
             if(len(palabras) >= 2):
-                s = self.fixCallesConY(self.strInput)
-                palabras = s.split(" Y ")
-                if(len(palabras) >= 2):
-                    self.tipo = CALLE_Y_CALLE
-                    calle1 = self.replaceWords(palabras[0], [(' & ', ' Y ')])
-                    calle2 = self.replaceWords(palabras[1], [(' & ', ' Y ')])
-                    self.strCalles = [calle1, calle2]
+                self.tipo = CALLE_Y_CALLE
+                self.strCalles = [palabras[0], ' Y '.join(palabras[1:])]
+#                s = self.fixCallesConY(self.strInput)
+#                palabras = s.split(" Y ")
+#                palabras = self.strInput.split(" Y ")
+#                if(len(palabras) >= 2):
+#                    self.tipo = CALLE_Y_CALLE
+#                    calle1 = self.replaceWords(palabras[0], [(' & ', ' Y ')])
+#                    calle2 = self.replaceWords(palabras[1], [(' & ', ' Y ')])
+#                    self.strCalles = [calle1, calle2]
             palabras = self.strInput.split(" E ")
             if(len(palabras) >= 2):
                 if(not palabras[len(palabras)-1].isdigit()):
@@ -59,11 +68,13 @@ class StringDireccion:
         else:
             self.tipo = INVALIDO
 
+        
+
     def setearCalleAltura(self):
         '''
         Configura el objeto como "calle altura" o como "calle" a partir del strInput
         '''
-        palabras = self.strInput.split(" ")
+        palabras = self.strInput.split(' ')
         cantPalabras = len(palabras)
         if(cantPalabras > 1 and self.esTipoAltura(palabras[cantPalabras - 1], self.aceptarCallesSinAlturas)):
             self.tipo = CALLE_ALTURA
@@ -113,18 +124,18 @@ class StringDireccion:
             str = str.replace(tupla[0], tupla[1])
         return str
 
-    def fixCallesConY(self, str):
-        calles = [("GELLY Y OBES", "GELLY & OBES"),
-                   ("MENENDEZ Y PELAYO", "MENENDEZ & PELAYO"),
-                   ("OLAGUER Y FELIU", "OLAGUER & FELIU"),
-                   ("ORTEGA Y GASSET", "ORTEGA & GASSET"),
-                   ("PAULA Y RODRIGUEZ", "PAULA & RODRIGUEZ"),
-                   ("PAZ Y FIGUEROA", "PAZ & FIGUEROA"),
-                   ("PI Y MARGALL", "PI & MARGALL"),
-                   ("RAMON Y CAJAL", "RAMON & CAJAL"),
-                   ("TORRES Y TENORIO", "TORRES & TENORIO"),
-                   ("TREINTA Y TRES", "TREINTA & TRES"),]
-        return self.replaceWords(str, calles)
+#    def fixCallesConY(self, str):
+#        calles = [("GELLY Y OBES", "GELLY & OBES"),
+#                   ("MENENDEZ Y PELAYO", "MENENDEZ & PELAYO"),
+#                   ("OLAGUER Y FELIU", "OLAGUER & FELIU"),
+#                   ("ORTEGA Y GASSET", "ORTEGA & GASSET"),
+#                   ("PAULA Y RODRIGUEZ", "PAULA & RODRIGUEZ"),
+#                   ("PAZ Y FIGUEROA", "PAZ & FIGUEROA"),
+#                   ("PI Y MARGALL", "PI & MARGALL"),
+#                   ("RAMON Y CAJAL", "RAMON & CAJAL"),
+#                   ("TORRES Y TENORIO", "TORRES & TENORIO"),
+#                   ("TREINTA Y TRES", "TREINTA & TRES"),]
+#        return self.replaceWords(str, calles)
 
     def quitarAvsCalle(self):
         '''

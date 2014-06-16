@@ -6,7 +6,9 @@ sys.path.append(os.path.join('..','src'))
 from CommonsTestCase import CommonsTestCase
 from CallejeroTestCase import CallejeroTestCase
 from NormalizadorDireccionesTestCase import NormalizadorDireccionesTestCase
-from NormalizadorGBATestCase import NormalizadorGBATestCase
+from CalleYCalleTestCase import CalleYCalleTestCase
+#from NormalizadorGBATestCase import NormalizadorGBATestCase
+
 
 ''''''''''''''''''''''''
 ''' Comienza el test '''
@@ -18,6 +20,7 @@ if __name__=='__main__':
                  CommonsTestCase,
                  CallejeroTestCase,
                  NormalizadorDireccionesTestCase,
+                 CalleYCalleTestCase,
 #                 NormalizadorGBATestCase,
                  ]
     

@@ -59,10 +59,9 @@ class NormalizadorDirecciones:
         @rtype: Array de Direccion
         '''
         
-        direccion = direccion.upper()
+#        direccion = direccion.upper()
         if type(direccion) != unicode:
             direccion = unicode(direccion, 'utf-8')
-        
         
         strDir = StringDireccion(direccion, self.aceptarCallesSinAlturas)
         res = []
