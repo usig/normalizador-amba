@@ -5,12 +5,8 @@ Created on May 12, 2014
 @author: hernan
 '''
 import re, unicodedata
+from settings import *
 
-NO_MATCH = 0
-MATCH = 1
-MATCH_INCLUIDO = 2
-MATCH_PERMUTADO = 3
-MATCH_EXACTO = 4
 
 def matcheaTexto(txt1, txt2, normalizar=True):
     '''

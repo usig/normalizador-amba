@@ -44,23 +44,15 @@ class ErrorCalleInexistente(Exception):
         return self.__unicode__().encode('utf8','ignore')
         
     def __unicode__(self):
-        return u'Calle inexistente: {0}'.format(self.calle.strInput)
+        return u'Calle inexistente: {0}'.format(self.calle)
         
-    def getNombreCalle(self):
-        '''
-        Devuelve el nombre de la calle 
-        @return: Nombre de la calle
-        @rtype: String
-        '''
-        return self.calle
-    
     def getErrorMessage(self):
         '''
         Devuelve un mensaje de error mas descriptivo y amigable
         @return: Mensaje de error
         @rtype: String
         '''
-        return u'No pudo hallarse ninguna calle existente que coincidiera con su búsqueda. Por favor, revise el nombre ingresado y vuelva a intentarlo.'
+        return u'No pudo hallarse ninguna calle existente que coincidiera con "{0}".'.format(self.calle)
 
 
 class ErrorCalleInexistenteAEsaAltura(Exception):

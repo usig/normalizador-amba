@@ -33,22 +33,28 @@ class NormalizadorDireccionesGBA:
             raise e
     
     def normalizar(self, direccion, maxOptions = 10):
-        try:
-            res = []
-            patt_partido = r'(.*),(.*)'
-            re_partido = re.match(patt_partido, direccion)
-            if re_partido:
+        res = []
+        re_partido = re.match(r'(.*),(.+)', direccion)
+
+        if re_partido:
+            try:
                 res = self.normalizarPorPartido(re_partido.group(1), re_partido.group(2), maxOptions)
-            
-            if len(res) == 0:
+            except Exception, e:
+                pass
+
+        if len(res) == 0:
+            try:
                 res = self.normalizarPorPartido(direccion, maxOptions = maxOptions)
+            except Exception, e:
+                pass
                 
-            for r in res:
-                print r.toString()
-        except Exception, e:
-            pass
-        
-        return res
+#        for r in res:
+#            print r.toString()
+
+        if len(res):
+            return res
+        else:
+            raise e
 
     def normalizarPorPartido(self, direccion, partido='', maxOptions = 10):
         res = [[],[],[],[]]
@@ -70,8 +76,11 @@ class NormalizadorDireccionesGBA:
                             res[3] += result
             except Exception, e:
                 pass
-            
-        return (res[0]+res[1]+res[2]+res[3])[:maxOptions]
+
+        if len(res[0]+res[1]+res[2]+res[3]):
+            return (res[0]+res[1]+res[2]+res[3])[:maxOptions]
+        else:
+            raise e
     
     def buscarCodigo(self, codigo):
         for nd in self.normalizadores:
