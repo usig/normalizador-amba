@@ -110,6 +110,20 @@ class NormalizadorDireccionesTestCase(unittest.TestCase):
         self.assertTrue(isinstance(res[0], Calle))
         self.assertTrue(res[0].nombre == u'Vicente López y Planes')
 
+    def testNormalizador_buscarCalle_calles_con_e_01(self):
+        res = self.nd.normalizar(u'Coronel E de Escalada')
+        self.assertTrue(isinstance(res, list))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+        self.assertTrue(isinstance(res[0], Calle))
+        self.assertTrue(res[0].codigo == 85253520) #Coronel Emeterio de Escalada
+
+    def testNormalizador_buscarCalle_calles_con_e_02(self):
+        res = self.nd.normalizar(u'Dr. E Tornu')
+        self.assertTrue(isinstance(res, list))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+        self.assertTrue(isinstance(res[0], Calle))
+        self.assertTrue(res[0].codigo == 56255775) #Dr. Enrique Tornu
+
     def testNormalizador_normalizar_sinonimos_01(self):
         res1 = self.nd.normalizar(u'11')
         self.assertTrue(isinstance(res1, list))

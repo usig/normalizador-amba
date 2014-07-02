@@ -7,7 +7,7 @@ from CommonsTestCase import CommonsTestCase
 from CallejeroTestCase import CallejeroTestCase
 from NormalizadorDireccionesTestCase import NormalizadorDireccionesTestCase
 from CalleYCalleTestCase import CalleYCalleTestCase
-#from NormalizadorGBATestCase import NormalizadorGBATestCase
+from NormalizadorDireccionesGBATestCase import NormalizadorDireccionesGBATestCase
 
 
 ''''''''''''''''''''''''
@@ -21,7 +21,7 @@ if __name__=='__main__':
                  CallejeroTestCase,
                  NormalizadorDireccionesTestCase,
                  CalleYCalleTestCase,
-#                 NormalizadorGBATestCase,
+                 NormalizadorDireccionesGBATestCase,
                  ]
     
     for testable in testables:

@@ -12,11 +12,12 @@ from Errors import *
 class CallejeroTestCase(unittest.TestCase):
     p = Partido('jose_c_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
     c = Callejero(p)
+    p = Partido('general_san_martin', u'General San Martin', u'Partido de General San Martin', 1719022)
+    c_san_martin = Callejero(p)
 
-## Lo deshabilito porque tarda mucho
-#    def testCallejero_callejero_inexistent(self):
-#        p = Partido('jose_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
-#        self.assertRaises(HTTPError, Callejero, p)
+    def testCallejero_callejero_inexistent(self):
+        p = Partido('jose_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
+        self.assertRaises(HTTPError, Callejero, p)
             
     def testCallejero_buscarCalle_calle_inexistente(self):
         res = self.c.buscarCalle('kokusai dori')
@@ -126,6 +127,20 @@ class CallejeroTestCase(unittest.TestCase):
         self.assertTrue(isinstance(res[0], Calle))
         self.assertTrue(res[0].nombre == u'Vicente López y Planes')
 
+    def testCallejero_buscarCalle_calles_con_e_01(self):
+        res = self.c.buscarCalle(u'Coronel E de Escalada')
+        self.assertTrue(isinstance(res, list))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+        self.assertTrue(isinstance(res[0], Calle))
+        self.assertTrue(res[0].codigo == 85253520) #Coronel Emeterio de Escalada
+
+    def testCallejero_buscarCalle_calles_con_e_02(self):
+        res = self.c.buscarCalle(u'Dr. E Tornu')
+        self.assertTrue(isinstance(res, list))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+        self.assertTrue(isinstance(res[0], Calle))
+        self.assertTrue(res[0].codigo == 56255775) #Dr. Enrique Tornu
+
     def testCallejero_buscarCodigo_codigo_valido(self):
         res = self.c.buscarCodigo(190141705)
         self.assertTrue(isinstance(res, list))
@@ -170,4 +185,16 @@ class CallejeroTestCase(unittest.TestCase):
         self.assertTrue(isinstance(res1, list))
         self.assertEqual(len(res1), 1, u'Debería haber 1 matching.')
         self.assertEqual(res1[0].codigo, 223070537)
+
+    def testCallejero_buscarCalle_calle_con_acente_escrito_sin_acento(self):
+        res1 = self.c.buscarCalle(u'potosi')
+        self.assertTrue(isinstance(res1, list))
+        self.assertEqual(len(res1), 1, u'Debería haber 1 matching.')
+        self.assertEqual(res1[0].codigo, 182271149) #Potosí
+
+    def testCallejero_buscarCalle_calle_con_numeros(self):
+        res = self.c_san_martin.buscarCalle(u'26 de Julio de 1890')
+        self.assertTrue(isinstance(res, list))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+        self.assertEqual(res[0].codigo, 45194811) #26 de Julio de 1890, General San Martin
 
