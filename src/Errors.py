@@ -235,10 +235,10 @@ class ErrorCruceInexistente(Exception):
         msg = 'El cruce de calles indicado no existe. A continuaci&oacute;n se muestran algunas calles que coinciden con su b&uacute;squeda.'
         msg+='<br/>Algunas calles halladas que coinciden con la 1ra calle ingresada son:<ul>';
         for calle in self.matchingsCalle1:
-            msg+='<li>'+calle.nom+'</li>'
+            msg+='<li>'+calle.nombre+'</li>'
         msg+='</ul>'            
         msg+='Algunas calles halladas que coinciden con la 2da calle ingresada son:<ul>';
         for calle in self.matchingsCalle2:
-            msg+='<li>'+calle.nom+'</li>'
-        msg+='</ul>'            
+            msg+='<li>'+calle.nombre+'</li>'
+        msg+='</ul>'
         return msg

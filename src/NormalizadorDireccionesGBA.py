@@ -19,8 +19,8 @@ class NormalizadorDireccionesGBA:
     
     def __init__(self, include_list=[], exclude_list=[]):
         try:
-            data = urllib2.urlopen(self.server).read()
-            partidos_json = json.loads(data, "utf8")
+            data = urllib2.urlopen(self.server+'partidos').read()
+            partidos_json = json.loads(data, 'utf8')
             
             for p in partidos_json:
                 if p[1] not in exclude_list and (len(include_list) == 0 or p[1] in include_list):
@@ -29,7 +29,14 @@ class NormalizadorDireccionesGBA:
                     self.normalizadores.append(nd)
             
         except urllib2.HTTPError, e:
-            e.detalle = 'Se produjo un error al intentar cargar la información de partidos.'
+            e.detalle = u'Se produjo un error al intentar cargar la información de partidos.'
+            raise e
+    
+    def recargarCallejeros(self):
+        try:
+            for nd in self.normalizadores:
+                nd.recargarCallejero()
+        except Exception, e:
             raise e
     
     def normalizar(self, direccion, maxOptions = 10):

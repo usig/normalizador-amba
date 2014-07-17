@@ -39,6 +39,12 @@ class NormalizadorDirecciones:
         except Exception, e:
             raise e
 
+    def recargarCallejero(self):
+        try:
+            self.c.cargarCallejero()
+        except Exception, e:
+            raise e
+
     def normalizar(self, direccion, maxOptions = 10):
         ''' 
         @param direccion: La cadena a ser transformada en direccion
@@ -50,6 +56,9 @@ class NormalizadorDirecciones:
         '''
         res = []
         error = None
+        
+        if direccion == '':
+            raise ErrorCalleInexistente(u'')
         
         if type(direccion) != unicode:
             direccion = unicode(direccion, encoding='utf-8', errors='ignore')

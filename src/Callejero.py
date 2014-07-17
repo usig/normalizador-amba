@@ -39,7 +39,7 @@ class Callejero:
         '''
         try:
             self.partido = partido
-            self.server = CALLEJERO_GBA_SERVER + partido.codigo
+            self.server = '{0}callejero/?partido={1}'.format(CALLEJERO_GBA_SERVER, partido.codigo)
             self.cargarCallejero()
         except Exception, e:
             raise e
@@ -50,17 +50,20 @@ class Callejero:
         '''
         try:
             data = urllib2.urlopen(self.server).read()
-            self.data = json.loads(data, "utf8")
+            datatmp = json.loads(data, "utf8")
 
-            for i in range(len(self.data)):
-                self.data[i][2] = normalizarTexto(self.data[i][1], separador=' ', lower=False)
-                self.data[i][2] = self.agregarSinonimos(self.data[i][2])
+            for i in range(len(datatmp)):
+                datatmp[i][2] = normalizarTexto(datatmp[i][1], separador=' ', lower=False)
+                datatmp[i][2] = self.agregarSinonimos(datatmp[i][2])
+
+            self.data = datatmp
+            
 
         except urllib2.HTTPError, e:
             e.detalle = 'Se produjo un error al intentar cargar la información de calles.'
             raise e
         except Exception, e:
-            print e, self.data[i][2], i
+            raise e
 
     def agregarSinonimos(self, texto):
         diccionario = [
