@@ -63,6 +63,6 @@ class StringDireccion:
 
     def __unicode__(self):
         retval = u'''-- StringDireccion
-    strOriginal = {1}
-    candidatos = {2}'''
+    strOriginal = {0}
+    candidatos = {1}'''
         return retval.format(self.strOriginal, self.candidatos)
