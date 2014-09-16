@@ -1,7 +1,7 @@
 # coding: UTF-8
 import unittest
 import sys, os
-sys.path.append(os.path.join('..','src'))
+sys.path.append(os.path.join('..','normalizador_direcciones_gba'))
 
 from NormalizadorDirecciones import *
 from Partido import Partido

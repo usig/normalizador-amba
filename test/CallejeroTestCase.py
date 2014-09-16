@@ -2,7 +2,7 @@
 import unittest
 import sys, os
 from urllib2 import HTTPError
-sys.path.append(os.path.join('..','src'))
+sys.path.append(os.path.join('..','normalizador_direcciones_gba'))
 
 from Callejero import Callejero
 from Partido import Partido
