@@ -75,10 +75,12 @@ class Direccion:
     calle = {0}
     altura = {1}
     cruce = {2}
-    partido = {3}'''
+    coordenadas = {3}
+    partido = {4}'''
         return retval.format(self.calle.nombre, 
                          self.altura,
                          self.cruce.nombre if self.cruce != None else '',
+                         self.coordenadas,
                          self.partido.nombre)
         
     def toString(self):

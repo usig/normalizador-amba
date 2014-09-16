@@ -51,8 +51,18 @@ class Punto:
         @return: Representacion del punto como cadena JSON con la forma '{'x':XXXXX,'y':YYYYY,'srid':ZZZZ}'
         @rtype: String
         '''
-        return u'{"x":{0},"y":{1},"srid":{2}}'.format(self.x,self.y,self.srid)
+        return u'{{"x":{0},"y":{1},"srid":{2}}}'.format(self.x,self.y,self.srid)
 
+    def toDict(self):
+        '''
+        Devuelve una representacion del punto en un Dict de Python
+        @return: Representacion del punto como Dict de Python
+        @rtype: Dict
+        '''
+        return {'x': self.x,
+                'y': self.y,
+                'srid': self.srid}
+        
     def toGeoJson(self):
         '''
         Devuelve una representacion del punto en formato GeoJSON
