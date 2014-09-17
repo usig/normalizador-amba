@@ -88,6 +88,36 @@ class NormalizadorDireccionesGBA:
             return (res[0]+res[1]+res[2]+res[3])[:maxOptions]
         else:
             raise e
+
+    def normalizarCalleYCalle(self, calle1='', calle2='', partido='', maxOptions = 10):
+        res = [[],[],[],[]]
+        
+        if calle1 == '' or calle2 == '':
+            raise Exception('Debe ingresar la calle y el cruce.')
+        
+        for nd in self.normalizadores:
+            try:
+                if partido == '':
+                    res[2] += nd.normalizarCalleYCalle(calle1, calle2, maxOptions)
+                else:
+                    m = matcheaTexto(partido, nd.partido.nombre)
+                    if m:
+                        result = nd.normalizarCalleYCalle(calle1, calle2, maxOptions)
+                        if m == MATCH_EXACTO:
+                            res[0] += result
+                        elif m == MATCH_PERMUTADO:
+                            res[1] += result
+                        elif m == MATCH_INCLUIDO:
+                            res[2] += result
+                        elif m == MATCH:
+                            res[3] += result
+            except Exception, e:
+                pass
+
+        if len(res[0]+res[1]+res[2]+res[3]):
+            return (res[0]+res[1]+res[2]+res[3])[:maxOptions]
+        else:
+            raise e
     
     def buscarCodigo(self, codigo):
         for nd in self.normalizadores:
