@@ -2,7 +2,8 @@
 import unittest
 import sys, os
 from urllib2 import HTTPError
-sys.path.append(os.path.join('..','normalizador_direcciones_gba'))
+from simplejson import JSONDecodeError
+sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
 from Callejero import Callejero
 from Partido import Partido
@@ -17,7 +18,7 @@ class CallejeroTestCase(unittest.TestCase):
 
     def testCallejero_callejero_inexistent(self):
         p = Partido('jose_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
-        self.assertRaises(HTTPError, Callejero, p)
+        self.assertRaises(JSONDecodeError, Callejero, p)
             
     def testCallejero_buscarCalle_calle_inexistente(self):
         res = self.c.buscarCalle('kokusai dori')

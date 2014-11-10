@@ -1,13 +1,13 @@
 # coding: UTF-8
 import unittest
 import sys, os
-sys.path.append(os.path.join('..','normalizador_direcciones_gba'))
+sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
 from CommonsTestCase import CommonsTestCase
 from CallejeroTestCase import CallejeroTestCase
 from NormalizadorDireccionesTestCase import NormalizadorDireccionesTestCase
 from CalleYCalleTestCase import CalleYCalleTestCase
-from NormalizadorDireccionesGBATestCase import NormalizadorDireccionesGBATestCase
+from NormalizadorDireccionesAMBATestCase import NormalizadorDireccionesAMBATestCase
 
 
 ''''''''''''''''''''''''
@@ -21,7 +21,7 @@ if __name__=='__main__':
                  CallejeroTestCase,
                  NormalizadorDireccionesTestCase,
                  CalleYCalleTestCase,
-                 NormalizadorDireccionesGBATestCase,
+                 NormalizadorDireccionesAMBATestCase,
                  ]
     
     for testable in testables:

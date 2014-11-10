@@ -39,7 +39,7 @@ class Callejero:
         '''
         try:
             self.partido = partido
-            self.server = '{0}callejero/?partido={1}'.format(CALLEJERO_GBA_SERVER, partido.codigo)
+            self.server = '{0}callejero/?partido={1}'.format(CALLEJERO_AMBA_SERVER, partido.codigo)
             self.cargarCallejero()
         except Exception, e:
             raise e
@@ -51,7 +51,6 @@ class Callejero:
         try:
             data = urllib2.urlopen(self.server).read()
             datatmp = json.loads(data, "utf8")
-
             for i in range(len(datatmp)):
                 datatmp[i][2] = normalizarTexto(datatmp[i][1], separador=' ', lower=False)
                 datatmp[i][2] = self.agregarSinonimos(datatmp[i][2])

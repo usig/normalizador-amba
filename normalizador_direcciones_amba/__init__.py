@@ -1,13 +1,13 @@
 # coding: UTF-8
 """
-Paquete: Normalizador de Direcciones GBA
+Paquete: Normalizador de Direcciones AMBA
 
 Incluye todos los modulos necesarios para el uso del Normalizador de Direcciones del Gran Buenos Aires.
 """
-from NormalizadorDireccionesGBA import NormalizadorDireccionesGBA as NDGBA
+from NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA as NDAMBA
 
-NormalizadorGBA = NDGBA
-"""Alias de la clase NormalizadorDireccionesGBA provisto por conveniencia"""
+NormalizadorAMBA = NDAMBA
+"""Alias de la clase NormalizadorDireccionesAMBA provisto por conveniencia"""
 
 VERSION = '1.0.0'
 """Versión de la aplicación"""

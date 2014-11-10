@@ -4,9 +4,9 @@ from distutils.command.install_data import install_data
 from distutils.command.install import INSTALL_SCHEMES
 import os
 import sys
-import normalizador_direcciones_gba
+import normalizador_direcciones_amba
 
-__version__ = normalizador_direcciones_gba.VERSION
+__version__ = normalizador_direcciones_amba.VERSION
 
 class osx_install_data(install_data):
     # On MacOS, the platform-specific lib dir is /System/Library/Framework/Python/.../
@@ -54,7 +54,7 @@ packages, data_files = [], []
 root_dir = os.path.dirname(__file__)
 if root_dir != '':
     os.chdir(root_dir)
-app_dir = 'normalizador_direcciones_gba'
+app_dir = 'normalizador_direcciones_amba'
 
 for dirpath, dirnames, filenames in os.walk(app_dir):
     # Ignore dirnames that start with '.'
@@ -74,7 +74,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'bdist_wininst':
 
 
 setup(
-    name = "normalizador_direcciones_gba",
+    name = "normalizador_direcciones_amba",
     version = __version__.replace(' ', '_'),
     #url = 'http://www.djangoproject.com/',
     author = 'USIG',

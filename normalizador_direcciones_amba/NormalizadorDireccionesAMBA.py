@@ -8,13 +8,13 @@ import urllib2, re
 import simplejson as json
 
 from NormalizadorDirecciones import NormalizadorDirecciones
-from settings import CALLEJERO_GBA_SERVER
+from settings import CALLEJERO_AMBA_SERVER
 from Partido import *
 from commons import *
 from Errors import *
 
-class NormalizadorDireccionesGBA:
-    server = CALLEJERO_GBA_SERVER
+class NormalizadorDireccionesAMBA:
+    server = CALLEJERO_AMBA_SERVER
     normalizadores = []
     
     def __init__(self, include_list=[], exclude_list=[]):
