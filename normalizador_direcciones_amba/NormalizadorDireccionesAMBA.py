@@ -70,7 +70,7 @@ class NormalizadorDireccionesAMBA:
                 if partido == '':
                     res[2] += nd.normalizar(direccion, maxOptions)
                 else:
-                    m = matcheaTexto(partido, nd.partido.nombre)
+                    m = matcheaTexto(partido, nd.partido.keywords)
                     if m:
                         result = nd.normalizar(direccion,maxOptions)
                         if m == MATCH_EXACTO:
@@ -100,7 +100,7 @@ class NormalizadorDireccionesAMBA:
                 if partido == '':
                     res[2] += nd.normalizarCalleYCalle(calle1, calle2, maxOptions)
                 else:
-                    m = matcheaTexto(partido, nd.partido.nombre)
+                    m = matcheaTexto(partido, nd.partido.keywords)
                     if m:
                         result = nd.normalizarCalleYCalle(calle1, calle2, maxOptions)
                         if m == MATCH_EXACTO:

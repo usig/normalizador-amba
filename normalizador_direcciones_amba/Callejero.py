@@ -19,13 +19,14 @@ class Callejero:
     @type server: String 
     @cvar data: La base de datos del callejero [id_calle, nombre_calle, keywords, array_de_rango_de_alturas, array_de_cruces]
     @type data: Array
-#    @cvar codigos: Array con los codigos de calle para la busqueda binaria [id_calle]
-#    @type codigos: Array
+    @cvar osm_ids: Array con los osm ids de calle para la busqueda binaria [id_calle]
+    @type osm_ids: Array
     @ivar partido: Partido de la direccion
     @type partido: Partido
     '''
     server = ''
     data = []
+    osm_ids = []
     partido = None
     
     # Minicache [calle, opts]
@@ -50,44 +51,14 @@ class Callejero:
         '''
         try:
             data = urllib2.urlopen(self.server).read()
-            datatmp = json.loads(data, "utf8")
-            for i in range(len(datatmp)):
-                datatmp[i][2] = normalizarTexto(datatmp[i][1], separador=' ', lower=False)
-                datatmp[i][2] = self.agregarSinonimos(datatmp[i][2])
-
-            self.data = datatmp
-            
-
+            self.data = json.loads(data, "utf8")
+            self.data.sort() # Ordeno por id
+            self.osm_ids = [k[0] for k in self.data] # Armo lista de osm_ids
         except urllib2.HTTPError, e:
             e.detalle = 'Se produjo un error al intentar cargar la información de calles.'
             raise e
         except Exception, e:
             raise e
-
-    def agregarSinonimos(self, texto):
-        diccionario = [
-                       [['DOCTOR','DR'],['DOCTOR','DR']],
-                       [['AVENIDA','AV','AVD','AVDA'],['AVENIDA','AVDA']],
-                       [['PASAJE','PJE'],['PASAJE','PJE']],
-                       [['GENERAL','GRAL'],['GENERAL','GRAL']],
-                       [['PRES'],['PRESIDENTE']],
-                       [['CORONEL','CNEL'],['CORONEL','CNEL']],
-                       [['DIAG'],['DIAGONAL']],
-                       [['2','DOS'],['2','DOS']],
-                       [['3','TRES'],['3','TRES']],
-                       [['11','ONCE'],['11','ONCE']],
-        ]
-        
-        words = texto.split(' ')
-
-        for sinonimos in diccionario:
-            for sinonimo in sinonimos[0]:
-                if sinonimo in words:
-                    i = words.index(sinonimo)
-                    words.pop(i)
-                    words.extend(sinonimos[1])
-                    break
-        return ' '.join(words)
 
     def buscarCodigo(self, codigo):
         '''
@@ -97,11 +68,10 @@ class Callejero:
         @return: instancias de Calle
         @rtype: Calle
         '''
-        for calle in self.data:
-            if calle[0] == codigo:
-                return calle
-        return None
-    
+#        res = next((c for c in c.data if c[0] == codigo), None)
+        pos = bisect_left(self.osm_ids, codigo)
+        return self.data[pos]
+        
     def buscarCalle(self, calle, limit=0):
         '''
         Busca calles cuyo nombre se corresponda con calle y devuelve un array con todas las instancias de Calle halladas

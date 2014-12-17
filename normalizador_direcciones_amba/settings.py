@@ -6,7 +6,7 @@ CALLE_ALTURA = 1
 CALLE_Y_CALLE = 2
 INVALIDO = -1
 
-CALLEJERO_AMBA_SERVER = 'http://10.10.5.53/callejero_amba/'
+CALLEJERO_AMBA_SERVER = 'http://lemur.usig.gcba.gov.ar/callejero_amba/'
 
 ## Tipo de Match
 NO_MATCH = 0

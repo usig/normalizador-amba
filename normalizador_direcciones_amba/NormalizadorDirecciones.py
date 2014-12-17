@@ -9,6 +9,7 @@ import re, copy
 
 from StringDireccion import StringDireccion
 from Callejero import Callejero
+from Calle import Calle
 from Errors import *
 from Direccion import Direccion
 from settings import *
@@ -111,23 +112,22 @@ class NormalizadorDirecciones:
         @rtype: Array de Direccion 
         '''
         calles = self.c.buscarCalle(inCalle)
-        cruces = self.c.buscarCalle(inCruce)
-
-        # Armo una lista (matches) tabu para evitar agregar 2 veces una interseccion
-        matches = []
+        
         opts = []
         for calle in calles:
-            for cruce in cruces:
-                if (calle.codigo != cruce.codigo) and (not self._matchCode(calle, cruce) in matches) and (calle.seCruzaCon(cruce)) and (cruce.seCruzaCon(calle)):
-                    opts.append(Direccion(calle, 0, cruce))
-                    matches.append(self._matchCode(calle, cruce))
+            for idCruce in calle.cruces:
+                cruce = self.c.buscarCodigo(idCruce)
+                if matcheaTexto(inCruce, cruce[2]):
+                    objCruce = Calle(cruce[0], cruce[1], [], cruce[4], calle.partido)
+                    opts.append(Direccion(calle, 0, objCruce))
                     if(len(opts) >= maxOptions):
                         break
             if(len(opts) >= maxOptions):
                 break
-
-        if(len(opts) == 0 and len(calles) > 0 and len(cruces) > 0):
-            raise ErrorCruceInexistente(inCalle, calles, inCruce, cruces)
+        
+        
+        if(len(opts) == 0 and len(calles) > 0):
+            raise ErrorCruceInexistente(inCalle, [], inCruce, [])
         return opts
 
     def _matchCode(self, calle1, calle2):

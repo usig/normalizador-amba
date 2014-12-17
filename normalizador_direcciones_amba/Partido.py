@@ -11,31 +11,31 @@ class Partido:
     @type codigo: String
     @ivar nombre: Nombre del partido
     @type nombre: Unicode
-    @ivar nombre_largo: Nombre completo del partido 
-    @type nombre: Unicode
+    @ivar keywords: Palabras claves para la busqueda
+    @type keywords: Unicode
     @ivar codigo_osm: Codigo de partido (OSM)
     @type codigo_osm: Integer
     '''
     codigo = ''
     nombre = ''
-    nombre_largo = ''
+    keywords = ''
     codigo_osm = 0
 
-    def __init__(self, codigo, nombre, nombre_largo = '', codigo_osm = 0):
+    def __init__(self, codigo, nombre, keywords = '', codigo_osm = 0):
         '''
         @ivar codigo: Codigo de partido (nombre normalizado)
         @type codigo: String
         @ivar nombre: Nombre del partido
         @type nombre: Unicode
-        @ivar nombre_largo: Nombre completo del partido 
-        @type nombre: Unicode
+        @ivar keywords: Palabras claves para la busqueda
+        @type keywords: Unicode
         @ivar codigo_osm: Codigo de partido (OSM)
         @type codigo_osm: Integer
         '''
         try:
             self.codigo = str(codigo)
             self.nombre = unicode(nombre)
-            self.nombre_largo = unicode(nombre_largo) if nombre_largo != '' else self.nombre
+            self.keywords = unicode(keywords) if keywords != '' else self.nombre
             self.codigo_osm = int(codigo_osm)
         except Exception, e:
             raise e
@@ -47,11 +47,11 @@ class Partido:
         retval = u'''-- Partido
     codigo = {0}
     nombre = {1}
-    nombre largo = {2}
+    keywords = {2}
     codigo OSM = {3}'''
         return retval.format(self.codigo,
                          self.nombre,
-                         self.nombre_largo,
+                         self.keywords,
                          self.codigo_osm)
 
     def toString(self):

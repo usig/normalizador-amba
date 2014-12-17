@@ -27,7 +27,7 @@ class Calle:
     cruces = []
     partido = None
 
-    def __init__(self, codigo, nombre, alturas = [], cruces = [], partido=''):
+    def __init__(self, codigo, nombre, alturas = [], cruces = [], partido=None):
         '''
         @param codigo: Codigo de calle
         @type codigo: Integer 
