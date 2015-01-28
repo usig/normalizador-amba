@@ -26,8 +26,9 @@ class Calle:
     alturas = []
     cruces = []
     partido = None
+    localidad = ''
 
-    def __init__(self, codigo, nombre, alturas = [], cruces = [], partido=None):
+    def __init__(self, codigo, nombre, alturas = [], cruces = [], partido=None, localidad=''):
         '''
         @param codigo: Codigo de calle
         @type codigo: Integer 
@@ -55,6 +56,7 @@ class Calle:
                 self.partido = partido
             else:
                 raise TypeError('partido must be a Partido object.')
+            self.localidad = unicode(localidad)
 
         except Exception, e:
             raise e
@@ -68,12 +70,14 @@ class Calle:
     nombre = {1}
     alturas = {2}
     cruces = {3}
-    partido = {4}'''
+    partido = {4}
+    localidad = {5}'''
         return retval.format(self.codigo, 
                          self.nombre, 
                          self.alturas.__str__(), 
                          self.cruces.__str__(),
-                         self.partido.nombre)
+                         self.partido.nombre,
+                         self.localidad)
 
 #    def alturaValida(self, altura):
 #        '''
@@ -115,4 +119,4 @@ class Calle:
         @return: Calle como texto
         @rtype: String
         '''
-        return u'{0}, {1}'.format(self.nombre, self.partido.nombre) 
+        return u'{0}, {1}, {2}'.format(self.nombre, self.partido.nombre, self.localidad) 

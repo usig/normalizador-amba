@@ -118,7 +118,7 @@ class NormalizadorDirecciones:
             for idCruce in calle.cruces:
                 cruce = self.c.buscarCodigo(idCruce)
                 if matcheaTexto(inCruce, cruce[2]):
-                    objCruce = Calle(cruce[0], cruce[1], [], cruce[4], calle.partido)
+                    objCruce = Calle(cruce[0], cruce[1], [], cruce[4], calle.partido, cruce[5])
                     opts.append(Direccion(calle, 0, objCruce))
                     if(len(opts) >= maxOptions):
                         break

@@ -33,6 +33,7 @@ class Direccion:
     tipo = INVALIDO
     coordenadas = None
     partido = None
+    localidad = ''
 
     def __init__(self, calle, altura=0, cruce=None):
         '''
@@ -47,6 +48,7 @@ class Direccion:
             if(isinstance(calle, Calle)):
                 self.calle = calle
                 self.partido = calle.partido
+                self.localidad = calle.localidad
             else:
                 raise TypeError('calle must be a Calle object.')
     
@@ -76,12 +78,14 @@ class Direccion:
     altura = {1}
     cruce = {2}
     coordenadas = {3}
-    partido = {4}'''
+    partido = {4}
+    localidad = {5}'''
         return retval.format(self.calle.nombre, 
                          self.altura,
                          self.cruce.nombre if self.cruce != None else '',
                          self.coordenadas,
-                         self.partido.nombre)
+                         self.partido.nombre,
+                         self.localidad)
         
     def toString(self):
         '''

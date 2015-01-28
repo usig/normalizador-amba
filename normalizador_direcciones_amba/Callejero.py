@@ -94,14 +94,14 @@ class Callejero:
 ## No podo la busqueda en limit para buscar las mejores soluciones
         for data in self.data:
             if calle == data[1]: # Match exacto con el nombre
-                res[0].append(Calle(data[0], data[1], data[3], data[4], self.partido))
+                res[0].append(Calle(data[0], data[1], data[3], data[4], self.partido, data[5]))
             else: # Match permutado con el nombre
                 calleNorm2 = normalizarTexto(data[1], separador=' ', lower=False)
                 words2 = set(calleNorm2.split(' '))
                 if (words1 == words2):
-                    res[1].append(Calle(data[0], data[1], data[3], data[4], self.partido))
+                    res[1].append(Calle(data[0], data[1], data[3], data[4], self.partido, data[5]))
                 elif (words1 == words1 & words2): # Match incluido con el nombre
-                        res[2].append(Calle(data[0], data[1], data[3], data[4], self.partido))
+                        res[2].append(Calle(data[0], data[1], data[3], data[4], self.partido, data[5]))
                 else: # Match con las keywords de la calle
                     match = True
                     for regexp in regexps1:
@@ -109,7 +109,7 @@ class Callejero:
                             match = False
                             break
                     if match:
-                        res[3].append(Calle(data[0], data[1], data[3], data[4], self.partido))
+                        res[3].append(Calle(data[0], data[1], data[3], data[4], self.partido, data[5]))
         
         res = res[0]+res[1]+res[2]+res[3]
         self.minicache = [calle, res]
