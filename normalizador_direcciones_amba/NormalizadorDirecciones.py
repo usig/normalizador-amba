@@ -68,6 +68,11 @@ class NormalizadorDirecciones:
         for candidato in strDir.candidatos:
             if candidato['tipo'] == CALLE:
                 res += self.buscarCalle(candidato['calle'], maxOptions)
+            elif candidato['tipo'] == CALLE_ALTURA:
+                try:
+                    res += self.normalizarCalleAltura(candidato['calle'],candidato['altura'],maxOptions)
+                except Exception, error:
+                    pass
             elif candidato['tipo'] == CALLE_Y_CALLE:
                 try:
                     res += self.normalizarCalleYCalle(candidato['calle'],candidato['cruce'],maxOptions)
@@ -98,6 +103,30 @@ class NormalizadorDirecciones:
     def buscarCalle(self, inCalle, maxOptions):
         res = self.c.buscarCalle(inCalle, maxOptions)
         return res
+
+    def normalizarCalleAltura(self, inCalle, inAltura, maxOptions=10):
+        '''
+        Normaliza una direccion de tipo Calle-altura
+        @param inCalle: La calle a ser normalizada
+        @type inCalle: String
+        @param inAltura: La altura de la calle a ser normalizada
+        @type inCalle: int
+        @param maxOptions: Maximo numero de opciones a retornar.
+        @type maxOptions: Integer
+        @return: Las opciones halladas
+        @rtype: Array de Direcciones
+        '''
+        opts = []
+        calles = self.c.buscarCalle(inCalle)
+        for calle in calles:
+            if calle.alturaValida(inAltura):
+                d = Direccion(calle, inAltura)
+                opts.append(d)
+
+        if(len(opts) == 0 and len(calles) > 0):
+            raise ErrorCalleInexistenteAEsaAltura(inCalle, calles, inAltura)
+
+        return opts
     
     def normalizarCalleYCalle(self, inCalle, inCruce, maxOptions=10):
         '''

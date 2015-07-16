@@ -79,29 +79,21 @@ class Calle:
                          self.partido.nombre,
                          self.localidad)
 
-#    def alturaValida(self, altura):
-#        '''
-#        Verifica si la altura es valida para esta calle. En caso de tratarse de una calle sin alturas oficiales
-#        asiganadas se lanza la excepcion <code>ErrorCalleSinAlturas</code>. 
-#        @param altura: Altura a validar
-#        @type altura: Integer
-#        @return: True si la altura es valida para esta calle
-#        @rtype: Boolean
-#        '''
-#        try:
-#            if (len(self.alturas) == 0):
-#                raise ErrorCalleSinAlturas(self.nombre)
-#
-#            retval = False
-#            alt = int(altura)
-#            for rango in self.alturas:
-#                if ((int(rango[0]) <= alt) and (alt <= int(rango[1]))):
-#                    retval = True
-#                    break
-#                
-#            return retval
-#        except Exception, e:
-#            raise e
+    def alturaValida(self, altura):
+        '''
+        Verifica si la altura es valida para esta calle. 
+        @param altura: Altura a validar
+        @type altura: Integer
+        @return: True si la altura es valida para esta calle
+        @rtype: Boolean
+        '''
+        retval = False
+        
+        for rango in self.alturas:
+            if ((int(rango[0]) <= altura) and (altura <= int(rango[1]))):
+                retval = True
+                break
+        return retval
 
     def seCruzaCon(self, calle):
         '''
