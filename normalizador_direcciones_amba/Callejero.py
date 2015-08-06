@@ -68,9 +68,11 @@ class Callejero:
         @return: instancias de Calle
         @rtype: Calle
         '''
-#        res = next((c for c in c.data if c[0] == codigo), None)
         pos = bisect_left(self.osm_ids, codigo)
-        return self.data[pos]
+        if pos < len(self.data) and self.data[pos][0] == codigo:
+            return self.data[pos]
+        else:
+            return None
         
     def buscarCalle(self, calle, limit=0):
         '''

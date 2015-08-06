@@ -85,7 +85,10 @@ class NormalizadorDireccionesAMBA:
                 pass
 
         if len(res[0]+res[1]+res[2]+res[3]):
-            return (res[0]+res[1]+res[2]+res[3])[:maxOptions]
+            res = (res[0]+res[1]+res[2]+res[3])[:maxOptions]
+            if partido != '':
+                res = [r for r in res if (matcheaTexto(partido, r.partido.nombre) or matcheaTexto(partido, r.localidad))]
+            return res
         else:
             raise e
 

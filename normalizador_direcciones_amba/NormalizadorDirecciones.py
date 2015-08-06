@@ -79,16 +79,6 @@ class NormalizadorDirecciones:
                 except Exception, error:
                     pass
 
-        # TODO: Si no hay match eliminar de inCalle e inCruce keywords (AV, AVENIDA, PJS, PASAJE, etc) y volver a buscar. 
-        # pasar removeWords a commons y usarlo con [(AV, AVENIDA, PJS, PASAJE, etc)]
-#        if not res:
-#            dirFiltrada = self._filtrarDireccion(strDir.strNormalizado)
-#            if strDir.strNormalizado != dirFiltrada:
-#                try:
-#                    res = self.normalizar(dirFiltrada, maxOptions)
-#                except:
-#                    pass
-
         if isinstance(res, list):
             if res:
                 return res

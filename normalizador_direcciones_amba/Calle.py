@@ -111,4 +111,4 @@ class Calle:
         @return: Calle como texto
         @rtype: String
         '''
-        return u'{0}, {1}, {2}'.format(self.nombre, self.partido.nombre, self.localidad) 
+        return u'{0}, {1}, {2}'.format(self.nombre, self.localidad, self.partido.nombre) 
