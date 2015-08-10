@@ -15,9 +15,9 @@ from Errors import *
 
 class NormalizadorDireccionesAMBA:
     server = CALLEJERO_AMBA_SERVER
-    normalizadores = []
     
     def __init__(self, include_list=[], exclude_list=[]):
+        self.normalizadores = []
         try:
             data = urllib2.urlopen(self.server+'partidos').read()
             partidos_json = json.loads(data, 'utf8')
@@ -55,8 +55,8 @@ class NormalizadorDireccionesAMBA:
             except Exception, e:
                 pass
                 
-#        for r in res:
-#            print r.toString()
+#         for r in res:
+#             print r.toString()
 
         if len(res):
             return res
@@ -85,10 +85,10 @@ class NormalizadorDireccionesAMBA:
                 pass
 
         if len(res[0]+res[1]+res[2]+res[3]):
-            res = (res[0]+res[1]+res[2]+res[3])[:maxOptions]
+            res = (res[0]+res[1]+res[2]+res[3])
             if partido != '':
                 res = [r for r in res if (matcheaTexto(partido, r.partido.nombre) or matcheaTexto(partido, r.localidad))]
-            return res
+            return res[:maxOptions]
         else:
             raise e
 
