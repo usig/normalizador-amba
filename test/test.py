@@ -3,11 +3,13 @@ import unittest
 import sys, os
 sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
-from CommonsTestCase import CommonsTestCase
-from CallejeroTestCase import CallejeroTestCase
-from NormalizadorDireccionesTestCase import NormalizadorDireccionesTestCase
-from CalleYCalleTestCase import CalleYCalleTestCase
-from NormalizadorDireccionesAMBATestCase import NormalizadorDireccionesAMBATestCase
+# from CommonsTestCase import CommonsTestCase
+# from CallejeroTestCase import CallejeroTestCase
+# from NormalizadorDireccionesTestCase import NormalizadorDireccionesTestCase
+# from CalleYCalleTestCase import CalleYCalleTestCase
+from CalleAlturaTestCase import CalleAlturaTestCase
+# from NormalizadorDireccionesAMBACalleAlturaTestCase import NormalizadorDireccionesAMBACalleAlturaTestCase
+# from NormalizadorDireccionesAMBACalleYCalleTestCase import NormalizadorDireccionesAMBACalleYCalleTestCase
 
 
 ''''''''''''''''''''''''
@@ -17,11 +19,13 @@ from NormalizadorDireccionesAMBATestCase import NormalizadorDireccionesAMBATestC
 if __name__=='__main__':
     tl = unittest.TestLoader()
     testables = [\
-                 CommonsTestCase,
-                 CallejeroTestCase,
-                 NormalizadorDireccionesTestCase,
-                 CalleYCalleTestCase,
-                 NormalizadorDireccionesAMBATestCase,
+#                   CommonsTestCase,
+#                   CallejeroTestCase,
+                    CalleAlturaTestCase,
+#                   NormalizadorDireccionesTestCase,
+#                   CalleYCalleTestCase,
+#                   NormalizadorDireccionesAMBACalleYCalleTestCase,
+#                  NormalizadorDireccionesAMBACalleAlturaTestCase
                  ]
     
     for testable in testables:

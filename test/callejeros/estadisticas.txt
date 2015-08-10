@@ -1,0 +1,141 @@
+--- Generación de Callejeros AMBA
+Fecha: 2015-07-16 13:36:25.895834
+Partidos: 34
+Calles: 28949
+Esquinas: 153157
+
+-- almirante_brown
+    Calles: 1512
+    Esquinas: 7238
+
+-- avellaneda
+    Calles: 830
+    Esquinas: 3599
+
+-- berazategui
+    Calles: 773
+    Esquinas: 4789
+
+-- berisso
+    Calles: 162
+    Esquinas: 1316
+
+-- canuelas
+    Calles: 203
+    Esquinas: 842
+
+-- ensenada
+    Calles: 301
+    Esquinas: 1561
+
+-- escobar
+    Calles: 855
+    Esquinas: 3164
+
+-- esteban_echeverria
+    Calles: 809
+    Esquinas: 4039
+
+-- ezeiza
+    Calles: 685
+    Esquinas: 2983
+
+-- florencio_varela
+    Calles: 1361
+    Esquinas: 6264
+
+-- general_rodriguez
+    Calles: 413
+    Esquinas: 2005
+
+-- general_san_martin
+    Calles: 759
+    Esquinas: 3870
+
+-- hurlingham
+    Calles: 462
+    Esquinas: 2344
+
+-- ituzaingo
+    Calles: 456
+    Esquinas: 2630
+
+-- jose_c_paz
+    Calles: 434
+    Esquinas: 3212
+
+-- la_matanza
+    Calles: 2466
+    Esquinas: 15411
+
+-- lanus
+    Calles: 734
+    Esquinas: 4690
+
+-- la_plata
+    Calles: 2024
+    Esquinas: 12203
+
+-- lomas_de_zamora
+    Calles: 1241
+    Esquinas: 6473
+
+-- malvinas_argentinas
+    Calles: 852
+    Esquinas: 4475
+
+-- marcos_paz
+    Calles: 256
+    Esquinas: 1233
+
+-- merlo
+    Calles: 1261
+    Esquinas: 7162
+
+-- moreno
+    Calles: 1442
+    Esquinas: 9063
+
+-- moron
+    Calles: 876
+    Esquinas: 4580
+
+-- pilar
+    Calles: 1701
+    Esquinas: 6146
+
+-- presidente_peron
+    Calles: 328
+    Esquinas: 1606
+
+-- quilmes
+    Calles: 921
+    Esquinas: 6424
+
+-- san_fernando
+    Calles: 342
+    Esquinas: 1701
+
+-- san_isidro
+    Calles: 709
+    Esquinas: 3911
+
+-- san_miguel
+    Calles: 507
+    Esquinas: 3706
+
+-- san_vicente
+    Calles: 368
+    Esquinas: 1815
+
+-- tigre
+    Calles: 1314
+    Esquinas: 4896
+
+-- tres_de_febrero
+    Calles: 935
+    Esquinas: 4309
+
+-- vicente_lopez
+    Calles: 657
+    Esquinas: 3497
