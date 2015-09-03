@@ -3,13 +3,14 @@ import unittest
 import sys, os
 sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
-# from CommonsTestCase import CommonsTestCase
-# from CallejeroTestCase import CallejeroTestCase
-# from NormalizadorDireccionesTestCase import NormalizadorDireccionesTestCase
-# from CalleYCalleTestCase import CalleYCalleTestCase
+from CommonsTestCase import CommonsTestCase
+from CallejeroTestCase import CallejeroTestCase
+from NormalizadorDireccionesTestCase import NormalizadorDireccionesTestCase
+from CalleYCalleTestCase import CalleYCalleTestCase
 from CalleAlturaTestCase import CalleAlturaTestCase
-# from NormalizadorDireccionesAMBACalleAlturaTestCase import NormalizadorDireccionesAMBACalleAlturaTestCase
-# from NormalizadorDireccionesAMBACalleYCalleTestCase import NormalizadorDireccionesAMBACalleYCalleTestCase
+from NormalizadorDireccionesAMBATestCase import NormalizadorDireccionesAMBATestCase
+from NormalizadorDireccionesAMBACalleYCalleTestCase import NormalizadorDireccionesAMBACalleYCalleTestCase
+from NormalizadorDireccionesAMBACalleAlturaTestCase import NormalizadorDireccionesAMBACalleAlturaTestCase
 
 
 ''''''''''''''''''''''''
@@ -19,13 +20,14 @@ from CalleAlturaTestCase import CalleAlturaTestCase
 if __name__=='__main__':
     tl = unittest.TestLoader()
     testables = [\
-#                   CommonsTestCase,
-#                   CallejeroTestCase,
-                    CalleAlturaTestCase,
-#                   NormalizadorDireccionesTestCase,
-#                   CalleYCalleTestCase,
-#                   NormalizadorDireccionesAMBACalleYCalleTestCase,
-#                  NormalizadorDireccionesAMBACalleAlturaTestCase
+                   CommonsTestCase,
+                   CallejeroTestCase,
+                   CalleAlturaTestCase,
+                   NormalizadorDireccionesTestCase,
+                   CalleYCalleTestCase,
+                   NormalizadorDireccionesAMBATestCase,
+                   NormalizadorDireccionesAMBACalleYCalleTestCase,
+                   NormalizadorDireccionesAMBACalleAlturaTestCase
                  ]
     
     for testable in testables:
@@ -35,4 +37,3 @@ if __name__=='__main__':
         print ''.center(80,'=')
         suite = tl.loadTestsFromTestCase(testable)
         unittest.TextTestRunner(verbosity=2).run(suite)
-        

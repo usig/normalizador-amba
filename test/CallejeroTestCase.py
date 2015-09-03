@@ -26,9 +26,18 @@ class CallejeroTestCase(unittest.TestCase):
     
     with open('callejeros/general_san_martin.callejero') as data_file:
         data = json.load(data_file)
+
     c_san_martin.data = data
     c_san_martin.data.sort()
     c_san_martin.osm_ids = [k[0] for k in c_san_martin.data]
+
+
+    def _checkCalle(self, calle, codigo, nombre, codigo_partido, localidad):
+        self.assertTrue(isinstance(calle, Calle))
+        self.assertEqual(calle.codigo, codigo)
+        self.assertEqual(calle.nombre, nombre)
+        self.assertEqual(calle.partido.codigo, codigo_partido)
+        self.assertEqual(calle.localidad, localidad)
 
     def testCallejero_callejero_inexistent(self):
         p = Partido('jose_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
@@ -43,55 +52,36 @@ class CallejeroTestCase(unittest.TestCase):
         res = self.c.buscarCalle(u'Santiago de Compostela')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 solo matching.')
-        calle = res[0]
-        self.assertTrue(isinstance(calle, Calle))
-        self.assertEqual(calle.codigo, 53658)
-        self.assertEqual(calle.nombre, u'Santiago de Compostela')
-        self.assertEqual(calle.partido.codigo, 'jose_c_paz')
+        self._checkCalle(res[0],53658,u'Santiago de Compostela','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_nombre_permutado(self):
         res = self.c.buscarCalle(u'Compostela Santiago de')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 solo matching.')
-        calle = res[0]
-        self.assertTrue(isinstance(calle, Calle))
-        self.assertEqual(calle.codigo, 53658)
-        self.assertEqual(calle.nombre, u'Santiago de Compostela')
-        self.assertEqual(calle.partido.codigo, 'jose_c_paz')
+        self._checkCalle(res[0],53658,u'Santiago de Compostela','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_nombre_incompleto(self):
         res = self.c.buscarCalle(u'Compos Santi')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 solo matching.')
-        calle = res[0]
-        self.assertTrue(isinstance(calle, Calle))
-        self.assertEqual(calle.codigo, 53658)
-        self.assertEqual(calle.nombre, u'Santiago de Compostela')
-        self.assertEqual(calle.partido.codigo, 'jose_c_paz')
+        self._checkCalle(res[0],53658,u'Santiago de Compostela','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_nombre_con_acento_y_case(self):
         res = self.c.buscarCalle(u'PoToSÍ')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 solo matching.')
-        calle = res[0]
-        self.assertTrue(isinstance(calle, Calle))
-        self.assertEqual(calle.codigo, 341221)
-        self.assertEqual(calle.nombre, u'Potosí')
-        self.assertEqual(calle.partido.codigo, 'jose_c_paz')
+        self._checkCalle(res[0],341221,u'Potosí','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_nombre_con_enie(self):
         res = self.c.buscarCalle(u'Roque Saenz Peña')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
-        calle = res[0]
-        self.assertTrue(isinstance(calle, Calle))
-        self.assertEqual(calle.nombre, u'Roque Sáenz Peña')
-        self.assertEqual(calle.partido.codigo, 'jose_c_paz')
+        self._checkCalle(res[0],77440,u'Roque Sáenz Peña','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_multiples_calles_existentes(self):
         res = self.c.buscarCalle(u'San')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 16, u'Debería haber 16     matchings.')
+        self.assertEqual(len(res), 16, u'Debería haber 16 matchings.')
         resCalles = [u'San Lorenzo',u'San Nicolás',u'San Blas',u'San Salvador',u'San Luis',u'San Marino',u'San Agustín',
                      u'Santiago del Estero',u'Santiago de Compostela',u'Santiago L. Copello',u'Santa Marta',u'Santo Domingo',
                      u'Santa Ana',u'Santiago de Liniers',u'Santa María',u'Santiago Davobe']
@@ -103,30 +93,24 @@ class CallejeroTestCase(unittest.TestCase):
         res = self.c.buscarCalle(u'Gelly y Obes')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matchings.')
-        self.assertTrue(isinstance(res[0], Calle))
-        self.assertEqual(res[0].nombre, u'Gelly y Obes')
-        self.assertEqual(res[0].codigo, 77481)
-        
+        self._checkCalle(res[0],77481,u'Gelly y Obes','jose_c_paz',u'José C. Paz')
+
         res = self.c.buscarCalle(u'g y o')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matchings.')
-        self.assertTrue(isinstance(res[0], Calle))
-        self.assertEqual(res[0].nombre, u'Gelly y Obes')
-        self.assertEqual(res[0].codigo, 77481)
+        self._checkCalle(res[0],77481,u'Gelly y Obes','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_calles_con_y_02(self):
         res = self.c.buscarCalle(u'Vicente López y Planes')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matchings.')
-        self.assertTrue(isinstance(res[0], Calle))
-        self.assertTrue(res[0].nombre == u'Vicente López y Planes')
+        self._checkCalle(res[0],11702,u'Vicente López y Planes','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_calles_con_e_01(self):
         res = self.c.buscarCalle(u'Jose e Rodo')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
-        self.assertTrue(isinstance(res[0], Calle))
-        self.assertTrue(res[0].codigo == 78817) #José E. Rodó
+        self._checkCalle(res[0],78817,u'José E. Rodó','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCodigo_codigo_valido(self):
         res = self.c.buscarCodigo(314724)
@@ -156,32 +140,31 @@ class CallejeroTestCase(unittest.TestCase):
         self.assertTrue(res1[2].codigo in [78879,53341,237007])
 
     def testCallejero_buscarCalle_muchos_espacios(self):
-        res1 = self.c.buscarCalle(u'  puerto    principe         ')
-        self.assertTrue(isinstance(res1, list))
-        self.assertEqual(len(res1), 1, u'Debería haber 1 matching.')
-        self.assertEqual(res1[0].codigo, 183044)
+        res = self.c.buscarCalle(u'  puerto    principe         ')
+        self.assertTrue(isinstance(res, list))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+        self._checkCalle(res[0],183044,u'Puerto Príncipe','jose_c_paz',u'José C. Paz')
         
     def testCallejero_buscarCalle_calle_con_parentesis(self):
         res = self.c.buscarCalle(u'Coliqueo (JCP)')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
-        self.assertEqual(res[0].codigo, 186501) #Intendente Arricau (SM) / Cacique Coliqueo (JCP)
+        self._checkCalle(res[0],186501,u'Intendente Arricau (SM) / Cacique Coliqueo (JCP)','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_caracteres_raros(self):
-        res1 = self.c.buscarCalle(u'puerto principe |°¬!#$%&/()=?\¿¡*¸+~{[^}]\'`-_.:,;<>·@')
-        self.assertTrue(isinstance(res1, list))
-        self.assertEqual(len(res1), 1, u'Debería haber 1 matching.')
-        self.assertEqual(res1[0].codigo, 183044)
+        res = self.c.buscarCalle(u'puerto principe |°¬!#$%&/()=?\¿¡*¸+~{[^}]\'`-_.:,;<>·@')
+        self.assertTrue(isinstance(res, list))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+        self._checkCalle(res[0],183044,u'Puerto Príncipe','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_calle_con_acente_escrito_sin_acento(self):
-        res1 = self.c.buscarCalle(u'potosi')
-        self.assertTrue(isinstance(res1, list))
-        self.assertEqual(len(res1), 1, u'Debería haber 1 matching.')
-        self.assertEqual(res1[0].codigo, 341221) #Potosí
+        res = self.c.buscarCalle(u'potosi')
+        self.assertTrue(isinstance(res, list))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+        self._checkCalle(res[0],341221,u'Potosí','jose_c_paz',u'José C. Paz')
 
     def testCallejero_buscarCalle_calle_con_numeros(self):
         res = self.c_san_martin.buscarCalle(u'26 de Julio de 1890')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
-        self.assertEqual(res[0].codigo, 70996) #26 de Julio de 1890, General San Martin
-
+        self._checkCalle(res[0],70996,u'103 - 26 de Julio de 1890','general_san_martin',u'General San Martín')

@@ -5,11 +5,12 @@ sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
 from NormalizadorDireccionesAMBA import *
 from Partido import Partido
+from Direccion import Direccion
 from Calle import Calle
 from Errors import *
 
 class NormalizadorDireccionesAMBACalleYCalleTestCase(unittest.TestCase):
-    partidos = ['hurlingham','ituzaingo','jose_c_paz','san_isidro','san_miguel']
+    partidos = ['hurlingham','ituzaingo','jose_c_paz','la_matanza','san_isidro','san_miguel']
     nd = NormalizadorDireccionesAMBA(include_list=partidos)
     for n in nd.normalizadores:
         with open('callejeros/{0}.callejero'.format(n.partido.codigo)) as data_file:
@@ -18,138 +19,49 @@ class NormalizadorDireccionesAMBACalleYCalleTestCase(unittest.TestCase):
         n.c.data.sort()
         n.c.osm_ids = [k[0] for k in n.c.data]
 
-    def testNormalizador_NomalizarCalleInexistente(self):
-        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, 'kokusai dori')
-            
-    def testNormalizador_NormalizarCalleExistenteEnTodoPartidos(self):
-        res = self.nd.normalizar(u'acevedo')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 3, u'Debería haber 3 matching/s. Hay {0}'.format(len(res)))
-        partidos = set()
-        self.assertIn('hurlingham', partidos)
-        self.assertIn('ituzaingo', partidos)
-        self.assertIn('san_isidro', partidos)
 
-    def testNormalizador_NormalizarCalleExistentePorPartido01(self):
-        res = self.nd.normalizar(u'acevedo, hurlingham')
+    def _checkDireccion(self, direccion, codigo_calle, nombre_calle, codigo_cruce, nombre_cruce, codigo_partido, localidad):
+        self.assertTrue(isinstance(direccion, Direccion))
+        self.assertEqual(direccion.tipo, CALLE_Y_CALLE )
+        self.assertEqual(direccion.calle.codigo, codigo_calle)
+        self.assertEqual(direccion.calle.nombre, nombre_calle)
+        self.assertEqual(direccion.cruce.codigo, codigo_cruce)
+        self.assertEqual(direccion.cruce.nombre, nombre_cruce)
+        self.assertEqual(direccion.partido.codigo, codigo_partido)
+        self.assertEqual(direccion.localidad, localidad)
+
+    def testCalleInexistente01(self):
+        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, u'Elm street y Roque Sáenz Peña')
+
+    def testCalleInexistente02(self):
+        self.assertRaises(ErrorCruceInexistente, self.nd.normalizar, u'Roque Sáenz Peña y kokusai dori')
+
+    def testDireccionExistentePeroEnOtroPartido(self):
+        res = self.nd.normalizar(u'Europa y Darwin, Ituzaingo')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 52498) #Acevedo Eduardo        
-        self.assertEqual(res[0].partido.codigo, 'hurlingham')        
+        self._checkDireccion(res[0],6895,u'Europa',6953,u'Darwin','ituzaingo',u'Ituzaingó')
 
-        res = self.nd.normalizar(u'acevedo, hur')
+        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, u'Europa y Darwin, La Matanza')
+
+    def testDireccionExistentePeroEnOtraLocalidad(self):
+        res = self.nd.normalizar(u'Europa y Darwin, Ituzaingo')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 52498) #Acevedo Eduardo        
-        self.assertEqual(res[0].partido.codigo, 'hurlingham')        
+        self._checkDireccion(res[0],6895,u'Europa',6953,u'Darwin','ituzaingo',u'Ituzaingó')
 
-    def testNormalizador_NormalizarCalleExistentePorPartido02(self):
-        res = self.nd.normalizar(u'acevedo, ituzaingo')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 174423)
-        self.assertEqual(res[0].nombre, 'Manuel Acevedo')
-        self.assertEqual(res[0].partido.nombre, u'Ituzaingó')
+        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, u'Europa y Darwin, Villa Udaondo')
 
-        res = self.nd.normalizar(u'acevedo, itu')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 174423)
-        self.assertEqual(res[0].nombre, 'Manuel Acevedo')
-        self.assertEqual(res[0].partido.nombre, u'Ituzaingó')
 
-    def testNormalizador_NormalizarCalleExistentePorPartido03(self):
-        res = self.nd.normalizar(u'acevedo, Beccar')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 49987) #Padre Acevedo        
-        self.assertEqual(res[0].partido.codigo, 'san_isidro')
-
-        res = self.nd.normalizar(u'acevedo, padre')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 49987) #Padre Acevedo        
-        self.assertEqual(res[0].partido.codigo, 'san_isidro')
-
-    def testNormalizador_NormalizarNombresPermutado(self):
-        res = self.nd.normalizar(u'acevedo manuel, ituzaingo')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 174423) #Manuel Acevedo, ituzaingo
-        self.assertEqual(res[0].partido.codigo, 'ituzaingo')
-
-    def testNormalizador_NormalizarNombreIncompleto(self):
-        res = self.nd.normalizar(u'Compos Santi')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        calle = res[0]
-        self.assertTrue(isinstance(calle, Calle))
-        self.assertEqual(calle.codigo, 53658)
-        self.assertEqual(calle.nombre, u'Santiago de Compostela')
-        self.assertEqual(calle.partido.codigo, 'jose_c_paz')
-
-    def testNormalizador_NormalizarNombreConAcentoYCase(self):
-        res = self.nd.normalizar(u'PoToSÍ, José')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        calle = res[0]
-        self.assertTrue(isinstance(calle, Calle))
-        self.assertEqual(calle.codigo, 341221) # Potosí
-        self.assertEqual(calle.partido.codigo, 'jose_c_paz')
-
-    def testNormalizador_NormalizarNombreConEnie(self):
-        res = self.nd.normalizar(u'Roque Saenz Peña, Jose')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        calle = res[0]
-        self.assertTrue(isinstance(calle, Calle))
-        self.assertEqual(calle.nombre, u'Roque Sáenz Peña')
-        self.assertEqual(calle.partido.codigo, 'jose_c_paz')
-
-    def testNormalizador_NormalizarCallesConY_01(self):
-        res = self.nd.normalizar(u'Gelly y Obes, Jose C Paz')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertTrue(isinstance(res[0], Calle))
-        self.assertEqual(res[0].nombre, 'Gelly y Obes')
-        self.assertEqual(res[0].codigo, 77481)
-            
-    def testNormalizador_NormalizarCalleConComa_01(self):
-        res = self.nd.normalizar(u'Acevedo, Manuel, Ituzaingo')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 174423) #Manuel Acevedo        
-        self.assertEqual(res[0].partido.codigo, 'ituzaingo')
-
-    def testNormalizador_NormalizarCalleConComa_02(self):
-        res = self.nd.normalizar(u'Acevedo, Manuel')
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 174423)         
-        self.assertEqual(res[0].nombre, 'Manuel Acevedo')        
-        self.assertEqual(res[0].partido.codigo, 'ituzaingo')
-
-    def testNormalizador_NormalizarCalleConComa_03(self):
-        res = self.nd.normalizar(u'O\'Higgins, San')
+    def testNormalizador_DireccionEnVariosPartidos(self):
+        res = self.nd.normalizar(u'san martin y peron')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 2, u'Debería haber 2 matching/s. Hay {0}'.format(len(res)))
-        self.assertEqual(res[0].codigo, 15350)         
-        self.assertEqual(res[0].nombre, 'O\'Higgins')        
-        self.assertEqual(res[0].partido.codigo, 'san_isidro')
-        
-        self.assertEqual(res[1].codigo, 79669)         
-        self.assertEqual(res[1].nombre, 'O\'Higgins')        
-        self.assertEqual(res[1].partido.codigo, 'san_miguel')
+        self._checkDireccion(res[0],46673,u'Avenida General San Martín',82054,u'Av. Eva Perón','la_matanza',u'Ramos Mejia')
+        self._checkDireccion(res[1],12124,u'General José de San Martín',293550,u'Avenida Eva Duarte de Perón','san_miguel',u'Campo de Mayo')
 
-    def testNormalizador_NormalizarConLimite(self):
-        res = self.nd.normalizar(u'San')
+    def testNormalizador_PartidoConNumero(self):
+        res = self.nd.normalizar(u'Pablo Ceretti y Jorge Cardassy, 20 de Junio')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 10, u'Debería haber 10 matching/s. Hay {0}'.format(len(res)))
-
-        res = self.nd.normalizar(u'San', 25)
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 25, u'Debería haber 25 matching/s. Hay {0}'.format(len(res)))
-
-        res = self.nd.normalizar(u'San', 200)
-        self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 103, u'Debería haber 103 matching/s. Hay {0}'.format(len(res)))
+        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self._checkDireccion(res[0],232752,u'Pablo Ceretti',232731,u'Jorge Cardassy','la_matanza',u'20 de Junio')

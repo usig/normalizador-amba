@@ -21,6 +21,17 @@ class CalleYCalleTestCase(unittest.TestCase):
     nd.c.osm_ids = [k[0] for k in nd.c.data]
 
     
+
+    def _checkDireccion(self, direccion, codigo_calle, nombre_calle, codigo_cruce, nombre_cruce, codigo_partido, localidad):
+        self.assertTrue(isinstance(direccion, Direccion))
+        self.assertEqual(direccion.tipo, CALLE_Y_CALLE )
+        self.assertEqual(direccion.calle.codigo, codigo_calle)
+        self.assertEqual(direccion.calle.nombre, nombre_calle)
+        self.assertEqual(direccion.cruce.codigo, codigo_cruce)
+        self.assertEqual(direccion.cruce.nombre, nombre_cruce)
+        self.assertEqual(direccion.partido.codigo, codigo_partido)
+        self.assertEqual(direccion.localidad, localidad)
+    
     def testCalleInexistente01(self):
         self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, u'Elm street y Roque Sáenz Peña')
 
@@ -43,124 +54,63 @@ class CalleYCalleTestCase(unittest.TestCase):
         res = self.nd.normalizar(u'Suecia y libano')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber un unico matching')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 182539)
-        self.assertEqual(d.calle.nombre, u'Suecia')
-        self.assertEqual(d.cruce.codigo, 231716)
-        self.assertEqual(d.cruce.nombre, u'Líbano')
+        self._checkDireccion(res[0],182539,u'Suecia',231716,u'Líbano','jose_c_paz',u'José C. Paz')
 
     def testCalle1UnicaCalle2MuchasCruceExistenteUnico(self):
         res = self.nd.normalizar(u'líbano y Avenida')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber un unico matching')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 231716)
-        self.assertEqual(d.calle.nombre, u'Líbano')
-        self.assertEqual(d.cruce.codigo, 78155)
-        self.assertEqual(d.cruce.nombre, 'Avenida Croacia')
+        self._checkDireccion(res[0],231716,u'Líbano',78155,u'Avenida Croacia','jose_c_paz',u'José C. Paz')
 
     def testCalle1MuchasCalle2UnicaCruceExistenteUnico(self):
         res = self.nd.normalizar(u'Avenida y líbano')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber un unico matching')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 78155)
-        self.assertEqual(d.calle.nombre, u'Avenida Croacia')
-        self.assertEqual(d.cruce.codigo, 231716)
-        self.assertEqual(d.cruce.nombre, u'Líbano')
+        self._checkDireccion(res[0],78155,u'Avenida Croacia',231716,u'Líbano','jose_c_paz',u'José C. Paz')
 
     def testCalleConY01(self):
         res = self.nd.normalizar(u'Arias y Gelly y Obes')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber un unico matching')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 77242)
-        self.assertEqual(d.calle.nombre, 'Coronel Arias')
-        self.assertEqual(d.cruce.codigo, 77481)
-        self.assertEqual(d.cruce.nombre, u'Gelly y Obes')
+        self._checkDireccion(res[0],77242,u'Coronel Arias',77481,u'Gelly y Obes','jose_c_paz',u'José C. Paz')
 
     def testCalleConY02(self):
         res = self.nd.normalizar(u'Gelly y Obes y Arias')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber un unico matching')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 77481)
-        self.assertEqual(d.calle.nombre, u'Gelly y Obes')
-        self.assertEqual(d.cruce.codigo, 77242)
-        self.assertEqual(d.cruce.nombre, 'Coronel Arias')
+        self._checkDireccion(res[0],77481,u'Gelly y Obes',77242,u'Coronel Arias','jose_c_paz',u'José C. Paz')
 
     def testCalleConY03(self):
         res = self.nd.normalizar(u'Gel y Ob y Coronel Arias')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber un unico matching')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 77481)
-        self.assertEqual(d.calle.nombre, u'Gelly y Obes')
-        self.assertEqual(d.cruce.codigo, 77242)
-        self.assertEqual(d.cruce.nombre, 'Coronel Arias')
+        self._checkDireccion(res[0],77481,u'Gelly y Obes',77242,u'Coronel Arias','jose_c_paz',u'José C. Paz')
 
     def testCalleConYParcial01(self):
         res = self.nd.normalizar(u'Arias y Gel y Ob')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber un unico matching')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 77242)
-        self.assertEqual(d.calle.nombre, 'Coronel Arias')
-        self.assertEqual(d.cruce.codigo, 77481)
-        self.assertEqual(d.cruce.nombre, u'Gelly y Obes')
+        self._checkDireccion(res[0],77242,u'Coronel Arias',77481,u'Gelly y Obes','jose_c_paz',u'José C. Paz')
 
     def testDireccionSeparadaPorE01(self):
         res = self.nd.normalizar(u'pinero e iglesia')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber un unico matching')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 53491)
-        self.assertEqual(d.calle.nombre, u'Piñero')
-        self.assertEqual(d.cruce.codigo, 53648)
-        self.assertEqual(d.cruce.nombre, u'Iglesias')
+        self._checkDireccion(res[0],53491,u'Piñero',53648,u'Iglesias','jose_c_paz',u'José C. Paz')
 
     def testCalle1MuchasCalle2MuchasCruceExistenteMulti(self):
         res = self.nd.normalizar(u'santiago y are')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 2, 'Deberia haber 2 matchings')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 53658) #Santiago de Compostela
-        self.assertEqual(d.cruce.codigo, 53565) #Gral Arenales
-        d = res[1]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 77662) #Santiago L. Copello
-        self.assertEqual(d.cruce.codigo, 53565) #Arturo Illia
+        self._checkDireccion(res[0],53658,u'Santiago de Compostela',53565,u'Gral Arenales','jose_c_paz',u'José C. Paz')
+        self._checkDireccion(res[1],77662,u'Santiago L. Copello',53565,u'Gral Arenales','jose_c_paz',u'José C. Paz')
         
     def testCalleConE02(self):
         res = self.nd.normalizar(u'José E. Rodó y Paula Albarracín')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, 'Deberia haber 1 matchings')
-        d = res[0]
-        self.assertTrue(isinstance(d, Direccion))
-        self.assertEqual(d.tipo, CALLE_Y_CALLE )
-        self.assertEqual(d.calle.codigo, 78817) #José E. Rodó
-        self.assertEqual(d.cruce.codigo, 52665) #Paula Albarracín
+        self._checkDireccion(res[0],78817,u'José E. Rodó',52665,u'Paula Albarracín','jose_c_paz',u'José C. Paz')
 
     def testDireccionSeparadaPorECalleNoEmpiezaConI(self):
         self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, u'miranda e arregui')
-
         
