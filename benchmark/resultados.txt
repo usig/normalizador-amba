@@ -1,0 +1,444 @@
+
+- Codigo original
+-----------------
+---------------------------------------------
+- Fecha: 04/09/2015 17:01:50
+- Archivo: estaciones_de_servicio.txt
+- Direcciones: 1017
+- Matchings: 419
+- Tiempo total: 0:06:51.760225
+- Tiempo promedio: 0.40487731054
+---------------------------------------------
+
+
+- Codigo optimizado
+-------------------
+---------------------------------------------
+- Fecha: 04/09/2015 17:03:51
+- Archivo: estaciones_de_servicio.txt
+- Direcciones: 1017
+- Matchings: 419
+- Tiempo total: 0:00:44.856205
+- Tiempo promedio: 0.0441063962503
+---------------------------------------------
+
+
+   3 - AV. SANTA MARIA 2800, TIGRE ----> Avenida Santa María de las Conchas 2800, Tigre
+   5 - AV. LUCIANO VALETTE 1296, LUIS GUILLóN ----> Av. Luciano Valette 1296, Esteban Echeverría
+  10 - SAN JUAN 2205, MERLO ----> San Juan 2205, Merlo
+  12 - CORDOBA 1097, MERLO ----> Cordoba 1097, Merlo
+  13 - AV. EVA PERON 1672, MORóN ----> Avenida Eva Perón 1672, Morón
+  18 - ALSINA 1711, LOMAS DE ZAMORA ----> Av. Alsina 1711, Lomas de Zamora
+  19 - AVDA. H. YRIGOYEN 20795, GLEW ----> Avenida Hipólito Yrigoyen 20795, Almirante Brown
+  20 - AVDA. H. YRIGOYEN Y PATRIA, GLEW ----> Avenida Hipólito Yrigoyen y Patria, Almirante Brown
+  21 - PANAMERICANA 2478, BOULOGNE SUR MER ----> Colectora Panamericana 2478, San Isidro
+  23 - DARDO ROCHA 20, TIGRE ----> Dardo Rocha 20, Tigre
+  29 - AMANCIO ALCORTA Y BOEDO, BOULOGNE SUR MER ----> Amancio Alcorta y Boedo, San Isidro
+  30 - HIPOLITO YRIGOYEN 696, JOSE C PAZ ----> Avenida Hipólito Yrigoyen 696, José C. Paz
+  31 - YRIGOYEN Y SAN MARTIN, ADROGUE ----> Avenida Hipólito Yrigoyen y Av. General San Martín, Almirante Brown
+  34 - BLAS PARERA 1276, CASTELAR ----> Blas Parera 1276, Morón
+  35 - BLAS PARERA Y MAESTRA ARMINDA M. DE LANZANI, CASTELAR ----> Blas Parera y Maestra Arminda de Lanzani, Morón
+  38 - AV. DARDO ROCHA 1683, BERNAL ----> Av. Dardo Rocha 1683, Quilmes
+  39 - REMEDIOS DE ESCALADA DE S. MARTIN 3690, VALENTIN ALSINA ----> Av. Remedios de Escalada de San Martín 3690, Lanús
+  42 - PARANA 3944, OLIVOS ----> Paraná 3944, Vicente López
+  43 - PARANA Y BLAS PARERA, OLIVOS ----> Paraná y Blas Parera, Vicente López
+  44 - AV. LIBERTADOR Y GAONA, MORENO ----> Avenida del Libertador y Av. Pablo Ruiz de Gaona (colectora sur), Moreno
+  50 - TRIUNVIRATO 1610, QUILMES ----> Av. Triunvirato 1610, Quilmes
+  51 - TRIUNVIRATO Y NECOCHEA, QUILMES ----> Av. Triunvirato y Necochea, Quilmes
+  53 - BERNARDO DE IRIGOYEN 1800, BOULOGNE SUR MER ----> Bernardo de Irigoyen 1800, San Isidro
+  55 - AV. ROLON 29, BOULOGNE ----> Avenida Avelino Rolón 29, San Isidro
+  56 - AV. ROLON Y BLANCO ENCALADA, BOULOGNE ----> Avenida Avelino Rolón y Blanco Encalada, San Isidro
+  57 - ROJO Y ESTANISLAO DEL CAMPO, LAFERRERE ----> Av. General Rojo y Estanislao del Campo, La Matanza
+  58 - MENDOZA 205 , MORON ----> Mendoza 205, Morón
+  59 - MENDOZA Y MACHADO, MORON ----> Mendoza y General Machado, Morón
+  64 - AV. SANTA FE 2428, MARTINEZ ----> Avenida Santa Fe 2428, San Isidro
+  68 - EVA PERON 2798, MERLO ----> Avenida Eva Perón 2798, Merlo
+  70 - AV. ROLON 603, BOULOGNE ----> Avenida Avelino Rolón 603, San Isidro
+  83 - REMEDIOS DE ESCALADA 1389, LANUS ----> Av. Remedios de Escalada 1389, Lanús
+  84 - AV. SAN MARTIN 1934, CASEROS ----> 643 - Avenida del Libertador General San Martín 1934, Tres de Febrero
+  86 - MARCELO T.DE ALVEAR 4396, CIUDADELA ----> 307 - Avenida Marcelo Torcuato de Alvear 4396, Tres de Febrero
+  87 - AV. SAN MARTIN 3694, LOMAS DEL MIRADOR ----> Avenida General San Martín 3694, La Matanza
+  89 - DIAGONAL 77 - 673, LA PLATA ----> Diagonal 77 673, La Plata
+  90 - SANTOS VEGA Y PALMA, VILLA BOSCH ----> 812 - Santos Vega y 815 - Sargento R. Palma, Tres de Febrero
+  92 - LEBENSOHN Y ASCASUBI, BERNAL ----> Lebensohn y Ascasubi, Quilmes
+  93 - AV. MITRE 1630, FLORIDA ----> Avenida Bartolomé Mitre 1630, Vicente López
+  96 - J.MORENO Y C.CASARES, LANUS ----> José María Moreno y Gobernador Carlos Casares, Lanús
+  98 - INOCENCIO ARIAS 3199, CASTELAR ----> Gobernador Inocencio Arias 3199, Morón
+ 101 - AV. RICCHIERI 701, BELLA VISTA ----> Avenida Tte. Gral. Ricchieri 701, San Miguel
+ 102 - AV. LIBERTADOR 299, VICENTE LOPEZ ----> Avenida del Libertador 299, Vicente López
+ 104 - BALBIN Y GASPAR CAMPOS, SAN MIGUEL ----> Avenida Ricardo Balbín y Avenida Gaspar Campos, San Miguel
+ 105 - AV. DEL LIBERTADOR Y GRAHAM BELL, MORENO ----> Avenida del Libertador y Av. Alexander Graham Bell, Moreno
+ 106 - AV. ILLIA Y PERON, SAN JUSTO ----> Av. Presidente Doctor Arturo Umberto Illia y Presidente Juan Domingo Perón, La Matanza
+ 107 - AV. MITRE 3202, MUNRO ----> Avenida Bartolomé Mitre 3202, Vicente López
+ 109 - AVDA DE MAYO 1601, RAMOS MEJIA ----> Av de Mayo 1601, La Matanza
+ 110 - AVDA DE MAYO Y PASCO, RAMOS MEJIA ----> Av de Mayo y Pasco, La Matanza
+ 111 - AV. DEL LIBERTADOR 2376, OLIVOS ----> Avenida del Libertador 2376, Vicente López
+ 112 - AV.ROCA Y PASO MORALE, HURLINGHAM ----> Avenida Julio A. Roca y Paso Morales, Hurlingham
+ 113 - PRIMERA JUNTA 257, QUILMES ----> Primera Junta 257, Quilmes
+ 114 - AV. MITRE 1270, AVELLANEDA ----> Av. Bartolomé Mitre 1270, Avellaneda
+ 115 - AV. VERGARA 3960, HURLINGHAM ----> Avenida Gobernador Valentín Vergara 3960, Hurlingham
+ 116 - AV. VERGARA Y  BIZET, HURLINGHAM ----> Avenida Gobernador Valentín Vergara y Bizet, Hurlingham
+ 118 - AV. FLEMING 802, MARTINEZ ----> Avenida Sir Alexander Fleming 802, San Isidro
+ 119 - DIRECTORIO Y CALLAO, TORTUGUITAS ----> Directorio y El Callao, Malvinas Argentinas
+ 121 - AV.SAN MARTIN 202, FLORENCIO VARELA ----> Av. San Martín 202, Florencio Varela
+ 123 - AVDA. MITRE 195, VILLA MARTELLI ----> Avenida Bartolomé Mitre 195, Vicente López
+ 124 - AV. HIPOLITO YRIGOYEN 11300, TURDERA ----> Avenida Hipólito Yrigoyen 11300, Lomas de Zamora
+ 130 - 9 DE JULIO 202, PILAR ----> 9 de Julio 202, Pilar
+ 132 - AV. LA PLATA Y 12 DE OCTUBRE, QUILMES ----> Av. La Plata y 316 - Av. 12 de Octubre, Quilmes
+ 133 - RUTA 3 Y RUTA 205, CAÑUELAS ----> Ruta Nacional 3 y Ruta Provincial 205, Cañuelas
+ 139 - PERON 250, QUILMES ----> 315 - Pres. Juan Domingo Perón 250, Quilmes
+ 142 - H. YRIGOYEN 5450, REMEDIOS DE ESCALADA ----> Avenida Hipólito Yrigoyen 5450, Lanús
+ 146 - AV. MAIPU 1055, VICENTE LOPEZ ----> Avenida Maipú 1055, Vicente López
+ 147 - AV. MAIPU Y F. BARDI, VICENTE LOPEZ ----> Avenida Maipú y Federico Bardi, Vicente López
+ 149 - AVDA. A. ROLON 1271, SAN ISIDRO - SAN ISIDRO ----> Avenida Rolón 1271, San Isidro
+ 150 - AVDA. ESPORA 5200, BURZACO ----> Av. Tomás Espora 5200, Almirante Brown
+ 151 - AVDA. ESPORA Y 25 DE MAYO, BURZACO ----> Av. Tomás Espora y 25 de Mayo, Almirante Brown
+ 162 - AV. HIPOLITO YRIGOYEN 14082, BURZACO ----> Avenida Hipólito Yrigoyen 14082, Almirante Brown
+ 164 - EL CALLAO 1350, GRAND BOURG ----> El Callao 1350, Malvinas Argentinas
+ 167 - 120 Y 526, LA PLATA ----> Avenida 120 y Avenida 526, La Plata
+ 169 - BARTOLOME MITRE 2198, MORENO ----> Avenida Bartolomé Mitre 2198, Moreno
+ 172 - BARTOLOME MITRE 3299, MORENO ----> Avenida Bartolomé Mitre 3299, Moreno
+ 174 - GRAL. BELGRANO 3305, BERAZATEGUI ----> Camino General Belgrano 3305, Berazategui
+ 175 - GRAL. BELGRANO Y EVA PERON, BERAZATEGUI ----> Camino General Belgrano y Av. Eva Perón, Berazategui
+ 177 - AV. TOMAS FLORES 2999, BERNAL ----> Avenida Tomás Flores 2999, Quilmes
+ 178 - AV. TOMAS FLORES Y DONATO ALVAREZ, BERNAL ----> Avenida Tomás Flores y Avenida Donato Álvarez, Quilmes
+ 179 - BOULEVARD BUENOS AIRES 99, MONTE GRANDE ----> Boulevard Buenos Aires 99, Esteban Echeverría
+ 183 - AV.MOSCONI 1015, LOMAS DEL MIRADOR ----> Avenida General Enrique Mosconi 1015, La Matanza
+ 184 - YERBAL 3105, LANUS OESTE ----> Yerbal 3105, Lanús
+ 187 - AVDA. VERGARA 3036, HURLINGHAM ----> Avenida Gobernador Valentín Vergara 3036, Hurlingham
+ 190 - ROSALES 784, EL PALOMAR ----> Capitán Claudio Rosales 784, Morón
+ 192 - LUIS GARCIA Y MONTEVIDEO, TIGRE - TIGRE ----> Luis García y Montevideo, Tigre
+ 193 - AVDA. ANTARTIDA ARGENTINA 1699, LLAVALLOL ----> Av. Antártida Argentina 1699, Lomas de Zamora
+ 194 - FONDO DE LA LEGUA 2591, VILLA ADELINA ----> Avenida Fondo de la Legua 2591, San Isidro
+ 195 - FONDO DE LA LEGUA Y EL INDIO, VILLA ADELINA ----> Avenida Fondo de la Legua y El Indío, San Isidro
+ 201 - GASPAR CAMPOS 1665, BELLA VISTA ----> Avenida Gaspar Campos 1665, San Miguel
+ 202 - GASPAR CAMPOS Y SCOTT, BELLA VISTA ----> Avenida Gaspar Campos y Ernesto Scott, San Miguel
+ 203 - JUAN B. DE LASALLE Y MONASTERIO, GONZALEZ CATAN ----> Avenida Juan Bautista de Lasalle y Coronel Monasterio, La Matanza
+ 204 - AVDA. HIPOLITO YRIGOYEN 7108, BANFIELD ----> Avenida Hipólito Yrigoyen 7108, Lomas de Zamora
+ 205 - AVDA. HIPOLITO YRIGOYEN Y GODOY CRUZ, BANFIELD ----> Avenida Hipólito Yrigoyen y Tomás Godoy Cruz, Lomas de Zamora
+ 206 - AV. DEL LIBERTADOR 5951, MORENO ----> Avenida del Libertador 5951, Moreno
+ 207 - JUAN D. PERON Y TUCUMAN, PRES. DERQUI ----> Avenida Juan Domingo Perón y Tucumán, Pilar
+ 212 - AVDA. HIPOLITO YRIGOYEN 13405, ADROGUE ----> Avenida Hipólito Yrigoyen 13405, Almirante Brown
+ 213 - MANUEL OBARRIO Y AURORA, MORENO ----> Manuel Obarrio y Aurora, Moreno
+ 215 - ALSINA 375, AVELLANEDA ----> Adolfo Alsina 375, Avellaneda
+ 216 - 12 DE OCTUBRE Y MOSCONI, QUILMES ----> 316 - Av. 12 de Octubre y Av. General Mosconi, Quilmes
+ 218 - AVDA. ROLON Y GOBERNADOR CASTRO, BOULOGNE SUR MER ----> Avenida Avelino Rolón y Gobernador Castro, San Isidro
+ 220 - FISCHETTI 4705, CASEROS ----> 536 - Fischetti 4705, Tres de Febrero
+ 221 - SAN MARTIN 1985, CASEROS ----> 643 - Avenida del Libertador General San Martín 1985, Tres de Febrero
+ 222 - FISCHETTI Y SAN MARTIN, CASEROS ----> 536 - Fischetti y 643 - Avenida del Libertador General San Martín, Tres de Febrero
+ 225 - EVA PERON 2348, TEMPERLEY ----> Av. Eva Perón 2348, Lomas de Zamora
+ 227 - IGNACIO ARIETA 1694, VILLA LUZURIAGA ----> Doctor Ignacio Arieta 1694, La Matanza
+ 228 - IGNACIO ARIETA Y LABARDEN, VILLA LUZURIAGA ----> Doctor Ignacio Arieta y Labardén, La Matanza
+ 232 - AVDA. H. YRIGOYEN 18519, LONGCHAMPS ----> Avenida Hipólito Yrigoyen 18519, Almirante Brown
+ 233 - AVDA. H. YRIGOYEN Y DAVEL, LONGCHAMPS ----> Avenida Hipólito Yrigoyen y Ricardo Davel, Almirante Brown
+ 236 - SANCHEZ DE BUSTAMANTE 1612, LANúS ----> Av. Teodoro Sánchez de Bustamante 1612, Lanús
+ 237 - SANCHEZ DE BUSTAMANTE Y SALTA, LANúS ----> Av. Teodoro Sánchez de Bustamante y Salta, Lanús
+ 238 - AVENIDA 66 Y 143, LA PLATA ----> Avenida 66 y Avenida 143, La Plata
+ 240 - AV. MONTEVERDE 2500, SAN FRANCISCO SOLANO ----> Avenida Gobernador Monteverde 2500, Quilmes
+ 241 - REP. ARGENTINA Y ALSINA, CLAYPOLE ----> República Argentina y Adolfo Alsina, Almirante Brown
+ 243 - AV. del Libertador 1088, SAN FERNANDO ----> Avenida del Libertador 1088, San Fernando
+ 245 - TOMKINSON 2994, SAN ISIDRO ----> Intendente Tomkinson 2994, San Isidro
+ 246 - TOMKINSON Y SUCRE, SAN ISIDRO ----> Intendente Tomkinson y Avenida Sucre, San Isidro
+ 249 - AVDA. HIPOLITO YRIGOYEN 12101, TURDERA ----> Avenida Hipólito Yrigoyen 12101, Lomas de Zamora
+ 256 - AV. FLEMING Y ENTRE RIOS, MARTINEZ ----> Avenida Sir Alexander Fleming y Entre Ríos, San Isidro
+ 258 - AV. ALCORTA Y AV. ZEBALLOS, MORON ----> Avenida Figueroa Alcorta y Av. Estanislao Zeballos, Morón
+ 259 - SAN MARTIN 5095, FLORIDA ----> General San Martín 5095, Vicente López
+ 260 - SAN MARTIN Y CONSTITUYENTES, FLORIDA ----> General San Martín y Avenida de los Constituyentes, Vicente López
+ 261 - FRIAS 286, LOMAS DE ZAMORA ----> Av. General Frías 286, Lomas de Zamora
+ 262 - FONDO DE LA LEGUA 99, SAN ISIDRO ----> Avenida Fondo de la Legua 99, San Isidro
+ 263 - FONDO DE LA LEGUA Y THAMES, SAN ISIDRO ----> Avenida Fondo de la Legua y Thames, San Isidro
+ 265 - AV. SAN MARTIN 420, SAN MARTIN ----> Av. 85 - Libertador General José Francisco San Martín 420, General San Martín
+ 266 - CARLOS CASARES 3795, VICTORIA ----> Carlos Casares 3795, San Fernando
+ 268 - BRANDSEN  11, RAMOS MEJIA ----> Coronel Brandsen 11, La Matanza
+ 269 - BRANDSEN Y DON BOSCO, RAMOS MEJIA ----> Coronel Brandsen y Avenida Don Bosco, La Matanza
+ 270 - B. DE IRIGOYEN 590, GENERAL RODRIGUEZ ----> Boulevard Bernardo de Irigoyen 590, General Rodríguez
+ 274 - GAONA Y GRAHAM BELL, MORENO ----> Av. Pablo Ruiz de Gaona (colectora sur) y Avenida Alexander Graham Bell, Moreno
+ 275 - GAONA Y AVELLANEDA, MORENO ----> Av. Pablo Ruiz de Gaona (colectora norte) y Nicolás Avellaneda, Moreno
+ 278 - AV.CAÑADA DE J.RUIZ Y TUCUMAN, MORON ----> Avenida Cañada de Juan Ruiz y Tucumán, Morón
+ 281 - AV.JUAN M.DE ROSAS Y ZAPIOLA, SAN JUSTO ----> Avenida Brigadier General Juan Manuel de Rosas y Zapiola, La Matanza
+ 284 - AV. H. YRIGOYEN Y GARIBALDI, TEMPERLEY ----> Avenida Hipólito Yrigoyen y José Garibaldi, Lomas de Zamora
+ 287 - AV. DEL LIBERTADOR Y PASTEUR, MARTINEZ ----> Avenida del Libertador y Pasteur, San Isidro
+ 291 - RUTA 58 Y ESPORA, EZEIZA ----> Ruta Provincial 58 y Espora, Ezeiza
+ 294 - H.YRIGOYEN 305, MORON ----> Hipólito Yrigoyen 305, Morón
+ 295 - AV.CALCHAQUI Y VARELA, QUILMES ----> Av. Calchaquí y Av. Florencio Varela, Quilmes
+ 296 - AV.LA PLATA 1400, QUILMES ----> Av. La Plata 1400, Quilmes
+ 297 - AV. SAN MARTIN Y YAPEYU, FLORENCIO VARELA ----> Av. San Martín y Yapeyú, Florencio Varela
+ 299 - CONSTITUYENTES Y AC. NORTE, TORTUGUITAS ----> Avenida de los Constituyentes y Colectora Acceso Norte Ramal Pilar, Malvinas Argentinas
+ 302 - AV. DEL LIBERTADOR Y LAPRIDA, VICENTE LOPEZ ----> Avenida del Libertador y Francisco Narciso de Laprida, Vicente López
+ 303 - 12 Y 48, LA PLATA ----> 12 y 485, La Plata
+ 304 - AV. VICTORICA Y PIOVANO, MORENO ----> Avenida Enrique Victorica y Av. Francisco Piovano Norte, Moreno
+ 306 - AV.LIBERTADOR y GAONA, MORENO ----> Avenida del Libertador y Av. Pablo Ruiz de Gaona (colectora sur), Moreno
+ 308 - AVDA. HIPOLITO YRIGOYEN 13495, ADROGUE ----> Avenida Hipólito Yrigoyen 13495, Almirante Brown
+ 313 - CAZON 585, TIGRE ----> Avenida Daniel M. Cazón 585, Tigre
+ 314 - AV. VERGARA 1900, VILLA TESEI ----> Avenida Gobernador Valentín Vergara 1900, Hurlingham
+ 315 - AV.HIPOLITO YRIGOYEN 15481, BURZACO ----> Avenida Hipólito Yrigoyen 15481, Almirante Brown
+ 317 - 520 Y 19, LA PLATA ----> Avenida 520 y Rotonda 19 y 520, La Plata
+ 320 - ESTEBAN ECHEVERRIA 2840, MUNRO ----> Esteban Echeverría 2840, Vicente López
+ 322 - MOSCONI Y TRIUNVIRATO, QUILMES ----> Av. General Mosconi y Av. Triunvirato, Quilmes
+ 325 - RUTA 26 Y EL PICAFLOR, MAQUINISTA SAVIO ----> Ruta Provincial 26 y El Picaflor, Escobar
+ 326 - PIENOVI 318, AVELLANEDA ----> Francisco Pienovi 318, Avellaneda
+ 327 - PIENOVI Y FIORITO, AVELLANEDA ----> Francisco Pienovi y Carlos Fiorito, Avellaneda
+ 330 - AVDA. MARQUEZ Y SANTOS VEGA, VILLA BOSCH ----> 853 - Avenida Bernabé Márquez y 812 - Santos Vega, Tres de Febrero
+ 332 - AV. BELLA VISTA 2965, LIBERTAD ----> Av. Bella Vista 2965, Merlo
+ 347 - AV.DARDO ROCHA 800, BERNAL ----> Av. Dardo Rocha 800, Quilmes
+ 348 - AV. DE MAYO 16, VILLA ADELINA ----> Avenida de Mayo 16, San Isidro
+ 349 - AV.CAZON 1392, TIGRE ----> Avenida Daniel M. Cazón 1392, Tigre
+ 352 - AV. ANGEL TORCUATO DE ALVEAR 2704, DON TORCUATO ----> Avenida Ángel Torcuato de Alvear 2704, Tigre
+ 357 - FABIAN ONSARI 196, WILDE ----> Av. Fabián Onsari 196, Avellaneda
+ 360 - AV. ESPORA 1189, ADROGUE ----> Av. Espora 1189, Almirante Brown
+ 361 - AV. MITRE Y ESQUEL, EZPELETA ----> Av. Mitre y Esquel, Quilmes
+ 363 - HIPOLITO YRIGOYEN 1765, MORON ----> Hipólito Yrigoyen 1765, Morón
+ 365 - A. BARANDA 770, QUILMES ----> Andrés Baranda 770, Quilmes
+ 368 - H.YRIGOYEN 1910, MERLO ----> Av. Hipólito Yrigoyen 1910, Merlo
+ 370 - AV SANTA FE 2858, MARTINEZ ----> Avenida Santa Fe 2858, San Isidro
+ 372 - AV R DE ESCALADA 3999, VALENTIN ALSINA ----> Av. Remedios de Escalada de San Martín 3999, Lanús
+ 373 - MALABIA 302, REMEDIOS DE ESCALADA ----> Malabia 302, Lanús
+ 374 - MALABIA Y 29 DE SEPTIEMBRE, REMEDIOS DE ESCALADA ----> Malabia y 29 de Septiembre, Lanús
+ 376 - AV. ESPORA 350, ADROGUE ----> Av. Espora 350, Almirante Brown
+ 377 - AV. MAIPU 1508, VICENTE LOPEZ ----> Avenida Maipú 1508, Vicente López
+ 378 - AV.ROLON 1402, BOULOGNE ----> Avenida Avelino Rolón 1402, San Isidro
+ 380 - AV. ESPORA Y PODESTA, BURZACO ----> Av. Tomás Espora y Pablo Podestà, Almirante Brown
+ 381 - SAN MARTIN 4199, LANUS ----> Av. General San Martín 4199, Lanús
+ 382 - AV. MITRE 319, VILLA MARTELLI ----> Avenida Bartolomé Mitre 319, Vicente López
+ 384 - 17 Y AVDA 32, LA PLATA ----> 17 y Avenida 32, La Plata
+ 385 - DIAG 74 Y 116, LA PLATA ----> Diagonal 74 y 116, La Plata
+ 386 - SENADOR MORON 2375, BELLA VISTA ----> Avenida Senador Morón 2375, San Miguel
+ 388 - HIPOLITO YRIGOYEN 2550, JOSE C. PAZ ----> Avenida Presidente Hipólito Yrigoyen 2550, José C. Paz
+ 390 - AV. SAN MARTIN 1050, LANUS ----> Av. General San Martín 1050, Lanús
+ 392 - 7 Y 45, LA PLATA ----> 7 y 45, La Plata
+ 397 - HIPOLITO YRIGOYEN 14206, BURZACO ----> Avenida Hipólito Yrigoyen 14206, Almirante Brown
+ 398 - JUAN MANUEL DE ROSAS 4701, SAN JUSTO ----> Avenida Brigadier General Juan Manuel de Rosas 4701, La Matanza
+ 403 - AVDA MONTEVERDE Y MOSCONI, QUILMES ----> Av. Gobernador Monteverde y Av. General Mosconi, Quilmes
+ 405 - AV. SANTA FE 960, ACASSUSO ----> Avenida Santa Fe 960, San Isidro
+ 407 - AV. CALCHAQUI 1615, QUILMES ----> Av. Calchaquí 1615, Quilmes
+ 408 - AV. CALCHAQUI Y 12 DE OCTUBRE, QUILMES ----> Av. Calchaquí y 316 - Av. 12 de Octubre, Quilmes
+ 409 - AV LIBERTADOR 15301, ACASSUSO ----> Avenida del Libertador 15301, San Isidro
+ 410 - JUAN MANUEL DE ROSAS 1802, LOMAS DEL MIRADOR ----> Avenida Brigadier General Juan Manuel de Rosas 1802, La Matanza
+ 414 - AVENIDA FAIR Y CERVETTI, MONTE GRANDE ----> Av. V. Fair y Antonio Cervetti, Esteban Echeverría
+ 417 - CORDOBA 393, MORON ----> Córdoba 393, Morón
+ 422 - EVA PERON 402, TEMPERLEY ----> Av. Eva Perón 402, Lomas de Zamora
+ 423 - AVDA. SAN MARTIN 2706, LANUS ----> Av. General San Martín 2706, Lanús
+ 424 - CAMINO GRAL. BELGRANO Y 12 DE OCTUBRE, QUILMES ----> Camino General Belgrano y 316 - Av. 12 de Octubre, Quilmes
+ 425 - AV. CALCHAQUI Y CRAVIOTTO, QUILMES ----> Av. Calchaquí y 341 - José A. Craviotto, Quilmes
+ 426 - MUNOZ 2301, SAN MIGUEL ----> Muñoz 2301, San Miguel
+ 427 - AVDA. ADER 3226, MUNRO ----> Avenida Bernardo Ader 3226, Vicente López
+ 429 - MITRE Y MATIENZO, QUILMES ----> Av. Mitre y Matienzo, Quilmes
+ 430 - AV.LIBERTADOR 2365, OLIVOS ----> Avenida del Libertador 2365, Vicente López
+ 432 - AV RIGOLLEAU Y CALLE 138, BERAZATEGUI ----> Avenida 14 (Gastón F. Rigolleau) y Calle 138, Berazategui
+ 434 - PLAZA ESPAÑA 187, LA PLATA ----> Plaza España 187, La Plata
+ 442 - BOULEVARD BUENOS AIRES 2042, LUIS GUILLON ----> Boulevard Buenos Aires 2042, Esteban Echeverría
+ 443 - AV.SUCRE 2780, BECCAR ----> Avenida Sucre 2780, San Isidro
+ 445 - ESPAÑA 479, MORENO ----> España 479, Moreno
+ 446 - ESPAÑA Y EVITA, MORENO ----> España y Boulevard Evita, Moreno
+ 450 - DIAGONAL 74 2291, LA PLATA ----> Diagonal 74 2291, La Plata
+ 453 - AV. GAONA 4192, CIUDADELA ----> 225 - Av. Gaona 4192, Tres de Febrero
+ 454 - JUAN XXIII 304, LOMAS DE ZAMORA ----> Av. Juan XXIII 304, Lomas de Zamora
+ 455 - 9 DE JULIO 2470, LANUS ----> Av. 9 de Julio 2470, Lanús
+ 459 - PARANA 3684, OLIVOS ----> Paraná 3684, Vicente López
+ 460 - H. YRIGOYEN 17889, LONGCHAMPS ----> Avenida Hipólito Yrigoyen 17889, Almirante Brown
+ 465 - AV. CALCHAQUI Y ZAPIOLA, QUILMES ----> Av. Calchaquí y Avenida Zapiola, Quilmes
+ 466 - AV. 844 2097, SOLANO ----> Avenida José Andrés López (844) 2097, Quilmes
+ 468 - EVA PERON 2534, LANUS ----> Eva Perón 2534, Lanús
+ 469 - AV H. YRIGOYEN 8504, LOMAS DE ZAMORA ----> Avenida Hipólito Yrigoyen 8504, Lomas de Zamora
+ 470 - AV H. YRIGOYEN Y P. LUCENA, LOMAS DE ZAMORA ----> Avenida Hipólito Yrigoyen y José Pereyra Lucena, Lomas de Zamora
+ 475 - AV. HIPOLITO YRIGOYEN 7520, BANFIELD ----> Avenida Hipólito Yrigoyen 7520, Lomas de Zamora
+ 477 - AV. LIBERTADOR 14002, MARTINEZ ----> Avenida del Libertador 14002, San Isidro
+ 480 - AV. MITRE Y PARANA, MUNRO ----> Avenida Bartolomé Mitre y Paraná, Vicente López
+ 481 - DARDO ROCHA Y SANTAMARINA, MONTE GRANDE ----> Avenida Dardo Rocha y Ramón Santamarina, Esteban Echeverría
+ 487 - MARCELO T DE ALVEAR 4691, CASEROS ----> 307 - Av. Marcelo Torcuato de Alvear 4691, Tres de Febrero
+ 493 - AV BELLA VISTA 4598, MERLO ----> Av. Bella Vista 4598, Merlo
+ 495 - MONSEÑOR R. BUFANO 2897, SAN JUSTO ----> Av. Monseñor Rodolfo Bufano (Camino de Cintura) 2897, La Matanza
+ 496 - AV.REMEDIOS DE ESCALADA 2102, VALENTIN ALSINA ----> Av. Remedios de Escalada 2102, Lanús
+ 498 - ARISTOBULO DEL VALLE Y CORRIENTES, QUILMES ----> Aristóbulo del Valle y Corrientes, Quilmes
+ 503 - BOULEVARD BUENOS AIRES 290, MONTE GRANDE ----> Boulevard Buenos Aires 290, Esteban Echeverría
+ 505 - MITRE 650, LUJAN ----> Bartolomé Mitre 650, Tigre
+ 508 - AV.CONSTITUYENTES 1806, SAN MARTIN ----> Avenida de los Constituyentes 1806, General San Martín
+ 511 - GAONA Y LIBERTADOR, MORENO ----> Av. Pablo Ruiz de Gaona (colectora sur) y Avenida del Libertador, Moreno
+ 512 - AV. RIVADAVIA 16028, HAEDO ----> Av. Rivadavia 16028, Morón
+ 514 - 9 DE JULIO 104, CIUDADELA ----> 260 - 9 de Julio 104, Tres de Febrero
+ 515 - DARDO ROCHA Y CALLE 21, BERAZATEGUI ----> Av. Dardo Rocha y Calle 21 A, Berazategui
+ 517 - SALTA 893, LANUS ----> Salta 893, Lanús
+ 520 - AV. MARQUEZ Y CETZ, SAN ISIDRO ----> Avenida Márquez y Coronel Cetz, San Isidro
+ 523 - AV  GUEMES 934, AVELLANEDA ----> Av. General Güemes 934, Avellaneda
+ 527 - AVDA. AVELLANEDA 3190, VIRREYES ----> Avenida Nicolás Avellaneda 3190, San Fernando
+ 528 - AVDA. AVELLANEDA Y SUIPACHA, VIRREYES ----> Avenida Nicolás Avellaneda y Suipacha, San Fernando
+ 530 - GARIBALDI 199, QUILMES ----> Garibaldi 199, Quilmes
+ 531 - LAVALLE 721, QUILMES ----> Lavalle 721, Quilmes
+ 532 - GARIBALDI Y LAVALLE, QUILMES ----> Garibaldi y Lavalle, Quilmes
+ 534 - RIVADAVIA 1702, LANUS ----> Av. Bernardino Rivadavia 1702, Lanús
+ 535 - RIVADAVIA Y GUADALUPE, LANUS ----> Av. Bernardino Rivadavia y Guadalupe, Lanús
+ 537 - AVENIDA 44 Y 31, LA PLATA ----> Avenida 44 y Avenida 31, La Plata
+ 538 - RICARDO BALBIN Y TAGLE, MARIANO ACOSTA ----> Avenida Doctor Ricardo Balbin y Tagle, Merlo
+ 539 - 72 Y 24, LA PLATA ----> Avenida 72 y 24, La Plata
+ 543 - AVDA. FRIAS 701, LOMAS DE ZAMORA ----> Av. General Frías 701, Lomas de Zamora
+ 544 - AVDA. FRIAS Y M. ARROTEA, LOMAS DE ZAMORA ----> Av. General Frías y Carlos Molina Arrotea, Lomas de Zamora
+ 551 - CAÑADA DE JUAN RUIZ 510, CASTELAR ----> Avenida Cañada de Juan Ruiz 510, Morón
+ 553 - LAPRIDA Y GRAL. FRIAS, LOMAS DE ZAMORA ----> Laprida y Av. General Frías, Lomas de Zamora
+ 554 - FAMATINA 3032, ITUZAINGO ----> Famatina 3032, Ituzaingó
+ 555 - FAMATINA Y HAITI, ITUZAINGO ----> Famatina y Haiti, Ituzaingó
+ 567 - EVA PERON 3805, SAN MARTIN - SAN MARTIN ----> 125 - Avenida Eva Perón 3805, General San Martín
+ 572 - FRUCTUOSO DIAZ Y SAN MARTIN, GARIN ----> Avenida Fructuoso Díaz y San Martín, Escobar
+ 576 - B. RIVADAVIA 2280, LANUS ----> Av. Bernardino Rivadavia 2280, Lanús
+ 577 - B. RIVADAVIA Y TACUARI, LANUS ----> Av. Bernardino Rivadavia y Tacuarí, Lanús
+ 578 - JUAN MANUEL DE ROSAS Y HORTIGUERA, VIRREY DEL PINO ----> Avenida Brigadier General Juan Manuel de Rosas y Coronel Hortiguera, La Matanza
+ 586 - HIPOLITO YRIGOYEN 2779, SAN FERNANDO ----> Avenida Hipólito Yrigoyen 2779, San Fernando
+ 587 - AVDA. DEL LIBERTADOR 3145, VICTORIA ----> Avenida del Libertador 3145, San Fernando
+ 592 - AVDA. ANTARTIDA ARGENTINA 1498, LLAVALLOL ----> Av. Antártida Argentina 1498, Lomas de Zamora
+ 593 - H. YRIGOYEN 2095, EL TALAR ----> Avenida Hipólito Yrigoyen 2095, Tigre
+ 597 - AV. RIVADAVIA 902, AVELLANEDA ----> Av. Bernardino Rivadavia 902, Avellaneda
+ 598 - AV. RIVADAVIA Y CABILDO, AVELLANEDA ----> Av. Bernardino Rivadavia y Cabildo, Avellaneda
+ 600 - HIPOLITO YRIGOYEN 2009, SAN FERNANDO ----> Avenida Hipólito Yrigoyen 2009, San Fernando
+ 601 - HIPOLITO YRIGOYEN Y SOBREMONTE, SAN FERNANDO ----> Avenida Hipólito Yrigoyen y Avenida Sobremonte, San Fernando
+ 604 - BOULOGNE SUR MER 597, DON TORCUATO ----> Boulogne sur Mer 597, Tigre
+ 611 - AVDA. 25 DE MAYO 1212, SAN MARTIN ----> Avenida 79 - 25 de Mayo 1212, General San Martín
+ 612 - AVDA. 25 DE MAYO Y ESPAÑA, SAN MARTIN ----> Avenida 79 - 25 de Mayo y 32 - España, General San Martín
+ 613 - HIPOLITO YRIGOYEN 2660, MARTINEZ ----> Hipólito Yrigoyen 2660, San Isidro
+ 614 - AVENIDA PRESIDENTE JUAN DOMINGO PERON 3565, HAEDO ----> Av. Presidente Juan Domingo Perón 3565, Morón
+ 617 - JOSE M. MORENO 1302, LANUS ----> José María Moreno 1302, Lanús
+ 618 - JOSE M. MORENO Y GRAL. LAVALLEJA, LANUS ----> José María Moreno y General Lavalleja, Lanús
+ 619 - M. PELLIZA 3882, OLIVOS ----> Mariano Pelliza 3882, Vicente López
+ 623 - CAMINO GRAL. BELGRANO Y RIGOLLEAU, BERAZATEGUI ----> Camino General Belgrano y Av. Gastón F. Rigolleau (14), Berazategui
+ 625 - AV. CROVARA 5353, SAN JUSTO ----> Av Intendente Esteban Crovara 5353, La Matanza
+ 626 - SOBREMONTE 3191, VICTORIA ----> Sobremonte 3191, San Fernando
+ 628 - 117 Y 80, VILLA ELVIRA ----> 117 y 80, La Plata
+ 629 - AVDA. MAIPU 690, VICENTE LOPEZ ----> Avenida Maipú 690, Vicente López
+ 630 - AVDA. MAIPU Y LAS HERAS, VICENTE LOPEZ ----> Avenida Maipú y Las Heras, Vicente López
+ 631 - LAPRIDA 3589, VILLA MARTELLI ----> Francisco Laprida 3589, Vicente López
+ 632 - LAPRIDA Y ESTADOS UNIDOS, VILLA MARTELLI ----> Francisco Laprida y Estados Unidos, Vicente López
+ 633 - EVA PERÓN 3138, RANELAGH ----> Av. Eva Perón 3138, Berazategui
+ 638 - AV. ESPORA Y PARANÁ, BURZACO ----> Av. Espora y Paraná, Almirante Brown
+ 639 - OSORIO 2630, LANUS ----> Coronel Osorio 2630, Lanús
+ 640 - OSORIO Y CASTRO, LANUS ----> Coronel Osorio y Manuel Castro, Lanús
+ 642 - AV. CENTENARIO Y COLOMBIA, QUILMES ----> Av. Centenario y Colombia, Quilmes
+ 646 - 122 Y 60, BERISSO ----> Avenida 122 y Rotonda 122 y 60, Berisso
+ 647 - AVENIDA GAONA Y ECHEVERRIA, RAMOS MEJIA ----> Av. Gaona y Esteban Echeverría, La Matanza
+ 648 - AVENIDA R DE ESCALADA DE SAN MARTIN 3710, VALENTIN ALSINA ----> Av. Remedios de Escalada de San Martín 3710, Lanús
+ 649 - AVENIDA R DE ESCALADA DE SAN MARTIN Y CROTTI, VALENTIN ALSINA ----> Av. Remedios de Escalada de San Martín y Roberto J. Crotti, Lanús
+ 651 - AVENIDA GASPAR CAMPOS Y MORON, BELLA VISTA ----> Avenida Gaspar Campos y Avenida Senador Morón, San Miguel
+ 652 - 21 Y 131, BERAZATEGUI ----> Avenida 21 (Nicolás Videla) y Calle 131 A, Berazategui
+ 657 - SANTA ROSA 2489, CASTELAR ----> Santa Rosa 2489, Morón
+ 660 - MENDEZ DE ANDES Y CARLOS CASARES, RAFAEL CASTILLO ----> Méndez de Andés y Av. Carlos Casares, La Matanza
+ 664 - 847 Y 899, S. F. SOLANO ----> Miguel Ángel Pascual (847) y Calle 899, Quilmes
+ 665 - CARLOS VILLATE 3290, OLIVOS ----> Carlos Villate 3290, Vicente López
+ 666 - CARLOS VILLATE Y ROSETTI, OLIVOS ----> Carlos Villate y Rosetti, Vicente López
+ 672 - AVENIDA FAIR V 410, MONTE GRANDE ----> Av. V. Fair 410, Esteban Echeverría
+ 674 - AVENIDA RAMON FRANCO 6287, WILDE ----> Av. Ramón Franco 6287, Avellaneda
+ 675 - AVENIDA RAMON FRANCO Y LARTIGAU, WILDE ----> Av. Ramón Franco y Alberto Lartigau, Avellaneda
+ 676 - AVENIDA V CASTRO Y FITZ ROY, PILAR ----> Avenida Venancio Castro y Fitz Roy, Pilar
+ 678 - AVENIDA MAIPU 999, VICENTE LOPEZ ----> Avenida Maipú 999, Vicente López
+ 680 - 21 Y 114, BERAZATEGUI ----> Calle 21 A y Calle 114, Berazategui
+ 681 - AVENIDA AVELINO ROLON 2488, BOULOGNE ----> Avenida Avelino Rolón 2488, San Isidro
+ 682 - AVENIDA AVELINO ROLON Y AVENIDA BERNARDO ADER, BOULOGNE ----> Avenida Avelino Rolón y Av. Bernardo Ader, San Isidro
+ 683 - BARTOLOME MITRE 129, LUJAN ----> Bartolomé Mitre 129, Tigre
+ 688 - AVENIDA GOBERNADOR MONTEVERDE Y AVENIDA 893, S.F.SOLANO ----> Avenida Gobernador Monteverde y Avenida Guillermo Enrique Hudson (893), Quilmes
+ 690 - AVENIDA CENTENARIO Y JOSE INGENIEROS, BECCAR ----> Avenida Centenario y José Ingenieros, San Isidro
+ 693 - AVENIDA DARDO ROCHA 711, BERAZATEGUI ----> Av. Dardo Rocha 711, Berazategui
+ 694 - AVENIDA DARDO ROCHA Y 7, BERAZATEGUI ----> Av. Dardo Rocha y Avenida 7 (Lavalle), Berazategui
+ 697 - AVENIDA PRES J D PERON 3245, HAEDO ----> Av. Presidente Juan Domingo Perón 3245, Morón
+ 712 - AVENIDA BRIGADIER GENERAL JUAN MANUEL DE ROSAS Y ZAPIOLA, SAN JUSTO ----> Avenida Brigadier General Juan Manuel de Rosas y Zapiola, La Matanza
+ 714 - CRISOLOGO LARRALDE 2701, SARANDI ----> Av. Crisólogo Larralde 2701, Avellaneda
+ 715 - CRISOLOGO LARRALDE Y SALTA, SARANDI ----> Av. Crisólogo Larralde y Salta, Avellaneda
+ 716 - AVENIDA GRAL SAN MARTIN Y MITRE, RAMOS MEJIA ----> Avenida General San Martín y Emilio Mitre, La Matanza
+ 722 - CRISOLOGO LARRALDE 5310, WILDE ----> Av. Crisólogo Larralde 5310, Avellaneda
+ 723 - CRISOLOGO LARRALDE Y BOULEVARD DE LOS ITALIANOS, WILDE ----> Av. Crisólogo Larralde y Boulevard de los Italianos, Avellaneda
+ 726 - BARTOLOME MITRE Y VICTORICA, MORENO ----> Avenida Bartolomé Mitre y Avenida Enrique Victorica, Moreno
+ 733 - AVENIDA PRESIDENTE PERON 1535, HAEDO ----> Av. Presidente Juan Domingo Perón 1535, Morón
+ 735 - 51 Y 9, LA PLATA ----> 51 y 9, La Plata
+ 736 - 12 Y DIAGONAL 78, LA PLATA ----> 12 y Diagonal 78, La Plata
+ 739 - DIAGONAL 73 Y 72, LA PLATA ----> Diagonal 73 y Rotonda 120 y 72, La Plata
+ 741 - AV. DEL LIBERTADOR 5200, MORENO ----> Avenida del Libertador 5200, Moreno
+ 742 - AV. DEL LIBERTADOR Y OZANAM, MORENO ----> Avenida del Libertador y Federico Ozanam, Moreno
+ 745 - AVENIDA HIPOLITO YRIGOYEN 3732, LANUS OESTE ----> Avenida Hipólito Yrigoyen 3732, Lanús
+ 746 - AVENIDA HIPOLITO YRIGOYEN Y PERON, LANUS OESTE ----> Avenida Hipólito Yrigoyen y Eva Perón, Lanús
+ 751 - AVENIDA DR RICARDO BALBIN 1895, SAN MARTIN ----> Av. 101 - Doctor Ricardo Balbín 1895, General San Martín
+ 752 - AVENIDA DR RICARDO BALBIN Y MORENO, SAN MARTIN ----> Av. 101 - Doctor Ricardo Balbín y 48 - Moreno, General San Martín
+ 756 - AVENIDA ZAPIOLA Y SAN MARTIN, BERNAL ----> Avenida Zapiola y Av. San Martín, Quilmes
+ 759 - AVENIDA MAIPU 3604, OLIVOS ----> Avenida Maipú 3604, Vicente López
+ 760 - AVENIDA MAIPU Y BERMUDEZ, OLIVOS ----> Avenida Maipú y Capitán Justo de Bermúdez, Vicente López
+ 761 - AVENIDA CALCHAQUI 3900, QUILMES ----> Av. Calchaquí 3900, Quilmes
+ 763 - AVENIDA B MITRE 400, PASO DEL REY ----> Avenida Bartolomé Mitre 400, Moreno
+ 764 - AVENIDA B MITRE Y ASCONAPE, PASO DEL REY ----> Avenida Bartolomé Mitre y Eugenia Ottone de Asconapé, Moreno
+ 773 - AVENIDA DEL LIBERTADOR 2199, SAN FERNANDO ----> Avenida del Libertador 2199, San Fernando
+ 774 - AVENIDA DEL LIBERTADOR Y QUINTANA, SAN FERNANDO ----> Avenida del Libertador y Quintana, San Fernando
+ 775 - FAMATINA 3070, ITUZAINGO ----> Famatina 3070, Ituzaingó
+ 776 - FAMATINA Y COLOMBIA, ITUZAINGO ----> Famatina y Colombia, Ituzaingó
+ 782 - DEL CARMEN Y SAN VICENTE, CAÑUELAS ----> Del Carmen y San Vicente, Cañuelas
+ 786 - PRIMERA JUNTA Y MONTES DE OCA, MUNRO ----> Primera Junta y Montes de Oca, Vicente López
+ 792 - DARDO ROCHA Y 9 DE JULIO, BERNAL ----> Av. Dardo Rocha y 9 de Julio, Quilmes
+ 793 - CENTENARIO URUGUAYO 1196, VILLA DOMINICO ----> Centenario Uruguayo 1196, Avellaneda
+ 794 - CENTENARIO URUGUAYO Y C LARRALDE, VILLA DOMINICO ----> Centenario Uruguayo y Av. Crisólogo Larralde, Avellaneda
+ 795 - AVENIDA 25 DE MAYO Y RIO DE JANEIRO, LANUS OESTE ----> Av. 25 de Mayo y Río de Janeiro, Lanús
+ 796 - AVENIDA SAN MARTIN 3401, RAFAEL CALZADA ----> Avenida General San Martín 3401, Almirante Brown
+ 798 - AVENIDA 7 Y 85, LA PLATA ----> Avenida 7 y 85, La Plata
+ 803 - BLAS PARERA Y KING, ITUZAINGO ----> Blas Parera y Santiago King, Ituzaingó
+ 804 - CHILAVERT Y GRAL PAZ, VILLA CELINA ----> Coronel Martiniano Chilavert y Avenida General Paz, La Matanza
+ 806 - AVENIDA H. YRIGOYEN 8590, LOMAS DE ZAMORA ----> Avenida Hipólito Yrigoyen 8590, Lomas de Zamora
+ 807 - 7 Y 32, LA PLATA ----> Avenida 7 y Avenida 32, La Plata
+ 812 - BOULEVARD 82 Y 29, LA PLATA ----> Boulevard 82 y 29, La Plata
+ 814 - RIVADAVIA Y E NAZARRE, PILAR ----> Rivadavia y Ernesto Nazarre, Pilar
+ 819 - AVENIDA 122 Y 46, ENSENADA ----> Avenida 122 y 46, Ensenada
+ 822 - AVENIDA LOS QUILMES 702, BERNAL ----> Av. Los Quilmes 702, Quilmes
+ 823 - AVENIDA LOS QUILMES Y CERRITO, BERNAL ----> Av. Los Quilmes y Cerrito, Quilmes
+ 829 - DE LA UNION 2300, PONTEVEDRA ----> De La Unión 2300, Merlo
+ 830 - DE LA UNION Y DE LOS FRANCESES, PONTEVEDRA ----> De La Unión y De Los Franceses, Merlo
+ 831 - AVENIDA ROLON Y LAMADRID, BOULOGNE ----> Avenida Avelino Rolón y General Lamadrid, San Isidro
+ 842 - AVENIDA EVA PERON 1399, TEMPERLEY ----> Av. Eva Perón 1399, Lomas de Zamora
+ 843 - AVENIDA EVA PERON Y AV. CABRED, TEMPERLEY ----> Av. Eva Perón y Av. Cabred, Lomas de Zamora
+ 853 - AVENIDA TOMAS FLORES 2199, BERNAL ----> Avenida Tomás Flores 2199, Quilmes
+ 862 - AVENIDA FONDO DE LA LEGUA 1381, MARTINEZ ----> Avenida Fondo de la Legua 1381, San Isidro
+ 871 - MAIPU Y ARIAS, SAN FERNANDO ----> Maipú y General Arias, San Fernando
+ 872 - ARIAS 1506, SAN FERNANDO ----> General Arias 1506, San Fernando
+ 879 - HIPOLITO YRIGOYEN 1598, MARTINEZ ----> Hipólito Yrigoyen 1598, San Isidro
+ 880 - HIPOLITO YRIGOYEN Y FLEMING, MARTINEZ ----> Hipólito Yrigoyen y Avenida Sir Alexander Fleming, San Isidro
+ 893 - AVENIDA BELGRANO 790, AVELLANEDA ----> Av. Belgrano 790, Avellaneda
+ 894 - AVENIDA BELGRANO Y 9 DE JULIO, AVELLANEDA ----> Av. Belgrano y 9 de Julio, Avellaneda
+ 895 - AVENIDA FONDO DE LA LEGUA 2127, VILLA ADELINA ----> Avenida Fondo de la Legua 2127, San Isidro
+ 896 - AVENIDA FONDO DE LA LEGUA Y DRAGO, VILLA ADELINA ----> Avenida Fondo de la Legua y Luis María Drago, San Isidro
+ 902 - ZEBALLOS Y 25 DE MAYO, AVELLANEDA ----> Estanislao S. Zeballos y 25 de Mayo, Avellaneda
+ 906 - AVENIDA SAN MARTIN 1158, CASEROS ----> 643 - Avenida del Libertador General San Martín 1158, Tres de Febrero
+ 907 - AVENIDA SAN MARTIN Y LUIS M. CAMPOS, CASEROS ----> 643 - Avenida del Libertador General San Martín y 512 - Luis María Campos, Tres de Febrero
+ 910 - AVENIDA MAIPU 760, VICENTE LOPEZ ----> Avenida Maipú 760, Vicente López
+ 911 - AVENIDA MAIPU Y GUEMES, VICENTE LOPEZ ----> Avenida Maipú y Güemes, Vicente López
+ 912 - AVENIDA MITRE 1749, QUILMES ----> Av. Mitre 1749, Quilmes
+ 913 - AVENIDA MITRE Y HERNANDEZ, QUILMES ----> Av. Mitre y Av. José Hernández, Quilmes
+ 916 - AVENIDA VELEZ SARSFIELD Y CULPINA, VILLA MADERO ----> Av. Vélez Sarsfield y Culpina, La Matanza
+ 917 - AVENIDA ARGENTINA 1799, MERLO ----> AV Argentina 1799, Merlo
+ 920 - TONELERO Y RICARDO BALBIN, MARIANO ACOSTA ----> Tonelero y Avenida Doctor Ricardo Balbin, Merlo
+ 922 - AVENIDA DEL LIBERTADOR 18047, BECCAR ----> Avenida del Libertador 18047, San Isidro
+ 923 - AVENIDA DEL LIBERTADOR Y ROSARIO DE SANTA FE, BECCAR ----> Avenida del Libertador y Rosario de Santa Fe, San Isidro
+ 925 - 2 Y 158, BERISSO ----> 25 y 158, Berisso
+ 926 - AVENIDA DR H PUEYRREDON Y SARMIENTO, PILAR ----> Avenida Doctor Honorio Pueyrredón y Sarmiento, Pilar
+ 931 - DIAZ VELEZ 1686, CIUDADELA ----> Diag 10 - Avenida General Eustoquio Antonio Díaz Vélez (TF) / General Eustoquio Antonio Díaz Vélez (LM) 1686, Tres de Febrero
+ 932 - DIAZ VELEZ Y GENERAL PAZ, CIUDADELA ----> Diag 10 - General Díaz Vélez (TF) / General Díaz Vélez (LM) y D11 - Colectora General José María Paz, Tres de Febrero
+ 939 - DIAGONAL 73 Y 9, LA PLATA ----> Diagonal 73 y 9, La Plata
+ 943 - AVENIDA DEL SESQUICENTENARIO Y MANZANARES, LOS POLVORINES ----> Avenida del Sesquicentenario y Manzanares, Malvinas Argentinas
+ 946 - RODRIGUEZ PEÑA 4901, SAN MARTIN ----> 22 - Rodríguez Peña 4901, General San Martín
+ 947 - RODRIGUEZ PEÑA Y LAMADRID, SAN MARTIN ----> 22 - Rodríguez Peña y 113 - General Lamadrid, General San Martín
+ 957 - AVENIDA SANTA FE 1920, MARTINEZ ----> Avenida Santa Fe 1920, San Isidro
+ 958 - AVENIDA SANTA FE Y VICENTE LOPEZ, MARTINEZ ----> Avenida Santa Fe y Vicente Fidel López, San Isidro
+ 959 - AVENIDA MAIPU Y PELLIZA, OLIVOS ----> Avenida Maipú y Mariano Pelliza, Vicente López
+ 960 - NICARAGUA 66, SARANDI ----> Nicaragua 66, Avellaneda
+ 961 - NICARAGUA Y AVENIDA MITRE, SARANDI ----> Nicaragua y Av. Bartolomé Mitre, Avellaneda
+ 962 - AYACUCHO 2600, SAN MARTIN ----> 79 - Ayacucho 2600, General San Martín
+ 966 - 66 Y 173, LA PLATA ----> Avenida 66 y 173, La Plata
+ 967 - AVENIDA CAZON 997, TIGRE ----> Avenida Daniel M. Cazón 997, Tigre
+ 968 - AVENIDA CAZON Y CHACABUCO, TIGRE ----> Avenida Daniel M. Cazón y Chacabuco, Tigre
+ 970 - 25 DE MAYO Y RIVADAVIA, SAN VICENTE ----> 25 de Mayo y Rivadavia, San Vicente
+ 973 - INT CARLOS RATTI 1720, ITUZAINGO ----> Intendente Carlos Ratti 1720, Ituzaingó
+ 974 - INT CARLOS RATTI Y MONROE, ITUZAINGO ----> Intendente Carlos Ratti y Monroe, Ituzaingó
+ 980 - AVENIDA HIPOLITO YRIGOYEN Y GRAL FRIAS, ADROGUE ----> Avenida Hipólito Yrigoyen y General Frías, Almirante Brown
+ 982 - AVENIDA DEL LIBERTADOR 3402, LA LUCILA ----> Avenida del Libertador 3402, Vicente López
+ 983 - AVENIDA DEL LIBERTADOR Y J INGENIEROS, LA LUCILA ----> Avenida del Libertador y José Ingenieros, Vicente López
+ 984 - AVENIDA ANTARTIDA ARGENTINA 696, TURDERA ----> Av. Antártida Argentina 696, Lomas de Zamora
+ 985 - AVENIDA ANTARTIDA ARGENTINA Y FRIAS, TURDERA ----> Av. Antártida Argentina y General Frías, Lomas de Zamora
+ 993 - LARRALDE 2075, TIGRE ----> Avenida Crisólogo Larralde 2075, Tigre
+ 995 - 27 Y 72, LA PLATA ----> 27 y Avenida 72, La Plata
+ 996 - AVENIDA GENERAL SAN MARTIN 2298, LANUS OESTE ----> Av. General San Martín 2298, Lanús
+ 997 - AVENIDA GENERAL SAN MARTIN Y VIAMONTE, LANUS OESTE ----> Av. General San Martín y Viamonte, Lanús
+1003 - LAVALLE 200, TIGRE ----> Lavalle 200, Tigre
+1004 - LAVALLE Y CARLOS PELLEGRINI, TIGRE ----> General Lavalle y Carlos Pellegrini, Tigre
+1005 - BOULEVARD BUENOS AIRES 2073, LUIS GUILLON ----> Boulevard Buenos Aires 2073, Esteban Echeverría
+1007 - AVENIDA HORACIO CESTINO Y QUINTANA, ENSENADA ----> Avenida Horacio Cestino y Quintana, Ensenada
+1013 - AVENIDA RIVADAVIA 16389, MORON ----> Av. Rivadavia 16389, Morón
+1016 - AVENIDA DEL LIBERTADOR Y MELO, VICENTE LOPEZ ----> Avenida del Libertador y Melo, Vicente López
+1017 - AVENIDA RIVADAVIA 12300, CIUDADELA ----> 137 - Av. Bernardino Rivadavia 12300, Tres de Febrero
