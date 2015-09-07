@@ -3,6 +3,8 @@ import unittest
 import sys, os
 sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
+from test_commons import *
+
 from NormalizadorDireccionesAMBA import *
 from Partido import Partido
 from Direccion import Direccion
@@ -13,11 +15,7 @@ class NormalizadorDireccionesAMBACalleYCalleTestCase(unittest.TestCase):
     partidos = ['hurlingham','ituzaingo','jose_c_paz','la_matanza','san_isidro','san_miguel']
     nd = NormalizadorDireccionesAMBA(include_list=partidos)
     for n in nd.normalizadores:
-        with open('callejeros/{0}.callejero'.format(n.partido.codigo)) as data_file:
-            data = json.load(data_file)
-        n.c.data = data
-        n.c.data.sort()
-        n.c.osm_ids = [k[0] for k in n.c.data]
+        cargarCallejeroEstatico(n.c)
 
 
     def _checkDireccion(self, direccion, codigo_calle, nombre_calle, codigo_cruce, nombre_cruce, codigo_partido, localidad):

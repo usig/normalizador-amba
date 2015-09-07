@@ -1,10 +1,10 @@
 # coding: UTF-8
 import unittest
 import sys, os
-from urllib2 import HTTPError
-import simplejson as json
 from simplejson import JSONDecodeError
 sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
+
+from test_commons import *
 
 from Callejero import Callejero
 from Partido import Partido
@@ -14,23 +14,11 @@ from Errors import *
 class CallejeroTestCase(unittest.TestCase):
     p = Partido('jose_c_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
     c = Callejero(p)
+    cargarCallejeroEstatico(c)
+    
     p = Partido('general_san_martin', u'General San Martin', u'Partido de General San Martin', 1719022)
     c_san_martin = Callejero(p)
-    
-    # Cargo los callejeros congelados
-    with open('callejeros/jose_c_paz.callejero') as data_file:
-        data = json.load(data_file)
-    c.data = data
-    c.data.sort()
-    c.osm_ids = [k[0] for k in c.data]
-    
-    with open('callejeros/general_san_martin.callejero') as data_file:
-        data = json.load(data_file)
-
-    c_san_martin.data = data
-    c_san_martin.data.sort()
-    c_san_martin.osm_ids = [k[0] for k in c_san_martin.data]
-
+    cargarCallejeroEstatico(c_san_martin)
 
     def _checkCalle(self, calle, codigo, nombre, codigo_partido, localidad):
         self.assertTrue(isinstance(calle, Calle))

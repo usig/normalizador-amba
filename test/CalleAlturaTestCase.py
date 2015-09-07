@@ -4,6 +4,8 @@ import sys, os
 import simplejson as json
 sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
+from test_commons import *
+
 from NormalizadorDirecciones import *
 from Partido import Partido
 from Errors import *
@@ -12,24 +14,11 @@ from settings import *
 class CalleAlturaTestCase(unittest.TestCase):
     p = Partido('jose_c_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
     nd_jcp = NormalizadorDirecciones(p)
-
-    # Cargo los callejeros congelados
-    with open('callejeros/jose_c_paz.callejero') as data_file:
-        data = json.load(data_file)
-    nd_jcp.c.data = data
-    nd_jcp.c.data.sort()
-    nd_jcp.c.osm_ids = [k[0] for k in nd_jcp.c.data]
+    cargarCallejeroEstatico(nd_jcp.c)
 
     p = Partido('la_plata', u'La Plata', u'Partido de La Plata', 2499263)
     nd_lp = NormalizadorDirecciones(p)
-
-    # Cargo los callejeros congelados
-    with open('callejeros/la_plata.callejero') as data_file:
-        data = json.load(data_file)
-    nd_lp.c.data = data
-    nd_lp.c.data.sort()
-    nd_lp.c.osm_ids = [k[0] for k in nd_lp.c.data]
-
+    cargarCallejeroEstatico(nd_lp.c)
 
     
     def _checkDireccion(self, direccion, codigo, nombre, altura):

@@ -1,8 +1,9 @@
 # coding: UTF-8
 import unittest
 import sys, os
-import simplejson as json
 sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
+
+from test_commons import *
 
 from NormalizadorDirecciones import *
 from Partido import Partido
@@ -12,15 +13,8 @@ from settings import *
 class CalleYCalleTestCase(unittest.TestCase):
     p = Partido('jose_c_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
     nd = NormalizadorDirecciones(p)
+    cargarCallejeroEstatico(nd.c)
 
-    # Cargo los callejeros congelados
-    with open('callejeros/jose_c_paz.callejero') as data_file:
-        data = json.load(data_file)
-    nd.c.data = data
-    nd.c.data.sort()
-    nd.c.osm_ids = [k[0] for k in nd.c.data]
-
-    
 
     def _checkDireccion(self, direccion, codigo_calle, nombre_calle, codigo_cruce, nombre_cruce, codigo_partido, localidad):
         self.assertTrue(isinstance(direccion, Direccion))
