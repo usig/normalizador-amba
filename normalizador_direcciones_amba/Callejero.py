@@ -52,6 +52,8 @@ class Callejero:
         try:
             data = urllib2.urlopen(self.server).read()
             self.data = json.loads(data, "utf8")
+            for d in self.data:
+                d.append(set(normalizarTexto(d[1], separador=' ', lower=False).split(' ')))
             self.data.sort() # Ordeno por id
             self.osm_ids = [k[0] for k in self.data] # Armo lista de osm_ids
         except urllib2.HTTPError, e:
@@ -90,19 +92,20 @@ class Callejero:
         
         res = [[],[],[],[]]
         calleNorm1 = normalizarTexto(calle, separador=' ', lower=False)
-        words1 = set(calleNorm1.split(' '))
+        words1 = list(set(calleNorm1.split(' ')))
+        words1.sort(key=len, reverse=True)
         regexps1 = map(lambda x: re.compile(ur'^{0}| {1}'.format(re.escape(x), re.escape(x))), words1)
+        
+        words1 = set(words1)
 ## No utilizo commons.matcheaTexto por cuestiones de optimizacion
 ## No podo la busqueda en limit para buscar las mejores soluciones
         for data in self.data:
             if calle == data[1]: # Match exacto con el nombre
                 res[0].append(Calle(data[0], data[1], data[3], data[4], self.partido, data[5]))
             else: # Match permutado con el nombre
-                calleNorm2 = normalizarTexto(data[1], separador=' ', lower=False)
-                words2 = set(calleNorm2.split(' '))
-                if (words1 == words2):
+                if (words1 == data[6]):
                     res[1].append(Calle(data[0], data[1], data[3], data[4], self.partido, data[5]))
-                elif (words1 == words1 & words2): # Match incluido con el nombre
+                elif (words1 == words1 & data[6]): # Match incluido con el nombre
                         res[2].append(Calle(data[0], data[1], data[3], data[4], self.partido, data[5]))
                 else: # Match con las keywords de la calle
                     match = True

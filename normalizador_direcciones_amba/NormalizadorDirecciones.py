@@ -132,19 +132,21 @@ class NormalizadorDirecciones:
         '''
         calles = self.c.buscarCalle(inCalle)
         
-        opts = []
+        opts = [[],[],[],[],[]]
         for calle in calles:
             for idCruce in calle.cruces:
                 cruce = self.c.buscarCodigo(idCruce)
-                if matcheaTexto(inCruce, cruce[2]):
+                res = matcheaTexto(inCruce, cruce[2])
+                if res:
                     objCruce = Calle(cruce[0], cruce[1], [], cruce[4], calle.partido, cruce[5])
-                    opts.append(Direccion(calle, 0, objCruce))
-                    if(len(opts) >= maxOptions):
+                    opts[res].append(Direccion(calle, 0, objCruce))
+                    if(len(opts[MATCH_EXACTO]) >= maxOptions):
                         break
-            if(len(opts) >= maxOptions):
+            if(len(opts[MATCH_EXACTO]) >= maxOptions):
                 break
         
-        
+        opts = (opts[MATCH_EXACTO]+opts[MATCH_PERMUTADO]+opts[MATCH_INCLUIDO]+opts[MATCH])[:maxOptions]
+                    
         if(len(opts) == 0 and len(calles) > 0):
             raise ErrorCruceInexistente(inCalle, [], inCruce, [])
         return opts

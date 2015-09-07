@@ -13,3 +13,4 @@ normalizador_direcciones_amba/__init__.py
 normalizador_direcciones_amba/commons.py
 normalizador_direcciones_amba/settings.py
 test/test.py
+test/test_commons.py
