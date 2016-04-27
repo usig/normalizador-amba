@@ -79,13 +79,13 @@ setup(
     #url = 'http://www.djangoproject.com/',
     author = 'USIG',
     author_email = 'hogasawara@buenosaires.gob.ar',
-    description = 'Normalizador de Direcciones del Gran Buenos Aires',
+    description = 'Normalizador de Direcciones del Área Metropolitana de Buenos Aires',
     packages = packages,
     cmdclass = cmdclasses,
     data_files = data_files,
     #scripts = ['bin/actualizacion.py'],
     install_requires=[
-        "simplejson",
+#        "simplejson",
        ],
     dependency_links = ["http://10.10.4.180/python-packages/",],
 

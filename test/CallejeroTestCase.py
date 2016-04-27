@@ -1,7 +1,6 @@
 # coding: UTF-8
 import unittest
 import sys, os
-from simplejson import JSONDecodeError
 sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
 from test_commons import *
@@ -29,7 +28,7 @@ class CallejeroTestCase(unittest.TestCase):
 
     def testCallejero_callejero_inexistent(self):
         p = Partido('jose_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
-        self.assertRaises(JSONDecodeError, Callejero, p)
+        self.assertRaises(ValueError, Callejero, p)
             
     def testCallejero_buscarCalle_calle_inexistente(self):
         res = self.c.buscarCalle('kokusai dori')

@@ -1,6 +1,6 @@
 # coding: UTF-8
 import sys, os
-import simplejson as json
+import json
 
 sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
