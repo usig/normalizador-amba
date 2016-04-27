@@ -27,15 +27,20 @@ class NormalizadorDirecciones:
     c = None
     partido = None
 
-    def __init__(self, partido):
+    def __init__(self, partido, config={}):
         '''
         @param partido: Indica el partido del callejero
         @type partido: Partido
         '''
+        # default config
+        self.config = default_settings.copy()
+        # custom config
+        self.config.update(config)
+        
         try:
             if partido == None:
                 raise Exception(u'Debe indicar el partido.')
-            self.c = Callejero(partido)
+            self.c = Callejero(partido, config)
             self.partido = partido
         except Exception, e:
             raise e

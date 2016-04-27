@@ -9,6 +9,7 @@ from CalleAlturaTestCase import CalleAlturaTestCase
 from NormalizadorDireccionesAMBATestCase import NormalizadorDireccionesAMBATestCase
 from NormalizadorDireccionesAMBACalleYCalleTestCase import NormalizadorDireccionesAMBACalleYCalleTestCase
 from NormalizadorDireccionesAMBACalleAlturaTestCase import NormalizadorDireccionesAMBACalleAlturaTestCase
+from NormalizadorDireccionesAMBAConCaba import NormalizadorDireccionesAMBAConCabaTestCase
 
 ''''''''''''''''''''''''
 ''' Comienza el test '''
@@ -16,14 +17,15 @@ from NormalizadorDireccionesAMBACalleAlturaTestCase import NormalizadorDireccion
 if __name__=='__main__':
     tl = unittest.TestLoader()
     testables = [\
-                   CommonsTestCase,
-                   CallejeroTestCase,
-                   NormalizadorDireccionesTestCase,
-                   CalleYCalleTestCase,
-                   CalleAlturaTestCase,
-                   NormalizadorDireccionesAMBATestCase,
-                   NormalizadorDireccionesAMBACalleYCalleTestCase,
-                   NormalizadorDireccionesAMBACalleAlturaTestCase
+                    CommonsTestCase,
+                    CallejeroTestCase,
+                    NormalizadorDireccionesTestCase,
+                    CalleYCalleTestCase,
+                    CalleAlturaTestCase,
+                    NormalizadorDireccionesAMBATestCase,
+                    NormalizadorDireccionesAMBACalleYCalleTestCase,
+                    NormalizadorDireccionesAMBACalleAlturaTestCase,
+                    NormalizadorDireccionesAMBAConCabaTestCase
                  ]
     
     for testable in testables:

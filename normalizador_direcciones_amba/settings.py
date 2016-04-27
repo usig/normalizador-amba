@@ -1,12 +1,16 @@
 # coding: UTF-8
+from __future__ import absolute_import
+
+default_settings = {
+    'callejero_amba_server': 'http://servicios.usig.buenosaires.gob.ar/callejero-amba/',
+    'callejero_caba_server': 'http://usig.buenosaires.gov.ar/servicios/Callejero',
+}
 
 ## Tipo de normalizacion
 CALLE = 0
 CALLE_ALTURA = 1
 CALLE_Y_CALLE = 2
 INVALIDO = -1
-
-CALLEJERO_AMBA_SERVER = 'http://servicios.usig.buenosaires.gob.ar/callejero-amba/'
 
 ## Tipo de Match
 NO_MATCH = 0

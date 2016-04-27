@@ -1,31 +1,45 @@
 # coding: UTF-8
 '''
 Created on Apr 16, 2014
+Modified on Mar 28, 2016
 
 @author: hernan
 '''
-import urllib2, re
-import simplejson as json
+from __future__ import absolute_import
+import urllib2, re, json
 
 from NormalizadorDirecciones import NormalizadorDirecciones
-from settings import CALLEJERO_AMBA_SERVER
+from settings import default_settings
 from Partido import *
 from commons import *
 from Errors import *
 
 class NormalizadorDireccionesAMBA:
-    server = CALLEJERO_AMBA_SERVER
-    
-    def __init__(self, include_list=[], exclude_list=[]):
+
+    def _getPartidosAMBA(self):
+        try:
+            response = urllib2.urlopen(self.config['callejero_amba_server']+'partidos').read()
+            partidos = json.loads(response, 'utf8')
+            return partidos
+        except urllib2.HTTPError, e:
+            e.detalle = u'Se produjo un error al intentar cargar la información de partidos.'
+            raise e 
+
+    def __init__(self, include_list=[], exclude_list=[], config={}):
+        # default config
+        self.config = default_settings.copy()
+        # custom config
+        self.config.update(config)
+        
         self.normalizadores = []
         try:
-            data = urllib2.urlopen(self.server+'partidos').read()
-            partidos_json = json.loads(data, 'utf8')
+            partidos = self._getPartidosAMBA()
+            partidos = [[1, u'caba', u'CABA', u'CABA Ciudad Autónoma de Buenos Aires']] + partidos
             
-            for p in partidos_json:
+            for p in partidos:
                 if p[1] not in exclude_list and (len(include_list) == 0 or p[1] in include_list):
                     partido = Partido(p[1], p[2], p[3], p[0])
-                    nd = NormalizadorDirecciones(partido)
+                    nd = NormalizadorDirecciones(partido, self.config)
                     self.normalizadores.append(nd)
             
         except urllib2.HTTPError, e:

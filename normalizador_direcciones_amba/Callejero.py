@@ -6,7 +6,7 @@ Created on Apr 21, 2014
 '''
  
 import urllib2, urllib, re, unicodedata
-import simplejson as json
+import json
 from Calle import Calle
 from bisect import bisect_left
 
@@ -34,25 +34,36 @@ class Callejero:
     # opts: el resultado que devuelve
     minicache = ['gslgimigawakaranaigslg',[]]
     
-    def __init__(self, partido):
+    def __init__(self, partido, config = {}):
         '''
         Carga el callejero
         '''
+        # default config
+        self.config = default_settings.copy()
+        # custom config
+        self.config.update(config)
+
+        self.partido = partido
+
         try:
-            self.partido = partido
-            self.server = '{0}callejero/?partido={1}'.format(CALLEJERO_AMBA_SERVER, partido.codigo)
             self.cargarCallejero()
         except Exception, e:
             raise e
 
     def cargarCallejero(self):
-        '''
-        Carga las calles en el atributo data sin los cruces 
-        '''
         try:
-            data = urllib2.urlopen(self.server).read()
-            self.data = json.loads(data, "utf8")
+            if self.partido.codigo == 'caba':
+                server = '{0}?full=1'.format(self.config['callejero_caba_server'])
+                encoding = 'latin-1'
+            else:
+                server = '{0}callejero/?partido={1}'.format(self.config['callejero_amba_server'], self.partido.codigo)
+                encoding = 'utf8'
+
+            data = urllib2.urlopen(server).read()
+            self.data = json.loads(data, encoding)
             for d in self.data:
+                if self.partido.codigo == 'caba':
+                    d.append('CABA')
                 d.append(set(normalizarTexto(d[1], separador=' ', lower=False).split(' ')))
             self.data.sort() # Ordeno por id
             self.osm_ids = [k[0] for k in self.data] # Armo lista de osm_ids
