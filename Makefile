@@ -6,4 +6,5 @@ prepare:
 	find . -type f -name "MANIFEST" -exec rm -if {} \;
 	python setup.py sdist
 
-
+run-test:
+	@cd test && python test.py
