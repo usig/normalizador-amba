@@ -45,12 +45,15 @@ git clone http://git-asi.buenosaires.gob.ar/usig/normalizador-amba.git
 ```
 
 ## Testing
+En el root del proyecto ejecutar:
+
 ```sh
 make run-test
 ```
 
 ## Instalación del paquete
 En el directorio dist del proyecto se encuentra el paquete de instalación del Normalizador AMBA.
+
 ```sh
 easy_install normalizador_direcciones_amba-1.0.0.tar.gz
 ```
@@ -61,6 +64,28 @@ from normalizador_direcciones_amba import NormalizadorAMBA
 
 nd = NormalizadorAMBA()
 res = nd.normalizar('callao y corrientes')
+for r in res:
+    print r
+```
+
+Para instanciar el normalizador solo en algún partido en particular:
+
+```python
+from normalizador_direcciones_amba import NormalizadorAMBA
+
+nd = NormalizadorAMBA(include_list=['caba'])
+res = nd.normalizar(u'San Martín 153')
+for r in res:
+    print r
+```
+
+Para excluir del normalizador algún partido en particular:
+
+```python
+from normalizador_direcciones_amba import NormalizadorAMBA
+
+nd = NormalizadorAMBA(exclude_list=['caba'])
+res = nd.normalizar(u'San Martín 153')
 for r in res:
     print r
 ```
