@@ -39,7 +39,7 @@ Servicio de callejeros: http://servicios.usig.buenosaires.gov.ar/callejero-amba
 * Tres de Febrero
 * Vicente López
 
-## Instalacion del proyecto
+## Instalación del proyecto
 ```sh
 git clone http://git-asi.buenosaires.gob.ar/usig/normalizador-amba.git
 ```
@@ -50,15 +50,16 @@ make run-test
 ```
 
 ## Instalación del paquete
+En el directorio dist del proyecto se encuentra el paquete de instalación del Normalizador AMBA.
 ```sh
 easy_install normalizador_direcciones_amba-1.0.0.tar.gz
 ```
 
 ## Ejemplo de uso
 ```python
-from NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
+from normalizador_direcciones_amba import NormalizadorAMBA
 
-nd = NormalizadorDireccionesAMBA()
+nd = NormalizadorAMBA()
 res = nd.normalizar('callao y corrientes')
 for r in res:
     print r
