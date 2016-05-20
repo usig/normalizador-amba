@@ -44,6 +44,14 @@ Servicio de callejeros: http://servicios.usig.buenosaires.gov.ar/callejero-amba
 git clone http://git-asi.buenosaires.gob.ar/usig/normalizador-amba.git
 ```
 
+## Generación de paquete de instalación
+En el root del proyecto ejecutar:
+
+```sh
+make prepare-package
+```
+
+
 ## Testing
 En el root del proyecto ejecutar:
 
@@ -58,7 +66,7 @@ En el directorio dist del proyecto se encuentra el paquete de instalación del N
 easy_install normalizador_direcciones_amba-1.0.0.tar.gz
 ```
 
-## Ejemplo de uso
+## Ejemplos de uso
 ```python
 from normalizador_direcciones_amba import NormalizadorAMBA
 
@@ -68,12 +76,12 @@ for r in res:
     print r
 ```
 
-Para instanciar el normalizador solo en algún partido en particular:
+Para instanciar el normalizador para algún/os partido/s en particular:
 
 ```python
 from normalizador_direcciones_amba import NormalizadorAMBA
 
-nd = NormalizadorAMBA(include_list=['caba'])
+nd = NormalizadorAMBA(include_list=['caba']) # lista de codigos de partido
 res = nd.normalizar(u'San Martín 153')
 for r in res:
     print r
@@ -84,7 +92,7 @@ Para excluir del normalizador algún partido en particular:
 ```python
 from normalizador_direcciones_amba import NormalizadorAMBA
 
-nd = NormalizadorAMBA(exclude_list=['caba'])
+nd = NormalizadorAMBA(exclude_list=['caba']) # lista de codigos de partido
 res = nd.normalizar(u'San Martín 153')
 for r in res:
     print r
