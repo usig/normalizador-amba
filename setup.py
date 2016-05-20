@@ -1,9 +1,14 @@
+# coding: UTF-8
 #!/usr/bin/env python
+from __future__ import absolute_import
 from distutils.core import setup
 from distutils.command.install_data import install_data
 from distutils.command.install import INSTALL_SCHEMES
 import os
 import sys
+
+sys.path.append('normalizador_direcciones_amba')
+
 import normalizador_direcciones_amba
 
 __version__ = normalizador_direcciones_amba.VERSION
@@ -65,6 +70,8 @@ for dirpath, dirnames, filenames in os.walk(app_dir):
     elif filenames:
         data_files.append([dirpath, [os.path.join(dirpath, f) for f in filenames]])
 
+data_files.append(['', ['README.md']])
+
 # Small hack for working with bdist_wininst.
 # See http://mail.python.org/pipermail/distutils-sig/2004-August/004134.html
 if len(sys.argv) > 1 and sys.argv[1] == 'bdist_wininst':
@@ -72,22 +79,13 @@ if len(sys.argv) > 1 and sys.argv[1] == 'bdist_wininst':
         file_info[0] = '\\PURELIB\\%s' % file_info[0]
 #raise Exception(packages)
 
-
 setup(
     name = "normalizador_direcciones_amba",
     version = __version__.replace(' ', '_'),
-    #url = 'http://www.djangoproject.com/',
     author = 'USIG',
     author_email = 'hogasawara@buenosaires.gob.ar',
-    description = 'Normalizador de Direcciones del Área Metropolitana de Buenos Aires',
+    description = u'Normalizador de Direcciones del Área Metropolitana de Buenos Aires',
     packages = packages,
     cmdclass = cmdclasses,
     data_files = data_files,
-    #scripts = ['bin/actualizacion.py'],
-    install_requires=[
-#        "simplejson",
-       ],
-    dependency_links = ["http://10.10.4.180/python-packages/",],
-
-    #scripts = ['django/bin/django-admin.py'],
 )
