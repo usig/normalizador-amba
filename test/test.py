@@ -9,7 +9,9 @@ from CalleAlturaTestCase import CalleAlturaTestCase
 from NormalizadorDireccionesAMBATestCase import NormalizadorDireccionesAMBATestCase
 from NormalizadorDireccionesAMBACalleYCalleTestCase import NormalizadorDireccionesAMBACalleYCalleTestCase
 from NormalizadorDireccionesAMBACalleAlturaTestCase import NormalizadorDireccionesAMBACalleAlturaTestCase
-from NormalizadorDireccionesAMBAConCaba import NormalizadorDireccionesAMBAConCabaTestCase
+from NormalizadorDireccionesAMBAConCabaTestCase import NormalizadorDireccionesAMBAConCabaTestCase
+from BuscadorDireccionesTestCase import BuscadorDireccionesTestCase
+from BuscadorDireccionesAMBATestCase import BuscadorDireccionesAMBATestCase
 
 ''''''''''''''''''''''''
 ''' Comienza el test '''
@@ -25,7 +27,9 @@ if __name__=='__main__':
                     NormalizadorDireccionesAMBATestCase,
                     NormalizadorDireccionesAMBACalleYCalleTestCase,
                     NormalizadorDireccionesAMBACalleAlturaTestCase,
-                    NormalizadorDireccionesAMBAConCabaTestCase
+                    NormalizadorDireccionesAMBAConCabaTestCase,
+                    BuscadorDireccionesTestCase,
+                    BuscadorDireccionesAMBATestCase
                  ]
     
     for testable in testables:
