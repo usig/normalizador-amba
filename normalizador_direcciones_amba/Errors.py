@@ -242,3 +242,31 @@ class ErrorCruceInexistente(Exception):
             msg+='<li>'+calle.nombre+'</li>'
         msg+='</ul>'
         return msg
+
+class ErrorTextoSinDireccion(Exception):
+    '''
+    Excepción para textos sin direcciones.
+    '''
+    def __init__(self, *args):
+        '''
+        @param texto: texto de búsqueda de dirección
+        @type calle1:  String
+        '''
+        self.texto = args[0]
+        self.message = u'No se encontró dirección: "{0}"'.format(self.texto)
+
+    def __unicode__(self):
+        '''
+        Devuelve un mensaje de error con el texto ingresado
+        @return: Mensaje de error
+        @rtype: String
+        '''
+        return self.message
+
+    def __str__(self):
+        '''
+        Devuelve un mensaje de error con el nombre de la calle
+        @return: Mensaje de error
+        @rtype: String
+        '''
+        return str(self.message)

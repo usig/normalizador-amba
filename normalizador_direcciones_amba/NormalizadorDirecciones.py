@@ -156,5 +156,82 @@ class NormalizadorDirecciones:
             raise ErrorCruceInexistente(inCalle, [], inCruce, [])
         return opts
 
-    def _matchCode(self, calle1, calle2):
-        return min(calle1.codigo, calle2.codigo)+max(calle1.codigo, calle2.codigo)
+    def _buscarIndicesDeCalleEnLista(self, palabras, sentido):
+        ## si sentido es -1 se desplaza a la izq, si es 1 se desplaza a la der
+        retval = None
+        cant_palabras = len(palabras)
+        for i in range(cant_palabras):
+            indice = (cant_palabras-1-i,cant_palabras) if sentido == -1 else (0,i+1)
+            calle = ' '.join(palabras[indice[0]:indice[1]])
+            try:
+                self.normalizar(calle)
+                retval = indice
+            except:
+                break
+        return retval
+            
+    def _buscarDireccionCalleAltura(self, token):
+        retval = None
+        palabras = re.split('\s',token.string[:token.start()])
+        altura = token.groupdict()['dir_altura']
+        indice = self._buscarIndicesDeCalleEnLista(palabras, -1)
+        if indice:
+            try:
+                calle = ' '.join(palabras[indice[0]:indice[1]])
+                direccion = u'{0} {1}'.format(calle,altura)
+                res = [r for r in self.normalizar(direccion) if r.tipo == CALLE_ALTURA]
+                if not res:
+                    raise Exception()
+                posicion = len(' '.join(palabras[:indice[0]]))
+                posicion = posicion if indice[0] == 0 else posicion + 1 # Le sumo el espacio entre la direccion y lo que no es direccion
+                texto = token.string[posicion:token.end()]
+                retval = {'posicion': posicion, 'texto': texto, 'direcciones': res}
+            except Exception, e:
+                pass
+        return retval
+
+    def _buscarDireccionCalleCalle(self, token):
+        retval = None
+        palabras_izq = re.split('\s',token.string[:token.start()])
+        palabras_der = re.split('\s',token.string[token.end():])
+        indice_izq = self._buscarIndicesDeCalleEnLista(palabras_izq, -1)
+        indice_der = self._buscarIndicesDeCalleEnLista(palabras_der, 1)
+        if indice_izq and indice_der:
+            try:
+                calle_izq = ' '.join(palabras_izq[indice_izq[0]:indice_izq[1]])
+                calle_der = ' '.join(palabras_der[indice_der[0]:indice_der[1]])
+                direccion = u'{0}{1}{2}'.format(calle_izq,token.groupdict()['esq_conector'],calle_der)
+                res = self.normalizar(direccion)
+                res = [r for r in self.normalizar(direccion) if r.tipo == CALLE_Y_CALLE]
+                if not res:
+                    raise Exception()
+                posicion = len(' '.join(palabras_izq[:indice_izq[0]]))
+                posicion = posicion if indice_izq[0] == 0 else posicion + 1 # Le sumo el espacio entre la direccion y lo que no es direccion
+                texto = direccion
+                retval = {'posicion': posicion, 'texto': direccion, 'direcciones': res}
+            except Exception, e:
+                pass
+        return retval
+
+    def buscarDireccion(self, texto=''):
+        texto = unicode(texto)
+        ''' Patron: (dir_calle [al] dir_altura) | (esq_calle y|e esq_cruce) '''
+        patron_calle_altura = '(?:(?P<dir_conector>(?:\s+al)?\s+)(?P<dir_altura>[0-9]+))'
+        patron_calle_calle = '(?P<esq_conector>\s+(?:y|e)\s+)'
+        patron = r'{0}|{1}'.format(patron_calle_altura,patron_calle_calle)
+        tokens = re.finditer(patron, texto, re.I)
+        retval = []
+
+        for token in tokens:
+            res = None
+            if token.groupdict()['dir_altura']:
+                res = self._buscarDireccionCalleAltura(token)
+            elif token.groupdict()['esq_conector']:
+                res = self._buscarDireccionCalleCalle(token)
+            if res:
+                retval.append(res)
+
+        if not retval:  
+            raise ErrorTextoSinDireccion(texto)
+            
+        return retval

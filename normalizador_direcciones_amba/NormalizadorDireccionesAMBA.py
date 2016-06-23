@@ -7,6 +7,7 @@ Modified on Mar 28, 2016
 '''
 from __future__ import absolute_import
 import urllib2, re, json
+import copy
 
 from NormalizadorDirecciones import NormalizadorDirecciones
 from settings import default_settings
@@ -142,3 +143,47 @@ class NormalizadorDireccionesAMBA:
             if res:
                 return res
         return None
+
+    def _buscarPartidoLocalidad(self, texto, partido, localidad):
+        retval = False
+        palabras = re.split('\s', normalizarTexto(texto))
+        cant_palabras = len(palabras)
+        for i in range(cant_palabras):
+            texto_cortado = ' '.join(palabras[:i+1])
+#             print texto_cortado, '|', partido, '|', localidad, '|', matcheaTexto(texto_cortado, partido), '|', matcheaTexto(texto_cortado, localidad)
+            if matcheaTexto(texto_cortado, partido) or matcheaTexto(texto_cortado, localidad):
+                retval = True
+            else:
+                break
+        return retval
+    
+    def buscarDireccion(self, texto):
+        res = []
+        for nd in self.normalizadores:
+            try:
+                res.append(nd.buscarDireccion(texto))
+            except Exception, e:
+                pass
+        
+        retval = []
+        for partido in res:
+            new_partido = []
+            for match in partido:
+                new_match = {'posicion': match['posicion'],'texto':match['texto'],'direcciones':[]}
+                for direccion in match['direcciones']:
+                    posicion = match['posicion']+len(match['texto'])
+                    partido_direccion = u'Partido de {0}'.format(direccion.partido.nombre)
+                    localidad_direccion = u'Localidad de {0}'.format(direccion.localidad)
+                    if self._buscarPartidoLocalidad(texto[posicion:], partido_direccion, localidad_direccion):
+                        new_match['direcciones'].append(direccion)
+                if new_match['direcciones']:
+                    new_partido.append(new_match)
+            if new_partido:
+                retval.append(new_partido)
+            
+        if len(retval):
+            return retval
+        elif len(res):
+            return res
+        else:
+            raise ErrorTextoSinDireccion(direccion)
