@@ -1,10 +1,14 @@
 # Normalizador de Direcciones AMBA Python
-VERSION = $(shell python normalizador_direcciones_amba/__init__.py)
-
-prepare-package:
-	find dist/ -type f -name "normalizador_direcciones-*$(VERSION)*" -exec rm -if {} \;
-	find . -type f -name "MANIFEST" -exec rm -if {} \;
-	python setup.py sdist
+VERSION = $(shell python -c 'import usig_normalizador_amba; print usig_normalizador_amba.__version__')
+TITLE = $(shell python -c 'import usig_normalizador_amba; print usig_normalizador_amba.__title__')
 
 run-test:
-	@cd test && python test.py
+        @cd tests && python test.py
+
+prepare-package:
+	find dist/ -type f -name "$(TITLE)-*$(VERSION)*" -exec rm -if {} \;
+	python setup.py sdist
+
+install:
+	python setup.py install
+
