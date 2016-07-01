@@ -6,8 +6,8 @@ El procedimiento de normalización de direcciones tiene por objetivo unificar la
 ## Partidos disponibles:
 Servicio de callejeros: http://servicios.usig.buenosaires.gov.ar/callejero-amba
 
-| Partidos                | Partidos                | Partidos                |
-| ------------------------|-------------------------|-------------------------|
+| Partidos                |                         |                         |
+|-------------------------|-------------------------|-------------------------|
 | * CABA                  | * General San Martín    | * Morón                 |
 | * Almirante Brown       | * Hurlingham            | * Pilar                 |
 | * Avellaneda            | * Ituzaingó             | * Presidente Perón      |
