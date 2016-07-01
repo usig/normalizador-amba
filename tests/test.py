@@ -1,5 +1,8 @@
 # coding: UTF-8
-import unittest
+from __future__ import absolute_import
+import os, sys, unittest
+
+sys.path.insert(0, os.path.abspath('..'))
 
 from CommonsTestCase import CommonsTestCase
 from CallejeroTestCase import CallejeroTestCase

@@ -1,15 +1,13 @@
 # coding: UTF-8
+from __future__ import absolute_import
 import unittest
-import sys, os
-sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
+
+from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
+from usig_normalizador_amba.Direccion import Direccion
+from usig_normalizador_amba.Errors import ErrorCalleInexistente
 
 from test_commons import *
 
-from NormalizadorDireccionesAMBA import *
-from Partido import Partido
-from Direccion import Direccion
-from Calle import Calle
-from Errors import *
 
 class NormalizadorDireccionesAMBACalleAlturaTestCase(unittest.TestCase):
     partidos = ['almirante_brown','jose_c_paz','lomas_de_zamora','quilmes','san_isidro','vicente_lopez']

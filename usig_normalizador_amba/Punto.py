@@ -4,6 +4,7 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
+from __future__ import absolute_import
 
 class Punto:
     '''

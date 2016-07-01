@@ -7,13 +7,12 @@ Modified on Mar 28, 2016
 '''
 from __future__ import absolute_import
 import urllib2, re, json
-import copy
 
-from NormalizadorDirecciones import NormalizadorDirecciones
-from settings import default_settings
-from Partido import *
-from commons import *
-from Errors import *
+from usig_normalizador_amba.NormalizadorDirecciones import NormalizadorDirecciones
+from usig_normalizador_amba.settings import default_settings
+from usig_normalizador_amba.Partido import *
+from usig_normalizador_amba.commons import *
+from usig_normalizador_amba.Errors import *
 
 class NormalizadorDireccionesAMBA:
 
@@ -69,9 +68,6 @@ class NormalizadorDireccionesAMBA:
                 res = self.normalizarPorPartido(direccion, maxOptions = maxOptions)
             except Exception, e:
                 pass
-                
-#         for r in res:
-#             print r.toString()
 
         if len(res):
             return res
@@ -150,7 +146,6 @@ class NormalizadorDireccionesAMBA:
         cant_palabras = len(palabras)
         for i in range(cant_palabras):
             texto_cortado = ' '.join(palabras[:i+1])
-#             print texto_cortado, '|', partido, '|', localidad, '|', matcheaTexto(texto_cortado, partido), '|', matcheaTexto(texto_cortado, localidad)
             if matcheaTexto(texto_cortado, partido) or matcheaTexto(texto_cortado, localidad):
                 retval = True
             else:

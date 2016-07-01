@@ -4,9 +4,11 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
+from __future__ import absolute_import
 import re
-from settings import *
-from commons import *
+
+from usig_normalizador_amba.settings import *
+from usig_normalizador_amba.commons import *
 
 class StringDireccion:
     '''

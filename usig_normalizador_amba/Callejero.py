@@ -4,14 +4,13 @@ Created on Apr 21, 2014
 
 @author: hernan
 '''
- 
-import urllib2, urllib, re, unicodedata
-import json
-from Calle import Calle
+from __future__ import absolute_import
+import urllib2, re, json
 from bisect import bisect_left
 
-from settings import *
-from commons import *
+from usig_normalizador_amba.Calle import Calle
+from usig_normalizador_amba.settings import *
+from usig_normalizador_amba.commons import *
 
 class Callejero:
     '''

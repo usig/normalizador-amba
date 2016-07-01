@@ -1,14 +1,15 @@
 # coding: UTF-8
+from __future__ import absolute_import
 import unittest
-import sys, os
 
-sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
+from usig_normalizador_amba.NormalizadorDirecciones import NormalizadorDirecciones
+from usig_normalizador_amba.Partido import Partido
+from usig_normalizador_amba.Direccion import Direccion
+from usig_normalizador_amba.Errors import ErrorTextoSinDireccion
+from usig_normalizador_amba.commons import CALLE_Y_CALLE, CALLE_ALTURA
 
 from test_commons import cargarCallejeroEstatico
 
-from NormalizadorDirecciones import *
-from Partido import Partido
-from Errors import *
 
 class BuscadorDireccionesTestCase(unittest.TestCase):
     p = Partido('lomas_de_zamora', u'Lomas de Zamora', u'Partido de Lomas de Zamora', 2400639)

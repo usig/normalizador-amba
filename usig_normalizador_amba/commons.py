@@ -4,8 +4,10 @@ Created on May 12, 2014
 
 @author: hernan
 '''
+from __future__ import absolute_import
 import re, unicodedata
-from settings import *
+
+from usig_normalizador_amba.settings import *
 
 
 def matcheaTexto(txt1, txt2, normalizar=True):

@@ -5,8 +5,9 @@ Created on Apr 16, 2014
 @author: hernan
 '''
 from __future__ import absolute_import
-from Errors import ErrorCalleSinAlturas
-from Partido import Partido
+
+from usig_normalizador_amba.Errors import ErrorCalleSinAlturas
+from usig_normalizador_amba.Partido import Partido
 
 class Calle:
     '''

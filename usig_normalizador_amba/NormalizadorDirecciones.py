@@ -4,16 +4,16 @@ Created on Jun 17, 2014
 
 @author: hernan
 '''
+from __future__ import absolute_import
+import re
 
-import re, copy
-
-from StringDireccion import StringDireccion
-from Callejero import Callejero
-from Calle import Calle
-from Errors import *
-from Direccion import Direccion
-from settings import *
-from commons import *
+from usig_normalizador_amba.StringDireccion import StringDireccion
+from usig_normalizador_amba.Callejero import Callejero
+from usig_normalizador_amba.Calle import Calle
+from usig_normalizador_amba.Errors import *
+from usig_normalizador_amba.Direccion import Direccion
+from usig_normalizador_amba.settings import *
+from usig_normalizador_amba.commons import *
 
 class NormalizadorDirecciones:
     '''

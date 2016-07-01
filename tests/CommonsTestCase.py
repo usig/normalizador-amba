@@ -1,10 +1,9 @@
 # coding: UTF-8
+from __future__ import absolute_import
 import unittest
-import sys, os
 
-sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
-
-from commons import *
+from usig_normalizador_amba.commons import normalizarTexto, matcheaTexto
+from usig_normalizador_amba.commons import MATCH_EXACTO, MATCH_PERMUTADO, MATCH_INCLUIDO, MATCH, NO_MATCH
 
 class CommonsTestCase(unittest.TestCase):
 

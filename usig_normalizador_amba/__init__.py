@@ -1,16 +1,19 @@
 # coding: UTF-8
 """
-Paquete: Normalizador de Direcciones AMBA
+Normalizador de Direcciones AMBA
 
-Incluye todos los modulos necesarios para el uso del Normalizador de Direcciones del Gran Buenos Aires.
+El procedimiento de normalización de direcciones tiene por objetivo unificar la escritura de direcciones con respecto a un callejero de referencia.
+El normalizador de Direcciones AMBA toma como referencia los callejeros del Área Metropolitana de Buenos Aires.
 """
+
 from __future__ import absolute_import
 
-from .NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA as NormalizadorAMBA
-"""Alias de la clase NormalizadorDireccionesAMBA provisto por conveniencia"""
+from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA as NormalizadorAMBA
 
-VERSION = '1.1.0'
-"""Versión de la aplicación"""
-    
-if __name__=='__main__':
-    print VERSION
+__title__ = 'usig-normalizador-amba'
+__description__ = 'Normalizador de Direcciones AMBA'
+__author__ = 'USIG - GCBA'
+__author_email__ = 'Hernán Ogasawara <hogasawara@buenosaires.gob.ar>'
+__version__ = '1.2.0'
+__license__ = 'MIT License'
+__copyright__ = 'Copyright (c) 2016 USIG - GCBA'

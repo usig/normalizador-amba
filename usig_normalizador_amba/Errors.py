@@ -8,7 +8,9 @@ Created on Apr 16, 2014
     - ErrorCalleSinAlturas
     - ErrorCalleInexistenteAEsaAltura
     - ErrorCruceInexistente
+    - ErrorTextoSinDireccion
 '''
+from __future__ import absolute_import
 
 class ErrorNormalizacion(Exception):
     def __init__(self):

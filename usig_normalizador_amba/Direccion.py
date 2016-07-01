@@ -4,11 +4,12 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
+from __future__ import absolute_import
 import re
 
-from settings import *
-from Calle import Calle
-from Punto import Punto
+from usig_normalizador_amba.settings import *
+from usig_normalizador_amba.Calle import Calle
+from usig_normalizador_amba.Punto import Punto
 
 class Direccion:
     '''

@@ -1,14 +1,13 @@
 # coding: UTF-8
+from __future__ import absolute_import
 import unittest
-import sys, os
-sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
 
-from test_commons import *
+from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
+from usig_normalizador_amba.Direccion import Direccion
+from usig_normalizador_amba.commons import CALLE_ALTURA
 
-from NormalizadorDireccionesAMBA import *
-from Partido import Partido
-from Direccion import Direccion
-from Errors import *
+from test_commons import cargarCallejeroEstatico
+
 
 class NormalizadorDireccionesAMBAConCabaTestCase(unittest.TestCase):
     partidos = ['caba','lomas_de_zamora','jose_c_paz']

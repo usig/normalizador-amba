@@ -1,14 +1,13 @@
 # coding: UTF-8
+from __future__ import absolute_import
 import unittest
-import sys, os
 
-sys.path.append(os.path.join('..','normalizador_direcciones_amba'))
+from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
+from usig_normalizador_amba.Direccion import Direccion
+from usig_normalizador_amba.commons import CALLE_Y_CALLE, CALLE_ALTURA
 
 from test_commons import cargarCallejeroEstatico
 
-from NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
-from Direccion import *
-from Errors import *
 
 class BuscadorDireccionesAMBATestCase(unittest.TestCase):
     nd = NormalizadorDireccionesAMBA()
