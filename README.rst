@@ -42,7 +42,7 @@ Git
 ~~~
 .. code:: bash
 
-    $ git clone http://git-asi.buenosaires.gob.ar/usig/normalizador-amba.git
+    $ git clone https://github.com/usig/normalizador-amba.git
     $ cd normalizador-amba
     $ python setup.py install
 
@@ -50,7 +50,7 @@ Easy Install
 ~~~~~~~~~~~~
 .. code:: bash
 
-    $ git clone http://git-asi.buenosaires.gob.ar/usig/normalizador-amba.git
+    $ git clone https://github.com/usig/normalizador-amba.git
     $ cd normalizador-amba
     $ make prepare-package
     $ easy_install dist/usig-normalizador-amba-x.x.x.tar.gz
