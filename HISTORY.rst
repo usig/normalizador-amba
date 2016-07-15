@@ -3,6 +3,12 @@
 History
 -------
 
+1.2.1 (2016-07-15)
+------------------
+* BUGFIX: Códigos de calles duplicados o inexistentes
+* PEP 8 compatible 
+
+
 1.2.0 (2016-07-01)
 ------------------
 * Primera versión publicable PyPi

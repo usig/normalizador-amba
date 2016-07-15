@@ -20,8 +20,7 @@ setup(
     author_email=usig_normalizador_amba.__author_email__,
     url='https://github.com/usig/normalizador-amba',
     license=usig_normalizador_amba.__license__,
-    packages=['usig_normalizador_amba', 'tests'],
-    package_data={'tests': ['callejeros/*']},
+    packages=['usig_normalizador_amba'],
     keywords='usig gcba gis normalizador direcciones amba',
     platforms=['Unix/Linux'],
     classifiers=[
