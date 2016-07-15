@@ -6,13 +6,13 @@ default_settings = {
     'callejero_caba_server': 'http://usig.buenosaires.gov.ar/servicios/Callejero',
 }
 
-## Tipo de normalizacion
+# Tipo de normalizacion
 CALLE = 0
 CALLE_ALTURA = 1
 CALLE_Y_CALLE = 2
 INVALIDO = -1
 
-## Tipo de Match
+# Tipo de Match
 NO_MATCH = 0
 MATCH = 1
 MATCH_INCLUIDO = 2

@@ -8,7 +8,8 @@ El normalizador de Direcciones AMBA toma como referencia los callejeros del Áre
 
 from __future__ import absolute_import
 
-from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA as NormalizadorAMBA
+from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA as ND
+NormalizadorAMBA = ND
 
 __title__ = 'usig-normalizador-amba'
 __description__ = 'Normalizador de Direcciones AMBA'

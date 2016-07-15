@@ -5,12 +5,13 @@ import unittest
 from usig_normalizador_amba.commons import normalizarTexto, matcheaTexto
 from usig_normalizador_amba.commons import MATCH_EXACTO, MATCH_PERMUTADO, MATCH_INCLUIDO, MATCH, NO_MATCH
 
+
 class CommonsTestCase(unittest.TestCase):
 
     def test_normalizarTexto_acentos(self):
         res = normalizarTexto(u'ábçdéfǵhíjḱĺḿńñóṕqŕśtúvẃxýźÁBÇDÉFǴHÍJḰĹḾŃÑÓṔQŔŚTÚVẂXÝŹäëïöüÄËÏÖÜ')
         self.assertEqual(res, u'abcdefghijklmnnopqrstuvwxyzabcdefghijklmnnopqrstuvwxyzaeiouaeiou')
-        
+
     def test_normalizarTexto_espacios(self):
         res = normalizarTexto(u'   hola    chau         ')
         self.assertEqual(res, u'hola chau')
@@ -26,7 +27,6 @@ class CommonsTestCase(unittest.TestCase):
     def test_normalizarTexto_simbolos(self):
         res = normalizarTexto(u'hola !#$%&/()=?¡@"\\\' chau')
         self.assertEqual(res, u'hola chau')
-
 
     def test_matcheaTexto_no_match(self):
         res = matcheaTexto('partido de Lomas de Zamora', 'Lomas de Zamora')

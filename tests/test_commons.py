@@ -1,8 +1,9 @@
 # coding: UTF-8
 from __future__ import absolute_import
-import sys, os, json
+import json
 
 from usig_normalizador_amba.commons import normalizarTexto
+
 
 def cargarCallejeroEstatico(c):
     filename = 'callejeros/{0}.callejero'.format(c.partido.codigo)

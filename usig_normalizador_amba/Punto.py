@@ -6,10 +6,11 @@ Created on Apr 16, 2014
 '''
 from __future__ import absolute_import
 
+
 class Punto:
     '''
     @ivar x: Coordenada X del punto
-    @type x: Float 
+    @type x: Float
     @ivar y: Coordenada Y del punto
     @type y: Float
     @ivar srid: Sistema de coordenadas
@@ -18,11 +19,11 @@ class Punto:
     x = 0
     y = 0
     srid = -1
-    
+
     def __init__(self, x, y, srid=0):
         '''
         @param x: Coordenada X del punto
-        @type x: Float 
+        @type x: Float
         @param y: Coordenada Y del punto
         @type y: Float
         @ivar srid: Sistema de coordenadas
@@ -36,13 +37,13 @@ class Punto:
             raise e
 
     def __str__(self):
-        ''' 
+        '''
         Devuelve una representacion del punto como cadena en el formato '(x,y)'
         @return: Representacion del punto como cadena con la forma '(x,y)'
         @rtype: String
         '''
-        return u'({0},{1})'.format(self.x,self.y)
-    
+        return u'({0},{1})'.format(self.x, self.y)
+
     def __unicode__(self):
         return unicode(self.__str__())
 
@@ -52,7 +53,7 @@ class Punto:
         @return: Representacion del punto como cadena JSON con la forma '{'x':XXXXX,'y':YYYYY,'srid':ZZZZ}'
         @rtype: String
         '''
-        return u'{{"x":{0},"y":{1},"srid":{2}}}'.format(self.x,self.y,self.srid)
+        return u'{{"x":{0},"y":{1},"srid":{2}}}'.format(self.x, self.y, self.srid)
 
     def toDict(self):
         '''
@@ -63,14 +64,14 @@ class Punto:
         return {'x': self.x,
                 'y': self.y,
                 'srid': self.srid}
-        
+
     def toGeoJson(self):
         '''
         Devuelve una representacion del punto en formato GeoJSON
         @return: Representacion del punto como cadena GeoJSON
         @rtype: String
         '''
-        return u'{"type": "Feature", "geometry": {"type": "Point", "coordinates": [{0}, {1}]}}'.format(self.x,self.y)
+        return u'{"type": "Feature", "geometry": {"type": "Point", "coordinates": [{0}, {1}]}}'.format(self.x, self.y)
 
     def toWKT(self):
         '''
@@ -78,4 +79,4 @@ class Punto:
         @return: Representacion del punto como cadena WKT
         @rtype: String
         '''
-        return u'POINT ({0},{1})'.format(self.x,self.y)
+        return u'POINT ({0},{1})'.format(self.x, self.y)
