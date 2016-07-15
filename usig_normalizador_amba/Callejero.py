@@ -82,9 +82,14 @@ class Callejero:
         '''
         pos = bisect_left(self.osm_ids, codigo)
         if pos < len(self.data) and self.data[pos][0] == codigo:
-            return self.data[pos]
+            retval = [self.data[pos]]
+            if pos-1 > 0 and self.data[pos-1][0] == codigo:
+                retval.append(self.data[pos-1])
+            if pos+1 < len(self.data) and self.data[pos+1][0] == codigo:
+                retval.append(self.data[pos+1])
+            return retval
         else:
-            return None
+            return []
         
     def buscarCalle(self, calle, limit=0):
         '''

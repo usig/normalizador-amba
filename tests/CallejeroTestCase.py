@@ -101,8 +101,8 @@ class CallejeroTestCase(unittest.TestCase):
     def testCallejero_buscarCodigo_codigo_valido(self):
         res = self.c.buscarCodigo(314724)
         self.assertTrue(isinstance(res, list))
-        self.assertTrue(res[0] == 314724)
-        self.assertTrue(res[1] == u'Avenida Derqui (M) / Fray Antonio Marchena (JCP)')
+        self.assertTrue(res[0][0] == 314724)
+        self.assertTrue(res[0][1] == u'Avenida Derqui (M) / Fray Antonio Marchena (JCP)')
 
     def testCallejero_buscarCodigo_codigo_invalido(self):
         res = self.c.buscarCodigo(666)
