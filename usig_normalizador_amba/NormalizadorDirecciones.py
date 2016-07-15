@@ -15,6 +15,7 @@ from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.settings import *
 from usig_normalizador_amba.commons import *
 
+
 class NormalizadorDirecciones:
     '''
     NormalizadorDirecciones
@@ -36,9 +37,9 @@ class NormalizadorDirecciones:
         self.config = default_settings.copy()
         # custom config
         self.config.update(config)
-        
+
         try:
-            if partido == None:
+            if partido is None:
                 raise Exception(u'Debe indicar el partido.')
             self.c = Callejero(partido, config)
             self.partido = partido
@@ -51,8 +52,8 @@ class NormalizadorDirecciones:
         except Exception, e:
             raise e
 
-    def normalizar(self, direccion, maxOptions = 10):
-        ''' 
+    def normalizar(self, direccion, maxOptions=10):
+        '''
         @param direccion: La cadena a ser transformada en direccion
         @type direccion: Unicode
         @param maxOptions: Maximo numero de opciones a retornar. Por defecto es 10.
@@ -62,25 +63,25 @@ class NormalizadorDirecciones:
         '''
         res = []
         error = None
-        
+
         if direccion == '':
             raise ErrorCalleInexistente(u'')
-        
+
         if type(direccion) != unicode:
             direccion = unicode(direccion, encoding='utf-8', errors='ignore')
         strDir = StringDireccion(direccion)
-        
+
         for candidato in strDir.candidatos:
             if candidato['tipo'] == CALLE:
                 res += self.buscarCalle(candidato['calle'], maxOptions)
             elif candidato['tipo'] == CALLE_ALTURA:
                 try:
-                    res += self.normalizarCalleAltura(candidato['calle'],candidato['altura'],maxOptions)
+                    res += self.normalizarCalleAltura(candidato['calle'], candidato['altura'], maxOptions)
                 except Exception, error:
                     pass
             elif candidato['tipo'] == CALLE_Y_CALLE:
                 try:
-                    res += self.normalizarCalleYCalle(candidato['calle'],candidato['cruce'],maxOptions)
+                    res += self.normalizarCalleYCalle(candidato['calle'], candidato['cruce'], maxOptions)
                 except Exception, error:
                     pass
 
@@ -122,7 +123,7 @@ class NormalizadorDirecciones:
             raise ErrorCalleInexistenteAEsaAltura(inCalle, calles, inAltura)
 
         return opts
-    
+
     def normalizarCalleYCalle(self, inCalle, inCruce, maxOptions=10):
         '''
         Normaliza una direccion de tipo calle-calle
@@ -133,11 +134,11 @@ class NormalizadorDirecciones:
         @param maxOptions: Maximo numero de opciones a retornar. Por defecto es 10.
         @type maxOptions: Integer
         @return: Las opciones halladas que se corresponden con dir
-        @rtype: Array de Direccion 
+        @rtype: Array de Direccion
         '''
         calles = self.c.buscarCalle(inCalle)
-        
-        opts = [[],[],[],[],[]]
+
+        opts = [[], [], [], [], []]
         for calle in calles:
             for idCruce in calle.cruces:
                 cruce = self.c.buscarCodigo(idCruce)
@@ -149,19 +150,19 @@ class NormalizadorDirecciones:
                         break
             if(len(opts[MATCH_EXACTO]) >= maxOptions):
                 break
-        
+
         opts = (opts[MATCH_EXACTO]+opts[MATCH_PERMUTADO]+opts[MATCH_INCLUIDO]+opts[MATCH])[:maxOptions]
-                    
+
         if(len(opts) == 0 and len(calles) > 0):
             raise ErrorCruceInexistente(inCalle, [], inCruce, [])
         return opts
 
     def _buscarIndicesDeCalleEnLista(self, palabras, sentido):
-        ## si sentido es -1 se desplaza a la izq, si es 1 se desplaza a la der
+        # si sentido es -1 se desplaza a la izq, si es 1 se desplaza a la der
         retval = None
         cant_palabras = len(palabras)
         for i in range(cant_palabras):
-            indice = (cant_palabras-1-i,cant_palabras) if sentido == -1 else (0,i+1)
+            indice = (cant_palabras-1-i, cant_palabras) if sentido == -1 else (0, i+1)
             calle = ' '.join(palabras[indice[0]:indice[1]])
             try:
                 self.normalizar(calle)
@@ -169,47 +170,46 @@ class NormalizadorDirecciones:
             except:
                 break
         return retval
-            
+
     def _buscarDireccionCalleAltura(self, token):
         retval = None
-        palabras = re.split('\s',token.string[:token.start()])
+        palabras = re.split('\s', token.string[:token.start()])
         altura = token.groupdict()['dir_altura']
         indice = self._buscarIndicesDeCalleEnLista(palabras, -1)
         if indice:
             try:
                 calle = ' '.join(palabras[indice[0]:indice[1]])
-                direccion = u'{0} {1}'.format(calle,altura)
+                direccion = u'{0} {1}'.format(calle, altura)
                 res = [r for r in self.normalizar(direccion) if r.tipo == CALLE_ALTURA]
                 if not res:
                     raise Exception()
                 posicion = len(' '.join(palabras[:indice[0]]))
-                posicion = posicion if indice[0] == 0 else posicion + 1 # Le sumo el espacio entre la direccion y lo que no es direccion
+                posicion = posicion if indice[0] == 0 else posicion + 1  # Le sumo el espacio entre la direccion y lo que no es direccion
                 texto = token.string[posicion:token.end()]
                 retval = {'posicion': posicion, 'texto': texto, 'direcciones': res}
-            except Exception, e:
+            except Exception:
                 pass
         return retval
 
     def _buscarDireccionCalleCalle(self, token):
         retval = None
-        palabras_izq = re.split('\s',token.string[:token.start()])
-        palabras_der = re.split('\s',token.string[token.end():])
+        palabras_izq = re.split('\s', token.string[:token.start()])
+        palabras_der = re.split('\s', token.string[token.end():])
         indice_izq = self._buscarIndicesDeCalleEnLista(palabras_izq, -1)
         indice_der = self._buscarIndicesDeCalleEnLista(palabras_der, 1)
         if indice_izq and indice_der:
             try:
                 calle_izq = ' '.join(palabras_izq[indice_izq[0]:indice_izq[1]])
                 calle_der = ' '.join(palabras_der[indice_der[0]:indice_der[1]])
-                direccion = u'{0}{1}{2}'.format(calle_izq,token.groupdict()['esq_conector'],calle_der)
+                direccion = u'{0}{1}{2}'.format(calle_izq, token.groupdict()['esq_conector'], calle_der)
                 res = self.normalizar(direccion)
                 res = [r for r in self.normalizar(direccion) if r.tipo == CALLE_Y_CALLE]
                 if not res:
                     raise Exception()
                 posicion = len(' '.join(palabras_izq[:indice_izq[0]]))
-                posicion = posicion if indice_izq[0] == 0 else posicion + 1 # Le sumo el espacio entre la direccion y lo que no es direccion
-                texto = direccion
+                posicion = posicion if indice_izq[0] == 0 else posicion + 1  # Le sumo el espacio entre la direccion y lo que no es direccion
                 retval = {'posicion': posicion, 'texto': direccion, 'direcciones': res}
-            except Exception, e:
+            except Exception:
                 pass
         return retval
 
@@ -218,7 +218,7 @@ class NormalizadorDirecciones:
         ''' Patron: (dir_calle [al] dir_altura) | (esq_calle y|e esq_cruce) '''
         patron_calle_altura = '(?:(?P<dir_conector>(?:\s+al)?\s+)(?P<dir_altura>[0-9]+))'
         patron_calle_calle = '(?P<esq_conector>\s+(?:y|e)\s+)'
-        patron = r'{0}|{1}'.format(patron_calle_altura,patron_calle_calle)
+        patron = r'{0}|{1}'.format(patron_calle_altura, patron_calle_calle)
         tokens = re.finditer(patron, texto, re.I)
         retval = []
 
@@ -231,7 +231,7 @@ class NormalizadorDirecciones:
             if res:
                 retval.append(res)
 
-        if not retval:  
+        if not retval:
             raise ErrorTextoSinDireccion(texto)
-            
+
         return retval
