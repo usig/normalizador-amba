@@ -5,6 +5,7 @@ import unittest
 from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
 from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.settings import CALLE_Y_CALLE, CALLE_ALTURA
+from usig_normalizador_amba.Errors import ErrorTextoSinDireccion
 
 from test_commons import cargarCallejeroEstatico
 
@@ -33,6 +34,16 @@ class BuscadorDireccionesAMBATestCase(unittest.TestCase):
         self.assertEqual(direccion.cruce.nombre, nombre_cruce)
         self.assertEqual(direccion.partido.codigo, codigo_partido)
         self.assertEqual(direccion.localidad, localidad)
+
+
+    def test_Error_en_texto_vacio(self):
+        self.assertRaises(ErrorTextoSinDireccion, self.nd.buscarDireccion, '')
+
+    def test_Error_en_texto_sin_y_e_o_numeros(self):
+        self.assertRaises(ErrorTextoSinDireccion, self.nd.buscarDireccion, u'Este texto no tiene dirección.')
+
+    def test_Error_en_texto_con_palabra_con_y(self):
+        self.assertRaises(ErrorTextoSinDireccion, self.nd.buscarDireccion, u'Este texto no tiene dirección, pero tiene yeeee.')
 
 ################
 # Calle altura #

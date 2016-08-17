@@ -3,6 +3,11 @@
 History
 -------
 
+1.2.2 (2016-08-17)
+------------------
+* BUGFIX menores
+
+
 1.2.1 (2016-07-15)
 ------------------
 * BUGFIX: Códigos de calles duplicados o inexistentes

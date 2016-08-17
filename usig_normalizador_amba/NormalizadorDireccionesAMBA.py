@@ -185,4 +185,4 @@ class NormalizadorDireccionesAMBA:
         elif len(res):
             return res
         else:
-            raise ErrorTextoSinDireccion(direccion)
+            raise ErrorTextoSinDireccion(texto)
