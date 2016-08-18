@@ -35,7 +35,6 @@ class BuscadorDireccionesAMBATestCase(unittest.TestCase):
         self.assertEqual(direccion.partido.codigo, codigo_partido)
         self.assertEqual(direccion.localidad, localidad)
 
-
     def test_Error_en_texto_vacio(self):
         self.assertRaises(ErrorTextoSinDireccion, self.nd.buscarDireccion, '')
 

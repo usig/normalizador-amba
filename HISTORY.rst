@@ -5,7 +5,7 @@ History
 
 1.2.2 (2016-08-17)
 ------------------
-* BUGFIX menores
+* BUGFIX en el buscador de direcciones
 
 
 1.2.1 (2016-07-15)
