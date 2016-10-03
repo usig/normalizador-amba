@@ -45,17 +45,17 @@ class StringDireccion:
         # case: CALLE_Y_CALLE
         palabras = self.strNormalizado.split(' Y ')
         if(len(palabras) >= 2):
-            for i in range(len(palabras)-1):
-                calle = ' Y '.join(palabras[0:i+1])
-                cruce = ' Y '.join(palabras[i+1:])
+            for i in range(len(palabras) - 1):
+                calle = ' Y '.join(palabras[0:i + 1])
+                cruce = ' Y '.join(palabras[i + 1:])
                 self.candidatos.append({'tipo': CALLE_Y_CALLE, 'calle': calle, 'cruce': cruce})
 
         palabras = self.strNormalizado.split(' E ')
         if(len(palabras) >= 2):
-            for i in range(len(palabras)-1):
-                if re.match(r'^[I|Y|HI|HY].*', palabras[i+1]):
-                    calle = ' E '.join(palabras[0:i+1])
-                    cruce = ' E '.join(palabras[i+1:])
+            for i in range(len(palabras) - 1):
+                if re.match(r'^[I|Y|HI|HY].*', palabras[i + 1]):
+                    calle = ' E '.join(palabras[0:i + 1])
+                    cruce = ' E '.join(palabras[i + 1:])
                     self.candidatos.append({'tipo': CALLE_Y_CALLE, 'calle': calle, 'cruce': cruce})
 
         # case: CALLE

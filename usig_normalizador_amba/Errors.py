@@ -122,7 +122,7 @@ class ErrorCalleInexistenteAEsaAltura(Exception):
         for calle in self.matchings:
             tramos = calle.getTramos()
             for tramo in tramos:
-                msg += '<li>'+calle.nombre+' '+tramo[0]+'-'+tramo[1]+'</li>'
+                msg += '<li>' + calle.nombre + ' ' + tramo[0] + '-' + tramo[1] + '</li>'
         msg += '</ul>'
         return msg
 
@@ -146,7 +146,7 @@ class ErrorCalleSinAlturas(Exception):
         @return: Mensaje de error
         @rtype: String
         '''
-        return "La calle '"+self.calle+"' no posee alturas oficiales. Utilice intersecciones para hallar direcciones sobre esta calle."
+        return "La calle '" + self.calle + "' no posee alturas oficiales. Utilice intersecciones para hallar direcciones sobre esta calle."
 
     def getNombreCalle(self):
         '''
@@ -162,7 +162,7 @@ class ErrorCalleSinAlturas(Exception):
         @return: Mensaje de error
         @rtype: String
         '''
-        msg = 'La calle '+self.calle+' no posee alturas oficiales. Utilice intersecciones para hallar direcciones v&aacute;lidas sobre esta calle o escriba S/N en lugar de la altura. Tenga en cuenta que si utiliza S/N no podr&aacute; geocodificar esta direcci&oacute;n.'
+        msg = 'La calle ' + self.calle + ' no posee alturas oficiales. Utilice intersecciones para hallar direcciones v&aacute;lidas sobre esta calle o escriba S/N en lugar de la altura. Tenga en cuenta que si utiliza S/N no podr&aacute; geocodificar esta direcci&oacute;n.'
         return msg
 
 
@@ -197,7 +197,7 @@ class ErrorCruceInexistente(Exception):
         @return: Mensaje de error
         @rtype: String
         '''
-        return "Cruce inexistente: "+self.calle1+" y "+self.calle2
+        return "Cruce inexistente: " + self.calle1 + " y " + self.calle2
 
     def getCalle1(self):
         '''
@@ -240,11 +240,11 @@ class ErrorCruceInexistente(Exception):
         msg = 'El cruce de calles indicado no existe. A continuaci&oacute;n se muestran algunas calles que coinciden con su b&uacute;squeda.'
         msg += '<br/>Algunas calles halladas que coinciden con la 1ra calle ingresada son:<ul>'
         for calle in self.matchingsCalle1:
-            msg += '<li>'+calle.nombre+'</li>'
+            msg += '<li>' + calle.nombre + '</li>'
         msg += '</ul>'
         msg += 'Algunas calles halladas que coinciden con la 2da calle ingresada son:<ul>'
         for calle in self.matchingsCalle2:
-            msg += '<li>'+calle.nombre+'</li>'
+            msg += '<li>' + calle.nombre + '</li>'
         msg += '</ul>'
         return msg
 

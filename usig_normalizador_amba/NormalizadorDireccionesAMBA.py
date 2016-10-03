@@ -22,7 +22,7 @@ class NormalizadorDireccionesAMBA:
 
     def _getPartidosAMBA(self):
         try:
-            response = urllib2.urlopen(self.config['callejero_amba_server']+'partidos').read()
+            response = urllib2.urlopen(self.config['callejero_amba_server'] + 'partidos').read()
             partidos = json.loads(response, 'utf8')
             return partidos
         except urllib2.HTTPError, e:
@@ -99,8 +99,8 @@ class NormalizadorDireccionesAMBA:
             except Exception, e:
                 pass
 
-        if len(res[0]+res[1]+res[2]+res[3]):
-            res = (res[0]+res[1]+res[2]+res[3])
+        if len(res[0] + res[1] + res[2] + res[3]):
+            res = (res[0] + res[1] + res[2] + res[3])
             if partido != '':
                 res = [r for r in res if (matcheaTexto(partido, r.partido.nombre) or matcheaTexto(partido, r.localidad))]
             return res[:maxOptions]
@@ -132,8 +132,8 @@ class NormalizadorDireccionesAMBA:
             except Exception, e:
                 pass
 
-        if len(res[0]+res[1]+res[2]+res[3]):
-            return (res[0]+res[1]+res[2]+res[3])[:maxOptions]
+        if len(res[0] + res[1] + res[2] + res[3]):
+            return (res[0] + res[1] + res[2] + res[3])[:maxOptions]
         else:
             raise e
 
@@ -149,7 +149,7 @@ class NormalizadorDireccionesAMBA:
         palabras = re.split('\s', normalizarTexto(texto))
         cant_palabras = len(palabras)
         for i in range(cant_palabras):
-            texto_cortado = ' '.join(palabras[:i+1])
+            texto_cortado = ' '.join(palabras[:i + 1])
             if matcheaTexto(texto_cortado, partido) or matcheaTexto(texto_cortado, localidad):
                 retval = True
             else:
@@ -170,7 +170,7 @@ class NormalizadorDireccionesAMBA:
             for match in partido:
                 new_match = {'posicion': match['posicion'], 'texto': match['texto'], 'direcciones': []}
                 for direccion in match['direcciones']:
-                    posicion = match['posicion']+len(match['texto'])
+                    posicion = match['posicion'] + len(match['texto'])
                     partido_direccion = u'Partido de {0}'.format(direccion.partido.nombre)
                     localidad_direccion = u'Localidad de {0}'.format(direccion.localidad)
                     if self._buscarPartidoLocalidad(texto[posicion:], partido_direccion, localidad_direccion):

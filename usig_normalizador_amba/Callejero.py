@@ -86,10 +86,10 @@ class Callejero:
         pos = bisect_left(self.osm_ids, codigo)
         if pos < len(self.data) and self.data[pos][0] == codigo:
             retval = [self.data[pos]]
-            if pos-1 > 0 and self.data[pos-1][0] == codigo:
-                retval.append(self.data[pos-1])
-            if pos+1 < len(self.data) and self.data[pos+1][0] == codigo:
-                retval.append(self.data[pos+1])
+            if pos - 1 > 0 and self.data[pos - 1][0] == codigo:
+                retval.append(self.data[pos - 1])
+            if pos + 1 < len(self.data) and self.data[pos + 1][0] == codigo:
+                retval.append(self.data[pos + 1])
             return retval
         else:
             return []
@@ -134,7 +134,7 @@ class Callejero:
                     if match:
                         res[3].append(Calle(data[0], data[1], data[3], data[4], self.partido, data[5]))
 
-        res = res[0]+res[1]+res[2]+res[3]
+        res = res[0] + res[1] + res[2] + res[3]
         self.minicache = [calle, res]
 
         return res if limit == 0 else res[:limit]
