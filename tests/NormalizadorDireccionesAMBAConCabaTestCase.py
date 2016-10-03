@@ -69,3 +69,19 @@ class NormalizadorDireccionesAMBAConCabaTestCase(unittest.TestCase):
         self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
 
         self._checkDireccion(res[0], 53565, u'Gral Arenales', 806, 'jose_c_paz', u'José C. Paz')
+
+    def testNormalizador_normalizar_calles_como_av_o_pje(self):
+        casos = [
+            u'Avenida Paraná 853, caba',
+            u'Paraná avenida 853, caba',
+            u'Paraná avda 853, caba',
+            u'AV. Paraná 853, caba',
+            u'Pasaje Paraná 853, caba',
+            u'Psje. Paraná 853, caba',
+            u'Paraná pje. 853, caba'
+        ]
+        for caso in casos:
+            res = self.nd.normalizar(caso)
+            self.assertTrue(isinstance(res, list))
+            self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+            self._checkDireccion(res[0], 17018, u'PARANA', 853, 'caba', u'CABA')

@@ -117,3 +117,19 @@ class NormalizadorDireccionesTestCase(unittest.TestCase):
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
         self._checkCalle(res[0], 183044, u'Puerto Príncipe', 'jose_c_paz', u'José C. Paz')
+
+    def testNormalizador_normalizar_calles_como_av_o_pje(self):
+        casos = [
+            u'Avenida Arribeños',
+            u'Arribeños avenida',
+            u'Arribeños avda',
+            u'AV. Arribeños',
+            u'Pasaje Arribeños',
+            u'Psje. Arribeños',
+            u'Arribeños pje'
+        ]
+        for caso in casos:
+            res = self.nd.normalizar(caso)
+            self.assertTrue(isinstance(res, list))
+            self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
+            self._checkCalle(res[0], 79350, u'Arribeños', 'jose_c_paz', u'José C. Paz')

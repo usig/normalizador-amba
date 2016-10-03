@@ -87,6 +87,14 @@ class NormalizadorDirecciones:
                 except Exception, error:
                     pass
 
+        if not res:
+            direccion_sin_palabras_claves = self._quitarPalabrasClaves(direccion)
+            if direccion_sin_palabras_claves != direccion:
+                try:
+                    res = self.normalizar(direccion_sin_palabras_claves, maxOptions)
+                except:
+                    pass
+
         if isinstance(res, list):
             if res:
                 return res
@@ -97,6 +105,21 @@ class NormalizadorDirecciones:
                     raise ErrorCalleInexistente(strDir.strOriginal)
         else:
             return res
+
+    def _quitarPalabrasClaves(self, texto):
+        try:
+            patrones = [
+                '^avenida ', ' avenida ', ' avenida$',
+                '^avda\.? ', ' avda\.? ', ' avda\.?$',
+                '^av\.? ', ' av\.? ', ' av\.?$',
+                '^pasaje ', ' pasaje ', ' pasaje$',
+                '^psje\.? ', ' psje\.? ', ' psje\.?$',
+                '^pje\.? ', ' pje\.? ', ' pje\.?$',
+            ]
+            patron = '|'.join(patrones)
+            return re.sub(patron, ' ', texto, flags=re.IGNORECASE)
+        except:
+            return texto
 
     def buscarCalle(self, inCalle, maxOptions):
         res = self.c.buscarCalle(inCalle, maxOptions)
@@ -154,7 +177,7 @@ class NormalizadorDirecciones:
             if(len(opts[MATCH_EXACTO]) >= maxOptions):
                 break
 
-        opts = (opts[MATCH_EXACTO]+opts[MATCH_PERMUTADO]+opts[MATCH_INCLUIDO]+opts[MATCH])[:maxOptions]
+        opts = (opts[MATCH_EXACTO] + opts[MATCH_PERMUTADO] + opts[MATCH_INCLUIDO] + opts[MATCH])[:maxOptions]
 
         if(len(opts) == 0 and len(calles) > 0):
             raise ErrorCruceInexistente(inCalle, [], inCruce, [])
@@ -165,7 +188,7 @@ class NormalizadorDirecciones:
         retval = None
         cant_palabras = len(palabras)
         for i in range(cant_palabras):
-            indice = (cant_palabras-1-i, cant_palabras) if sentido == -1 else (0, i+1)
+            indice = (cant_palabras - 1 - i, cant_palabras) if sentido == -1 else (0, i + 1)
             calle = ' '.join(palabras[indice[0]:indice[1]])
             try:
                 self.normalizar(calle)
