@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 default_settings = {
     'callejero_amba_server': 'http://servicios.usig.buenosaires.gob.ar/callejero-amba/',
-    'callejero_caba_server': 'http://usig.buenosaires.gov.ar/servicios/Callejero',
+    'callejero_caba_server': 'http://servicios.usig.buenosaires.gob.ar/callejero',
 }
 
 # Tipo de normalizacion
