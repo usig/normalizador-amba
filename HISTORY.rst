@@ -3,6 +3,12 @@
 History
 -------
 
+1.2.4 (2016-12-27)
+------------------
+* BUGFIX: problema de encoding en el método __str__ de la clase ErrorTextoSinDireccion.
+* Fix a la url del callejero CABA
+
+
 1.2.3 (2016-10-04)
 ------------------
 * Si no logra normalizar el texto ingresado, prueba quitandole avenida y/o pasaje.
