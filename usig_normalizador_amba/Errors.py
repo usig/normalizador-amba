@@ -11,7 +11,7 @@ Created on Apr 16, 2014
     - ErrorTextoSinDireccion
 '''
 from __future__ import absolute_import
-
+import unicodedata
 
 class ErrorNormalizacion(Exception):
     def __init__(self):
@@ -275,4 +275,5 @@ class ErrorTextoSinDireccion(Exception):
         @return: Mensaje de error
         @rtype: String
         '''
-        return str(self.message)
+        msg = unicodedata.normalize('NFKD', self.message).encode('ascii', 'ignore')
+        return str(msg)
