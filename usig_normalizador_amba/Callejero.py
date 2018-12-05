@@ -50,7 +50,7 @@ class Callejero:
         try:
             self.cargarCallejero()
         except Exception as e:
-            raise e
+            print(e)
 
     def cargarCallejero(self):
         try:

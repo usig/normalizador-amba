@@ -23,6 +23,9 @@ setup(
     packages=['usig_normalizador_amba'],
     keywords='usig gcba gis normalizador direcciones amba',
     platforms=['Unix/Linux'],
+    install_requires=[
+        'urllib3',
+    ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',

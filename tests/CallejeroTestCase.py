@@ -6,7 +6,7 @@ from usig_normalizador_amba.Callejero import Callejero
 from usig_normalizador_amba.Partido import Partido
 from usig_normalizador_amba.Calle import Calle
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class CallejeroTestCase(unittest.TestCase):
