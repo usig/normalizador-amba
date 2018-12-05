@@ -37,21 +37,22 @@ def matcheaTexto(txt1, txt2, normalizar=True):
         if (words1 == words1 & words2):
             return MATCH_INCLUIDO
 
-        regexps1 = map(lambda x: re.compile(ur'^{0}| {0}'.format(re.escape(x))), words1)
+        regexps1 = map(lambda x: re.compile(r'^{0}| {0}'.format(re.escape(x))), words1)
         for regexp in regexps1:
             if regexp.search(txt2) is None:
                 return NO_MATCH
 
         return MATCH
 
-    except Exception, e:
+    except Exception as e:
         raise e
 
 
 # normaliza un string quitándole acentos y caracteres especiales
 def normalizarTexto(texto, separador=' ', lower=True):
     texto = texto.lower() if lower else texto.upper()
-    texto = unicode(texto)
+    #texto = unicode(texto)
+    texto=texto.encode(texto,"utf-8")
     texto = ''.join((c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn'))  # reemplazamos ñ y acentos por n y sin acentos
     texto = re.sub(r'[^a-zA-Z0-9 ]', ' ', texto)  # reemplazamos caracteres especiales por espacios
     texto = texto.strip()  # stripeo

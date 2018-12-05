@@ -36,10 +36,12 @@ class Partido:
         '''
         try:
             self.codigo = str(codigo)
-            self.nombre = unicode(nombre)
-            self.keywords = unicode(keywords) if keywords != '' else self.nombre
+            #self.nombre = unicode(nombre)
+            self.nombre = nombre
+            #self.keywords = unicode(keywords) if keywords != '' else self.nombre
+            self.keywords = keywords if keywords != '' else self.nombre
             self.codigo_osm = int(codigo_osm)
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def __str__(self):

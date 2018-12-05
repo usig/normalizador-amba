@@ -5,7 +5,7 @@ Created on Apr 21, 2014
 @author: hernan
 '''
 from __future__ import absolute_import
-import urllib2
+import urllib3
 import re
 import json
 from bisect import bisect_left
@@ -49,7 +49,7 @@ class Callejero:
 
         try:
             self.cargarCallejero()
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def cargarCallejero(self):
@@ -61,7 +61,8 @@ class Callejero:
                 server = '{0}callejero/?partido={1}'.format(self.config['callejero_amba_server'], self.partido.codigo)
                 encoding = 'utf8'
 
-            data = urllib2.urlopen(server).read()
+            http = urllib3.PoolManager()
+            data = http.request('GET', server)
             self.data = json.loads(data, encoding)
             for d in self.data:
                 if self.partido.codigo == 'caba':
@@ -69,10 +70,10 @@ class Callejero:
                 d.append(set(normalizarTexto(d[1], separador=' ', lower=False).split(' ')))
             self.data.sort()  # Ordeno por id
             self.osm_ids = [k[0] for k in self.data]  # Armo lista de osm_ids
-        except urllib2.HTTPError, e:
+        except urllib3.exceptions.HTTPError as e:
             e.detalle = 'Se produjo un error al intentar cargar la información de calles.'
             raise e
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def buscarCodigo(self, codigo):
@@ -112,7 +113,7 @@ class Callejero:
         calleNorm1 = normalizarTexto(calle, separador=' ', lower=False)
         words1 = list(set(calleNorm1.split(' ')))
         words1.sort(key=len, reverse=True)
-        regexps1 = map(lambda x: re.compile(ur'^{0}| {1}'.format(re.escape(x), re.escape(x))), words1)
+        regexps1 = map(lambda x: re.compile(r'^{0}| {1}'.format(re.escape(x), re.escape(x))), words1)
 
         words1 = set(words1)
 # No utilizo commons.matcheaTexto por cuestiones de optimizacion

@@ -44,7 +44,8 @@ class Calle:
         '''
         try:
             self.codigo = int(codigo)
-            self.nombre = unicode(nombre)
+           # self.nombre=nombre.decode("UTF-8")
+            self.nombre=nombre
             if isinstance(alturas, list):
                 self.alturas = alturas
             else:
@@ -57,9 +58,10 @@ class Calle:
                 self.partido = partido
             else:
                 raise TypeError('partido must be a Partido object.')
-            self.localidad = unicode(localidad)
+            #self.localidad = localidad.decode("UTF-8")
+            self.localidad = localidad
 
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def __str__(self):

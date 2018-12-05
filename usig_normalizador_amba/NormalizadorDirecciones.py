@@ -45,13 +45,13 @@ class NormalizadorDirecciones:
                 raise Exception(u'Debe indicar el partido.')
             self.c = Callejero(partido, config)
             self.partido = partido
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def recargarCallejero(self):
         try:
             self.c.cargarCallejero()
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def normalizar(self, direccion, maxOptions=10):
@@ -69,8 +69,10 @@ class NormalizadorDirecciones:
         if direccion == '':
             raise ErrorCalleInexistente(u'')
 
-        if type(direccion) != unicode:
-            direccion = unicode(direccion, encoding='utf-8', errors='ignore')
+        if type(direccion) != str:
+            #direccion = unicode(direccion, encoding='utf-8', errors='ignore')
+            direccion=direccion.encode("utf-8")
+
         strDir = StringDireccion(direccion)
 
         for candidato in strDir.candidatos:
@@ -79,12 +81,12 @@ class NormalizadorDirecciones:
             elif candidato['tipo'] == CALLE_ALTURA:
                 try:
                     res += self.normalizarCalleAltura(candidato['calle'], candidato['altura'], maxOptions)
-                except Exception, error:
+                except Exception as error:
                     pass
             elif candidato['tipo'] == CALLE_Y_CALLE:
                 try:
                     res += self.normalizarCalleYCalle(candidato['calle'], candidato['cruce'], maxOptions)
-                except Exception, error:
+                except Exception as error:
                     pass
 
         if not res:
@@ -240,7 +242,8 @@ class NormalizadorDirecciones:
         return retval
 
     def buscarDireccion(self, texto=''):
-        texto = unicode(texto)
+      #  texto = unicode(texto)
+       # texto=texto.decode("UTF-8") esto decodifica un utf-8, en teoria todos los textos se formatean automaticamente en utf8 en python3
         ''' Patron: (dir_calle [al] dir_altura) | (esq_calle y|e esq_cruce) '''
         patron_calle_altura = '(?:(?P<dir_conector>(?:\s+al)?\s+)(?P<dir_altura>[0-9]+))'
         patron_calle_calle = '(?P<esq_conector>\s+(?:y|e)\s+)'

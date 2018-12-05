@@ -67,7 +67,7 @@ class Direccion:
             else:
                 self.tipo = INVALIDO
 
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def __str__(self):

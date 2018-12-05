@@ -33,7 +33,7 @@ class Punto:
             self.x = float(x)
             self.y = float(y)
             self.srid = int(srid)
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def __str__(self):
@@ -45,7 +45,8 @@ class Punto:
         return u'({0},{1})'.format(self.x, self.y)
 
     def __unicode__(self):
-        return unicode(self.__str__())
+        #return unicode(self.__str__())
+        return self.__str__()
 
     def toJson(self):
         '''

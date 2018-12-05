@@ -38,7 +38,7 @@ class StringDireccion:
         self.candidatos = []
 
         # case: CALLE_ALTURA
-        res = re.match(ur'^(.+) ([0-9]+)$', self.strNormalizado)
+        res = re.match(r'^(.+) ([0-9]+)$', self.strNormalizado)
         if res:
             self.candidatos.append({'tipo': CALLE_ALTURA, 'calle': res.group(1), 'altura': int(res.group(2))})
 
