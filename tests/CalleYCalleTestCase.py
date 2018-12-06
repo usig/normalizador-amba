@@ -9,7 +9,7 @@ from usig_normalizador_amba.Errors import ErrorCalleInexistente, ErrorCruceInexi
 
 from usig_normalizador_amba.settings import CALLE_Y_CALLE
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class CalleYCalleTestCase(unittest.TestCase):
@@ -36,13 +36,13 @@ class CalleYCalleTestCase(unittest.TestCase):
     def testCalle1UnicaCalle2UnicaCruceInexistente(self):
         try:
             self.nd.normalizar('Mateo Bootz y pavon')
-        except Exception, e:
+        except Exception as e:
             self.assertTrue(isinstance(e, ErrorCruceInexistente))
 
     def testCalle1MuchasCalle2MuchasCruceInexistente(self):
         try:
             self.nd.normalizar(u'saenz peña y gaspar campos')
-        except Exception, e:
+        except Exception as e:
             self.assertTrue(isinstance(e, ErrorCruceInexistente))
 
     def testCalle1UnicaCalle2UnicaCruceExistente(self):

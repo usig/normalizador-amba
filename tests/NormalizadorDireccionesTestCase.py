@@ -7,7 +7,7 @@ from usig_normalizador_amba.Partido import Partido
 from usig_normalizador_amba.Calle import Calle
 from usig_normalizador_amba.Errors import ErrorCalleInexistente
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class NormalizadorDireccionesTestCase(unittest.TestCase):

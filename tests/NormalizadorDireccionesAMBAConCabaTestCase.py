@@ -6,7 +6,7 @@ from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDirec
 from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.settings import CALLE_ALTURA
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class NormalizadorDireccionesAMBAConCabaTestCase(unittest.TestCase):

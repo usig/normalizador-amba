@@ -7,7 +7,7 @@ from usig_normalizador_amba.Partido import Partido
 from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.Errors import ErrorCalleInexistenteAEsaAltura, ErrorCalleInexistente
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class CalleAlturaTestCase(unittest.TestCase):
@@ -44,7 +44,7 @@ class CalleAlturaTestCase(unittest.TestCase):
         try:
             self.nd_jcp.normalizar(u'santiago 5000')
             self.assertTrue(False, "Si llega aca es que no tiro la excepcion")
-        except Exception, e:
+        except Exception as e:
             self.assertTrue(isinstance(e, ErrorCalleInexistenteAEsaAltura))
 
     def testMuchasCallesUnaConAlturaValida(self):

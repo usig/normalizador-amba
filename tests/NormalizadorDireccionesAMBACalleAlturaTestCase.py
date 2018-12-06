@@ -6,7 +6,7 @@ from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDirec
 from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.Errors import ErrorCalleInexistente
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class NormalizadorDireccionesAMBACalleAlturaTestCase(unittest.TestCase):

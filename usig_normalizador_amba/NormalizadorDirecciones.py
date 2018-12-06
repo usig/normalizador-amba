@@ -68,10 +68,11 @@ class NormalizadorDirecciones:
 
         if direccion == '':
             raise ErrorCalleInexistente(u'')
-
-        if type(direccion) != str:
+       # print("tipo de direccion: ", direccion)
+        #if type(direccion) != unicode:
             #direccion = unicode(direccion, encoding='utf-8', errors='ignore')
-            direccion=direccion.encode("utf-8")
+           # print(type(direccion))
+            #direccion=direccion.encode("utf-8")
 
         strDir = StringDireccion(direccion)
 

@@ -7,7 +7,7 @@ from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.Errors import ErrorCruceInexistente, ErrorCalleInexistente
 from usig_normalizador_amba.settings import CALLE_Y_CALLE
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class NormalizadorDireccionesAMBACalleYCalleTestCase(unittest.TestCase):
