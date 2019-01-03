@@ -4,7 +4,7 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
-from __future__ import absolute_import
+
 import re
 
 from usig_normalizador_amba.settings import CALLE_ALTURA, CALLE_Y_CALLE, INVALIDO
@@ -74,7 +74,7 @@ class Direccion:
         return self.__unicode__().encode('utf8', 'ignore')
 
     def __unicode__(self):
-        retval = u'''-- Dirección
+        retval = '''-- Dirección
     calle = {0}
     altura = {1}
     cruce = {2}
@@ -99,13 +99,13 @@ class Direccion:
                 altura = self.altura
             else:
                 altura = 'S/N'
-            retval = u'{0} {1}, {2}'.format(self.calle.nombre, altura, self.partido.nombre)
+            retval = '{0} {1}, {2}'.format(self.calle.nombre, altura, self.partido.nombre)
         elif (self.tipo == CALLE_Y_CALLE):
             if(re.match('(?i)(I|Hi|HI)', self.cruce.nombre) is not None):
                 separador = 'e'
             else:
                 separador = 'y'
-            retval = u'{0} {1} {2}, {3}'.format(self.calle.nombre, separador, self.cruce.nombre, self.partido.nombre)
+            retval = '{0} {1} {2}, {3}'.format(self.calle.nombre, separador, self.cruce.nombre, self.partido.nombre)
         else:
             retval = ''
 

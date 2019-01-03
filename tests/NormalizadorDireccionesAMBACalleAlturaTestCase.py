@@ -1,5 +1,5 @@
 # coding: UTF-8
-from __future__ import absolute_import
+
 import unittest
 
 from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
@@ -30,14 +30,14 @@ class NormalizadorDireccionesAMBACalleAlturaTestCase(unittest.TestCase):
         self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, 'O\'Higgins 1479, Lomas de Zamora')
 
     def testNormalizador_RestaurantDeLosKao(self):
-        res = self.nd.normalizar(u'O\'Higgins 1479, Florida')
+        res = self.nd.normalizar('O\'Higgins 1479, Florida')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self._checkDireccion(res[0], 4882, u'O\'Higgins', 1479, 'vicente_lopez', u'Florida')
+        self.assertEqual(len(res), 1, 'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self._checkDireccion(res[0], 4882, 'O\'Higgins', 1479, 'vicente_lopez', 'Florida')
 
     def testNormalizador_DireccionEnVariosPartidos(self):
-        res = self.nd.normalizar(u'pavón 4450')
+        res = self.nd.normalizar('pavón 4450')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 2, u'Debería haber 2 matching/s. Hay {0}'.format(len(res)))
-        self._checkDireccion(res[0], 278904, u'Pavón', 4450, 'jose_c_paz', u'José C. Paz')
-        self._checkDireccion(res[1], 214876, u'Diagonal Pavón', 4450, 'vicente_lopez', u'Florida Oeste')
+        self.assertEqual(len(res), 2, 'Debería haber 2 matching/s. Hay {0}'.format(len(res)))
+        self._checkDireccion(res[0], 278904, 'Pavón', 4450, 'jose_c_paz', 'José C. Paz')
+        self._checkDireccion(res[1], 214876, 'Diagonal Pavón', 4450, 'vicente_lopez', 'Florida Oeste')

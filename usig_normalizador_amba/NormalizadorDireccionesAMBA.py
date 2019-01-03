@@ -5,8 +5,8 @@ Modified on Mar 28, 2016
 
 @author: hernan
 '''
-from __future__ import absolute_import
-import urllib
+
+from urllib import request, error, parse
 import re
 import json
 
@@ -22,11 +22,11 @@ class NormalizadorDireccionesAMBA:
 
     def _getPartidosAMBA(self):
         try:
-            response = urllib.urlopen(self.config['callejero_amba_server'] + 'partidos').read()
-            partidos = json.loads(response, 'utf8')
+            response = request.urlopen(self.config['callejero_amba_server'] + 'partidos').read()
+            partidos = json.loads(response)
             return partidos
-        except urllib.exceptions.HTTPError as e:
-            e.detalle = u'Se produjo un error al intentar cargar la información de partidos.'
+        except error.HTTPError as e:
+            e.detalle = 'Se produjo un error al intentar cargar la información de partidos.'
             raise e
 
     def __init__(self, include_list=[], exclude_list=[], config={}):
@@ -38,7 +38,7 @@ class NormalizadorDireccionesAMBA:
         self.normalizadores = []
         try:
             partidos = self._getPartidosAMBA()
-            partidos = [[1, u'caba', u'CABA', u'CABA Ciudad Autónoma de Buenos Aires']] + partidos
+            partidos = [[1, 'caba', 'CABA', 'CABA Ciudad Autónoma de Buenos Aires']] + partidos
 
             for p in partidos:
                 if p[1] not in exclude_list and (len(include_list) == 0 or p[1] in include_list):
@@ -46,8 +46,8 @@ class NormalizadorDireccionesAMBA:
                     nd = NormalizadorDirecciones(partido, self.config)
                     self.normalizadores.append(nd)
 
-        except urllib.exceptions.HTTPError as e:
-            e.detalle = u'Se produjo un error al intentar cargar la información de partidos.'
+        except error.HTTPError as e:
+            e.detalle = 'Se produjo un error al intentar cargar la información de partidos.'
             raise e
 
     def recargarCallejeros(self):
@@ -60,26 +60,29 @@ class NormalizadorDireccionesAMBA:
     def normalizar(self, direccion, maxOptions=10):
         res = []
         re_partido = re.match(r'(.*),(.+)', direccion)
-
+        global errorGlobal
+        errorGlobal = None
         if re_partido:
             try:
                 res = self.normalizarPorPartido(re_partido.group(1), re_partido.group(2), maxOptions)
             except Exception as e:
-                pass
+                errorGlobal = e
 
         if len(res) == 0:
             try:
                 res = self.normalizarPorPartido(direccion, maxOptions=maxOptions)
             except Exception as e:
-                pass
+                errorGlobal = e
 
         if len(res):
             return res
         else:
-            raise e
+            raise errorGlobal
 
     def normalizarPorPartido(self, direccion, partido='', maxOptions=10):
         res = [[], [], [], []]
+        global errorGlobal
+        errorGlobal = None
         for nd in self.normalizadores:
             try:
                 if partido == '':
@@ -97,7 +100,7 @@ class NormalizadorDireccionesAMBA:
                         elif m == MATCH:
                             res[3] += result
             except Exception as e:
-                pass
+                errorGlobal = e
 
         if len(res[0] + res[1] + res[2] + res[3]):
             res = (res[0] + res[1] + res[2] + res[3])
@@ -105,11 +108,12 @@ class NormalizadorDireccionesAMBA:
                 res = [r for r in res if (matcheaTexto(partido, r.partido.nombre) or matcheaTexto(partido, r.localidad))]
             return res[:maxOptions]
         else:
-            raise e
+            raise errorGlobal
 
     def normalizarCalleYCalle(self, calle1='', calle2='', partido='', maxOptions=10):
         res = [[], [], [], []]
-
+        global errorGlobal
+        errorGlobal = None
         if calle1 == '' or calle2 == '':
             raise Exception('Debe ingresar la calle y el cruce.')
 
@@ -130,12 +134,12 @@ class NormalizadorDireccionesAMBA:
                         elif m == MATCH:
                             res[3] += result
             except Exception as e:
-                pass
+                errorGlobal = e
 
         if len(res[0] + res[1] + res[2] + res[3]):
             return (res[0] + res[1] + res[2] + res[3])[:maxOptions]
         else:
-            raise e
+            raise errorGlobal
 
     def buscarCodigo(self, codigo):
         for nd in self.normalizadores:
@@ -171,8 +175,8 @@ class NormalizadorDireccionesAMBA:
                 new_match = {'posicion': match['posicion'], 'texto': match['texto'], 'direcciones': []}
                 for direccion in match['direcciones']:
                     posicion = match['posicion'] + len(match['texto'])
-                    partido_direccion = u'Partido de {0}'.format(direccion.partido.nombre)
-                    localidad_direccion = u'Localidad de {0}'.format(direccion.localidad)
+                    partido_direccion = 'Partido de {0}'.format(direccion.partido.nombre)
+                    localidad_direccion = 'Localidad de {0}'.format(direccion.localidad)
                     if self._buscarPartidoLocalidad(texto[posicion:], partido_direccion, localidad_direccion):
                         new_match['direcciones'].append(direccion)
                 if new_match['direcciones']:

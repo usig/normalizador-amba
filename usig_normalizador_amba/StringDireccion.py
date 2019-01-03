@@ -4,7 +4,7 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
-from __future__ import absolute_import
+
 import re
 
 from usig_normalizador_amba.settings import CALLE, CALLE_ALTURA, CALLE_Y_CALLE
@@ -65,7 +65,7 @@ class StringDireccion:
         return self.__unicode__().encode('utf8', 'ignore')
 
     def __unicode__(self):
-        retval = u'''-- StringDireccion
+        retval = '''-- StringDireccion
     strOriginal = {0}
     candidatos = {1}'''
         return retval.format(self.strOriginal, self.candidatos)

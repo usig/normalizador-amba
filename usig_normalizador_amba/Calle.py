@@ -4,7 +4,7 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
-from __future__ import absolute_import
+
 
 from usig_normalizador_amba.Partido import Partido
 
@@ -44,8 +44,7 @@ class Calle:
         '''
         try:
             self.codigo = int(codigo)
-           # self.nombre=nombre.decode("UTF-8")
-            self.nombre=nombre
+            self.nombre = str(nombre)
             if isinstance(alturas, list):
                 self.alturas = alturas
             else:
@@ -58,8 +57,7 @@ class Calle:
                 self.partido = partido
             else:
                 raise TypeError('partido must be a Partido object.')
-            #self.localidad = localidad.decode("UTF-8")
-            self.localidad = localidad
+            self.localidad = str(localidad)
 
         except Exception as e:
             raise e
@@ -68,7 +66,7 @@ class Calle:
         return self.__unicode__().encode('utf8', 'ignore')
 
     def __unicode__(self):
-        retval = u'''-- Calle
+        retval = '''-- Calle
     codigo = {0}
     nombre = {1}
     alturas = {2}
@@ -114,4 +112,4 @@ class Calle:
         @return: Calle como texto
         @rtype: String
         '''
-        return u'{0}, {1}, {2}'.format(self.nombre, self.localidad, self.partido.nombre)
+        return '{0}, {1}, {2}'.format(self.nombre, self.localidad, self.partido.nombre)

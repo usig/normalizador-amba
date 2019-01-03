@@ -10,7 +10,7 @@ Created on Apr 16, 2014
     - ErrorCruceInexistente
     - ErrorTextoSinDireccion
 '''
-from __future__ import absolute_import
+
 import unicodedata
 
 class ErrorNormalizacion(Exception):
@@ -47,7 +47,7 @@ class ErrorCalleInexistente(Exception):
         return self.__unicode__().encode('utf8', 'ignore')
 
     def __unicode__(self):
-        return u'Calle inexistente: {0}'.format(self.calle)
+        return 'Calle inexistente: {0}'.format(self.calle)
 
     def getErrorMessage(self):
         '''
@@ -55,7 +55,7 @@ class ErrorCalleInexistente(Exception):
         @return: Mensaje de error
         @rtype: String
         '''
-        return u'No pudo hallarse ninguna calle existente que coincidiera con "{0}".'.format(self.calle)
+        return 'No pudo hallarse ninguna calle existente que coincidiera con "{0}".'.format(self.calle)
 
 
 class ErrorCalleInexistenteAEsaAltura(Exception):
@@ -86,7 +86,7 @@ class ErrorCalleInexistenteAEsaAltura(Exception):
         @return: Mensaje de error
         @rtype: String
         '''
-        return u'La calle {0} no existe a la altura {1}'.format(self.calle, self.altura)
+        return 'La calle {0} no existe a la altura {1}'.format(self.calle, self.altura)
 
     def getCalle(self):
         '''
@@ -259,7 +259,7 @@ class ErrorTextoSinDireccion(Exception):
         @type calle1:  String
         '''
         self.texto = args[0]
-        self.message = u'No se encontró dirección: "{0}"'.format(self.texto)
+        self.message = 'No se encontró dirección: "{0}"'.format(self.texto)
 
     def __unicode__(self):
         '''

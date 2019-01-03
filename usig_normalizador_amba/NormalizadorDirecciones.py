@@ -4,7 +4,7 @@ Created on Jun 17, 2014
 
 @author: hernan
 '''
-from __future__ import absolute_import
+
 import re
 
 from usig_normalizador_amba.StringDireccion import StringDireccion
@@ -42,7 +42,7 @@ class NormalizadorDirecciones:
 
         try:
             if partido is None:
-                raise Exception(u'Debe indicar el partido.')
+                raise Exception('Debe indicar el partido.')
             self.c = Callejero(partido, config)
             self.partido = partido
         except Exception as e:
@@ -64,16 +64,15 @@ class NormalizadorDirecciones:
         @rtype: Array de Direccion
         '''
         res = []
-        error = None
+
+        global errorGlobal
+        errorGlobal = None
 
         if direccion == '':
-            raise ErrorCalleInexistente(u'')
-       # print("tipo de direccion: ", direccion)
-        #if type(direccion) != unicode:
-            #direccion = unicode(direccion, encoding='utf-8', errors='ignore')
-           # print(type(direccion))
-            #direccion=direccion.encode("utf-8")
+            raise ErrorCalleInexistente('')
 
+        if type(direccion) != str:
+            direccion = str(direccion, encoding='utf-8', errors='ignore')
         strDir = StringDireccion(direccion)
 
         for candidato in strDir.candidatos:
@@ -83,12 +82,12 @@ class NormalizadorDirecciones:
                 try:
                     res += self.normalizarCalleAltura(candidato['calle'], candidato['altura'], maxOptions)
                 except Exception as error:
-                    pass
+                    errorGlobal = error
             elif candidato['tipo'] == CALLE_Y_CALLE:
                 try:
                     res += self.normalizarCalleYCalle(candidato['calle'], candidato['cruce'], maxOptions)
                 except Exception as error:
-                    pass
+                    errorGlobal = error
 
         if not res:
             direccion_sin_palabras_claves = self._quitarPalabrasClaves(direccion)
@@ -102,8 +101,8 @@ class NormalizadorDirecciones:
             if res:
                 return res
             else:
-                if error:
-                    raise error
+                if errorGlobal is not None:
+                    raise errorGlobal
                 else:
                     raise ErrorCalleInexistente(strDir.strOriginal)
         else:
@@ -208,7 +207,7 @@ class NormalizadorDirecciones:
         if indice:
             try:
                 calle = ' '.join(palabras[indice[0]:indice[1]])
-                direccion = u'{0} {1}'.format(calle, altura)
+                direccion = '{0} {1}'.format(calle, altura)
                 res = [r for r in self.normalizar(direccion) if r.tipo == CALLE_ALTURA]
                 if not res:
                     raise Exception()
@@ -230,7 +229,7 @@ class NormalizadorDirecciones:
             try:
                 calle_izq = ' '.join(palabras_izq[indice_izq[0]:indice_izq[1]])
                 calle_der = ' '.join(palabras_der[indice_der[0]:indice_der[1]])
-                direccion = u'{0}{1}{2}'.format(calle_izq, token.groupdict()['esq_conector'], calle_der)
+                direccion = '{0}{1}{2}'.format(calle_izq, token.groupdict()['esq_conector'], calle_der)
                 res = self.normalizar(direccion)
                 res = [r for r in self.normalizar(direccion) if r.tipo == CALLE_Y_CALLE]
                 if not res:
@@ -243,8 +242,7 @@ class NormalizadorDirecciones:
         return retval
 
     def buscarDireccion(self, texto=''):
-      #  texto = unicode(texto)
-       # texto=texto.decode("UTF-8") esto decodifica un utf-8, en teoria todos los textos se formatean automaticamente en utf8 en python3
+        texto = str(texto)
         ''' Patron: (dir_calle [al] dir_altura) | (esq_calle y|e esq_cruce) '''
         patron_calle_altura = '(?:(?P<dir_conector>(?:\s+al)?\s+)(?P<dir_altura>[0-9]+))'
         patron_calle_calle = '(?P<esq_conector>\s+(?:y|e)\s+)'

@@ -4,8 +4,8 @@ Created on Apr 21, 2014
 
 @author: hernan
 '''
-from __future__ import absolute_import
-import urllib3
+
+import urllib.request, urllib.error, urllib.parse
 import re
 import json
 from bisect import bisect_left
@@ -50,27 +50,26 @@ class Callejero:
         try:
             self.cargarCallejero()
         except Exception as e:
-            print(e)
+            raise e
 
     def cargarCallejero(self):
         try:
             if self.partido.codigo == 'caba':
-                server = '{0}?full=1'.format(self.config['callejero_caba_server'])
+                server = '{0}?full=1&encoding=utf-8'.format(self.config['callejero_caba_server'])
                 encoding = 'latin-1'
             else:
                 server = '{0}callejero/?partido={1}'.format(self.config['callejero_amba_server'], self.partido.codigo)
                 encoding = 'utf8'
 
-            http = urllib3.PoolManager()
-            data = http.request('GET', server)
-            self.data = json.loads(data, encoding)
+            data = urllib.request.urlopen(server).read()
+            self.data = json.loads(data)
             for d in self.data:
                 if self.partido.codigo == 'caba':
                     d.append('CABA')
                 d.append(set(normalizarTexto(d[1], separador=' ', lower=False).split(' ')))
             self.data.sort()  # Ordeno por id
             self.osm_ids = [k[0] for k in self.data]  # Armo lista de osm_ids
-        except urllib3.exceptions.HTTPError as e:
+        except urllib.error.HTTPError as e:
             e.detalle = 'Se produjo un error al intentar cargar la información de calles.'
             raise e
         except Exception as e:
@@ -113,7 +112,7 @@ class Callejero:
         calleNorm1 = normalizarTexto(calle, separador=' ', lower=False)
         words1 = list(set(calleNorm1.split(' ')))
         words1.sort(key=len, reverse=True)
-        regexps1 = map(lambda x: re.compile(r'^{0}| {1}'.format(re.escape(x), re.escape(x))), words1)
+        regexps1 = [re.compile(r'^{0}| {1}'.format(re.escape(x), re.escape(x))) for x in words1]
 
         words1 = set(words1)
 # No utilizo commons.matcheaTexto por cuestiones de optimizacion

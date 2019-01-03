@@ -4,7 +4,7 @@ Created on May 12, 2014
 
 @author: hernan
 '''
-from __future__ import absolute_import
+
 import re
 import unicodedata
 
@@ -37,7 +37,7 @@ def matcheaTexto(txt1, txt2, normalizar=True):
         if (words1 == words1 & words2):
             return MATCH_INCLUIDO
 
-        regexps1 = map(lambda x: re.compile(r'^{0}| {0}'.format(re.escape(x))), words1)
+        regexps1 = [re.compile(r'^{0}| {0}'.format(re.escape(x))) for x in words1]
         for regexp in regexps1:
             if regexp.search(txt2) is None:
                 return NO_MATCH
@@ -51,11 +51,7 @@ def matcheaTexto(txt1, txt2, normalizar=True):
 # normaliza un string quitándole acentos y caracteres especiales
 def normalizarTexto(texto, separador=' ', lower=True):
     texto = texto.lower() if lower else texto.upper()
-    #texto = unicode(texto)
-    #texto=texto.encode('utf-8')
-    #print("texto",texto)
-    #encoded3 = str.encode(texto, 'utf-8')
-    print(type(texto))
+    texto = str(texto)
     texto = ''.join((c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn'))  # reemplazamos ñ y acentos por n y sin acentos
     texto = re.sub(r'[^a-zA-Z0-9 ]', ' ', texto)  # reemplazamos caracteres especiales por espacios
     texto = texto.strip()  # stripeo

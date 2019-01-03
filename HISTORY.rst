@@ -2,6 +2,12 @@
 
 History
 -------
+1.2.5 (2018-12-15)
+------------------
+* Migracion a python 3.6
+* Modificacion de manejo de excepciones
+* Modificacion de llamada a servicio externo callejero
+
 
 1.2.4 (2016-12-27)
 ------------------

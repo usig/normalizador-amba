@@ -1,5 +1,5 @@
 # coding: UTF-8
-from __future__ import absolute_import
+
 import os
 import sys
 import unittest
@@ -38,9 +38,9 @@ if __name__ == '__main__':
     ]
 
     for testable in testables:
-        print ('')
-        print (''.center(80, '='))
-        print (u'  {0}  '.format(testable.__name__)).center(80, '=')
-        print (''.center(80, '='))
+        print('')
+        print(''.center(80, '='))
+        print(('  {0}  '.format(testable.__name__)).center(80, '='))
+        print(''.center(80, '='))
         suite = tl.loadTestsFromTestCase(testable)
         unittest.TextTestRunner(verbosity=2).run(suite)

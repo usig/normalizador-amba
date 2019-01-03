@@ -3,7 +3,7 @@ VERSION = $(shell python -c 'import usig_normalizador_amba; print usig_normaliza
 TITLE = $(shell python -c 'import usig_normalizador_amba; print usig_normalizador_amba.__title__')
 
 run-test:
-	@cd tests && python test.py
+	@cd tests && python3 test.py
 
 prepare-package:
 	find dist/ -type f -name "$(TITLE)-*$(VERSION)*" -exec rm -if {} \;
