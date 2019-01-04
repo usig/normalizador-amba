@@ -1,7 +1,7 @@
 Normalizador de Direcciones AMBA
 ================================
 El procedimiento de normalización de direcciones tiene por objetivo unificar la escritura de direcciones con respecto a un callejero de referencia.
-A su vez ofrece herramientas para consultar de manera transparente la existencia de cruces de calles, calles pertenecientes a
+A su vez ofrece herramientas para consultar de manera transparente la existencia de cruces de calle, calles pertenecientes a
 partidos, calle con altura con y sin partido determinado. 'Normalizador de Direcciones AMBA' es una componente python para normalizar direcciones del AMBA (conurbano y CABA).
 
 Partidos disponibles
