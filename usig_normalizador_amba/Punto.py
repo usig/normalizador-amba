@@ -4,7 +4,7 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
-from __future__ import absolute_import
+
 
 
 class Punto:
@@ -33,7 +33,7 @@ class Punto:
             self.x = float(x)
             self.y = float(y)
             self.srid = int(srid)
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def __str__(self):
@@ -42,10 +42,10 @@ class Punto:
         @return: Representacion del punto como cadena con la forma '(x,y)'
         @rtype: String
         '''
-        return u'({0},{1})'.format(self.x, self.y)
+        return '({0},{1})'.format(self.x, self.y)
 
     def __unicode__(self):
-        return unicode(self.__str__())
+        return str(self.__str__())
 
     def toJson(self):
         '''
@@ -53,7 +53,7 @@ class Punto:
         @return: Representacion del punto como cadena JSON con la forma '{'x':XXXXX,'y':YYYYY,'srid':ZZZZ}'
         @rtype: String
         '''
-        return u'{{"x":{0},"y":{1},"srid":{2}}}'.format(self.x, self.y, self.srid)
+        return '{{"x":{0},"y":{1},"srid":{2}}}'.format(self.x, self.y, self.srid)
 
     def toDict(self):
         '''
@@ -71,7 +71,7 @@ class Punto:
         @return: Representacion del punto como cadena GeoJSON
         @rtype: String
         '''
-        return u'{"type": "Feature", "geometry": {"type": "Point", "coordinates": [{0}, {1}]}}'.format(self.x, self.y)
+        return '{"type": "Feature", "geometry": {"type": "Point", "coordinates": [{0}, {1}]}}'.format(self.x, self.y)
 
     def toWKT(self):
         '''
@@ -79,4 +79,4 @@ class Punto:
         @return: Representacion del punto como cadena WKT
         @rtype: String
         '''
-        return u'POINT ({0},{1})'.format(self.x, self.y)
+        return 'POINT ({0},{1})'.format(self.x, self.y)

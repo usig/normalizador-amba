@@ -1,5 +1,5 @@
 # coding: UTF-8
-from __future__ import absolute_import
+
 import json
 
 from usig_normalizador_amba.commons import normalizarTexto

@@ -1,5 +1,5 @@
 # coding: UTF-8
-from __future__ import absolute_import
+
 import unittest
 
 from usig_normalizador_amba.NormalizadorDirecciones import NormalizadorDirecciones
@@ -7,15 +7,15 @@ from usig_normalizador_amba.Partido import Partido
 from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.Errors import ErrorCalleInexistenteAEsaAltura, ErrorCalleInexistente
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class CalleAlturaTestCase(unittest.TestCase):
-    p = Partido('jose_c_paz', u'José C. Paz', u'Partido de José C. Paz', 2430431)
+    p = Partido('jose_c_paz', 'José C. Paz', 'Partido de José C. Paz', 2430431)
     nd_jcp = NormalizadorDirecciones(p)
     cargarCallejeroEstatico(nd_jcp.c)
 
-    p = Partido('la_plata', u'La Plata', u'Partido de La Plata', 2499263)
+    p = Partido('la_plata', 'La Plata', 'Partido de La Plata', 2499263)
     nd_lp = NormalizadorDirecciones(p)
     cargarCallejeroEstatico(nd_lp.c)
 
@@ -32,161 +32,161 @@ class CalleAlturaTestCase(unittest.TestCase):
         self.assertRaises(ErrorCalleInexistente, self.nd_jcp.normalizar, "av arcos 1234")
 
     def testUnicaCalleExistente(self):
-        res = self.nd_jcp.normalizar(u'Roque Sáenz Peña 5050')
+        res = self.nd_jcp.normalizar('Roque Sáenz Peña 5050')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 77440, u'Roque Sáenz Peña', 5050)
+        self._checkDireccion(res[0], 77440, 'Roque Sáenz Peña', 5050)
 
     def testUnicaCalleExistenteConAlturaInexistente(self):
-        self.assertRaises(ErrorCalleInexistenteAEsaAltura, self.nd_jcp.normalizar, u'Roque Sáenz Peña 505')
+        self.assertRaises(ErrorCalleInexistenteAEsaAltura, self.nd_jcp.normalizar, 'Roque Sáenz Peña 505')
 
     def testMuchasCallesSinAlturaValida(self):
         try:
-            self.nd_jcp.normalizar(u'santiago 5000')
+            self.nd_jcp.normalizar('santiago 5000')
             self.assertTrue(False, "Si llega aca es que no tiro la excepcion")
-        except Exception, e:
+        except Exception as e:
             self.assertTrue(isinstance(e, ErrorCalleInexistenteAEsaAltura))
 
     def testMuchasCallesUnaConAlturaValida(self):
-        res = self.nd_jcp.normalizar(u'santiago 4000')
+        res = self.nd_jcp.normalizar('santiago 4000')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0],  11840, u'Santiago del Estero', 4000)
+        self._checkDireccion(res[0],  11840, 'Santiago del Estero', 4000)
 
     def testMuchasCallesVariasConAlturaValida(self):
-        res = self.nd_jcp.normalizar(u'santiago 3500')
+        res = self.nd_jcp.normalizar('santiago 3500')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 2, "Deberia haber 2 matchings")
-        self._checkDireccion(res[0], 11840, u'Santiago del Estero', 3500)
-        self._checkDireccion(res[1], 77662, u'Santiago L. Copello', 3500)
+        self._checkDireccion(res[0], 11840, 'Santiago del Estero', 3500)
+        self._checkDireccion(res[1], 77662, 'Santiago L. Copello', 3500)
 
     def testCalleConPuntoConAlturaValida(self):
         res = self.nd_jcp.normalizar("Santiago L. Copello 817")
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 77662, u'Santiago L. Copello', 817)
+        self._checkDireccion(res[0], 77662, 'Santiago L. Copello', 817)
 
     def testCalleConEnieConAlturaValida(self):
-        res = self.nd_jcp.normalizar(u'Roque Sáenz Peña 5050')
+        res = self.nd_jcp.normalizar('Roque Sáenz Peña 5050')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 77440, u'Roque Sáenz Peña', 5050)
+        self._checkDireccion(res[0], 77440, 'Roque Sáenz Peña', 5050)
 
     def testCalleConEnieEscritaConNConAlturaValida2(self):
-        res = self.nd_jcp.normalizar(u'Roque Sáenz Pena 5050')
+        res = self.nd_jcp.normalizar('Roque Sáenz Pena 5050')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 77440, u'Roque Sáenz Peña', 5050)
+        self._checkDireccion(res[0], 77440, 'Roque Sáenz Peña', 5050)
 
     def testCalleConDieresisConAlturaValida(self):
-        res = self.nd_jcp.normalizar(u'echagüe 2144')
+        res = self.nd_jcp.normalizar('echagüe 2144')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 182799, u'Juan Pablo Echagüe', 2144)
+        self._checkDireccion(res[0], 182799, 'Juan Pablo Echagüe', 2144)
 
         res = self.nd_jcp.normalizar('echague 2144')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 182799, u'Juan Pablo Echagüe', 2144)
+        self._checkDireccion(res[0], 182799, 'Juan Pablo Echagüe', 2144)
 
     def testCalleConApostrofe(self):
-        res = self.nd_jcp.normalizar(u'D\'Elía 4321')
+        res = self.nd_jcp.normalizar('D\'Elía 4321')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 53381, u'Maestro Ángel D\'Elía', 4321)
+        self._checkDireccion(res[0], 53381, 'Maestro Ángel D\'Elía', 4321)
 
-        res = self.nd_jcp.normalizar(u'D Elía 4321')
+        res = self.nd_jcp.normalizar('D Elía 4321')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 53381, u'Maestro Ángel D\'Elía', 4321)
+        self._checkDireccion(res[0], 53381, 'Maestro Ángel D\'Elía', 4321)
 
-        res = self.nd_jcp.normalizar(u'Delía 4321')
+        res = self.nd_jcp.normalizar('Delía 4321')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 53381, u'Maestro Ángel D\'Elía', 4321)
+        self._checkDireccion(res[0], 53381, 'Maestro Ángel D\'Elía', 4321)
 
     def testCallesConY(self):
-        res = self.nd_jcp.normalizar(u'gelly y obes 4375')
+        res = self.nd_jcp.normalizar('gelly y obes 4375')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 77481, u'Gelly y Obes', 4375)
+        self._checkDireccion(res[0], 77481, 'Gelly y Obes', 4375)
 
-        res = self.nd_jcp.normalizar(u'vicente lopez y planes 4375')
+        res = self.nd_jcp.normalizar('vicente lopez y planes 4375')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 11702, u'Vicente López y Planes', 4375)
+        self._checkDireccion(res[0], 11702, 'Vicente López y Planes', 4375)
 
     def testCalleConMuchosEspacios(self):
-        res = self.nd_jcp.normalizar(u' tomas    guido    5000      ')
+        res = self.nd_jcp.normalizar(' tomas    guido    5000      ')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 185640, u'Tomás Guido', 5000)
+        self._checkDireccion(res[0], 185640, 'Tomás Guido', 5000)
 
     def testCalleConCaracteresRaros(self):
-        res = self.nd_jcp.normalizar(u'tomas guido 5000 |°¬!#$%&/()=?\¿¡*¸+~{[^}]`-_.:,;<>·@')
+        res = self.nd_jcp.normalizar('tomas guido 5000 |°¬!#$%&/()=?\¿¡*¸+~{[^}]`-_.:,;<>·@')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 185640, u'Tomás Guido', 5000)
+        self._checkDireccion(res[0], 185640, 'Tomás Guido', 5000)
 
     def testCalleConSeparadoresE(self):
-        res = self.nd_jcp.normalizar(u'jose e rodo 3888')
+        res = self.nd_jcp.normalizar('jose e rodo 3888')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 78817, u'José E. Rodó', 3888)
+        self._checkDireccion(res[0], 78817, 'José E. Rodó', 3888)
 
     def testCalleConSinonimosAvenida(self):
-        res = self.nd_jcp.normalizar(u'Avenida Maestro Ferreyra 3800')
+        res = self.nd_jcp.normalizar('Avenida Maestro Ferreyra 3800')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 301342, u'Av. Maestro Ferreyra', 3800)
+        self._checkDireccion(res[0], 301342, 'Av. Maestro Ferreyra', 3800)
 
-        res = self.nd_jcp.normalizar(u'Avda Maestro Ferreyra 3800')
+        res = self.nd_jcp.normalizar('Avda Maestro Ferreyra 3800')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 301342, u'Av. Maestro Ferreyra', 3800)
+        self._checkDireccion(res[0], 301342, 'Av. Maestro Ferreyra', 3800)
 
     def testCalleConSinonimosDoctor(self):
-        res = self.nd_jcp.normalizar(u'Dr. Angel Gallardo 5800')
+        res = self.nd_jcp.normalizar('Dr. Angel Gallardo 5800')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 331441, u'Dr. Angel Gallardo', 5800)
+        self._checkDireccion(res[0], 331441, 'Dr. Angel Gallardo', 5800)
 
-        res = self.nd_jcp.normalizar(u'Doctor Angel Gallardo 5800')
+        res = self.nd_jcp.normalizar('Doctor Angel Gallardo 5800')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 331441, u'Dr. Angel Gallardo', 5800)
+        self._checkDireccion(res[0], 331441, 'Dr. Angel Gallardo', 5800)
 
     def testCalleConSinonimosDoce(self):
-        res = self.nd_jcp.normalizar(u'doce de octubre 50')
+        res = self.nd_jcp.normalizar('doce de octubre 50')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 369059, u'12 de Octubre', 50)
+        self._checkDireccion(res[0], 369059, '12 de Octubre', 50)
 
-        res = self.nd_jcp.normalizar(u'12 de octubre 50')
+        res = self.nd_jcp.normalizar('12 de octubre 50')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 369059, u'12 de Octubre', 50)
+        self._checkDireccion(res[0], 369059, '12 de Octubre', 50)
 
     def testMatchComienzoDePalabra(self):
-        res = self.nd_jcp.normalizar(u'Ave Mae Fer 3800')
+        res = self.nd_jcp.normalizar('Ave Mae Fer 3800')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 301342, u'Av. Maestro Ferreyra', 3800)
+        self._checkDireccion(res[0], 301342, 'Av. Maestro Ferreyra', 3800)
 
     def testCallesQueTienenNumerosEnSuNombre01(self):
-        res = self.nd_jcp.normalizar(u'18 de Octubre 3250')
+        res = self.nd_jcp.normalizar('18 de Octubre 3250')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 77462, u'18 de Octubre', 3250)
+        self._checkDireccion(res[0], 77462, '18 de Octubre', 3250)
 
     def testCallesQueTienenNumerosEnSuNombre02(self):
-        res = self.nd_lp.normalizar(u'Avenida 44 2000')
+        res = self.nd_lp.normalizar('Avenida 44 2000')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 356811, u'Avenida 44', 2000)
+        self._checkDireccion(res[0], 356811, 'Avenida 44', 2000)
 
     def testCallesQueTienenNumerosEnSuNombre03(self):
-        res = self.nd_lp.normalizar(u'58 1600')
+        res = self.nd_lp.normalizar('58 1600')
         self.assertTrue(isinstance(res, list))
         self.assertEqual(len(res), 1, "Deberia haber un unico matching")
-        self._checkDireccion(res[0], 123404, u'58', 1600)
+        self._checkDireccion(res[0], 123404, '58', 1600)

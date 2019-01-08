@@ -1,5 +1,5 @@
 # coding: UTF-8
-from __future__ import absolute_import
+
 import unittest
 
 from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
@@ -7,7 +7,7 @@ from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.Errors import ErrorCruceInexistente, ErrorCalleInexistente
 from usig_normalizador_amba.settings import CALLE_Y_CALLE
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class NormalizadorDireccionesAMBACalleYCalleTestCase(unittest.TestCase):
@@ -27,36 +27,36 @@ class NormalizadorDireccionesAMBACalleYCalleTestCase(unittest.TestCase):
         self.assertEqual(direccion.localidad, localidad)
 
     def testCalleInexistente01(self):
-        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, u'Elm street y Roque Sáenz Peña')
+        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, 'Elm street y Roque Sáenz Peña')
 
     def testCalleInexistente02(self):
-        self.assertRaises(ErrorCruceInexistente, self.nd.normalizar, u'Roque Sáenz Peña y kokusai dori')
+        self.assertRaises(ErrorCruceInexistente, self.nd.normalizar, 'Roque Sáenz Peña y kokusai dori')
 
     def testDireccionExistentePeroEnOtroPartido(self):
-        res = self.nd.normalizar(u'Europa y Darwin, Ituzaingo')
+        res = self.nd.normalizar('Europa y Darwin, Ituzaingo')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self._checkDireccion(res[0], 6895, u'Europa', 6953, u'Darwin', 'ituzaingo',  u'Ituzaingó')
+        self.assertEqual(len(res), 1, 'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self._checkDireccion(res[0], 6895, 'Europa', 6953, 'Darwin', 'ituzaingo',  'Ituzaingó')
 
-        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, u'Europa y Darwin, La Matanza')
+        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, 'Europa y Darwin, La Matanza')
 
     def testDireccionExistentePeroEnOtraLocalidad(self):
-        res = self.nd.normalizar(u'Europa y Darwin, Ituzaingo')
+        res = self.nd.normalizar('Europa y Darwin, Ituzaingo')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self._checkDireccion(res[0], 6895, u'Europa', 6953, u'Darwin', 'ituzaingo',  u'Ituzaingó')
+        self.assertEqual(len(res), 1, 'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self._checkDireccion(res[0], 6895, 'Europa', 6953, 'Darwin', 'ituzaingo',  'Ituzaingó')
 
-        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, u'Europa y Darwin, Villa Udaondo')
+        self.assertRaises(ErrorCalleInexistente, self.nd.normalizar, 'Europa y Darwin, Villa Udaondo')
 
     def testNormalizador_DireccionEnVariosPartidos(self):
-        res = self.nd.normalizar(u'san martin y peron')
+        res = self.nd.normalizar('san martin y peron')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 2, u'Debería haber 2 matching/s. Hay {0}'.format(len(res)))
-        self._checkDireccion(res[0], 46673, u'Avenida General San Martín', 82054, u'Av. Eva Perón', 'la_matanza', u'Ramos Mejia')
-        self._checkDireccion(res[1], 12124, u'General José de San Martín', 293550, u'Avenida Eva Duarte de Perón', 'san_miguel', u'Campo de Mayo')
+        self.assertEqual(len(res), 2, 'Debería haber 2 matching/s. Hay {0}'.format(len(res)))
+        self._checkDireccion(res[0], 46673, 'Avenida General San Martín', 82054, 'Av. Eva Perón', 'la_matanza', 'Ramos Mejia')
+        self._checkDireccion(res[1], 12124, 'General José de San Martín', 293550, 'Avenida Eva Duarte de Perón', 'san_miguel', 'Campo de Mayo')
 
     def testNormalizador_PartidoConNumero(self):
-        res = self.nd.normalizar(u'Pablo Ceretti y Jorge Cardassy, 20 de Junio')
+        res = self.nd.normalizar('Pablo Ceretti y Jorge Cardassy, 20 de Junio')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
-        self._checkDireccion(res[0], 232752, u'Pablo Ceretti', 232731, u'Jorge Cardassy', 'la_matanza', u'20 de Junio')
+        self.assertEqual(len(res), 1, 'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self._checkDireccion(res[0], 232752, 'Pablo Ceretti', 232731, 'Jorge Cardassy', 'la_matanza', '20 de Junio')

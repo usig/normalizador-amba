@@ -4,7 +4,7 @@ Created on Apr 16, 2014
 
 @author: hernan
 '''
-from __future__ import absolute_import
+
 
 
 class Partido:
@@ -36,17 +36,17 @@ class Partido:
         '''
         try:
             self.codigo = str(codigo)
-            self.nombre = unicode(nombre)
-            self.keywords = unicode(keywords) if keywords != '' else self.nombre
+            self.nombre = str(nombre)
+            self.keywords = str(keywords) if keywords != '' else self.nombre
             self.codigo_osm = int(codigo_osm)
-        except Exception, e:
+        except Exception as e:
             raise e
 
     def __str__(self):
         return self.__unicode__().encode('utf8', 'ignore')
 
     def __unicode__(self):
-        retval = u'''-- Partido
+        retval = '''-- Partido
     codigo = {0}
     nombre = {1}
     keywords = {2}

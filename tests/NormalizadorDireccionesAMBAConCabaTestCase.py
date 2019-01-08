@@ -1,12 +1,12 @@
 # coding: UTF-8
-from __future__ import absolute_import
+
 import unittest
 
 from usig_normalizador_amba.NormalizadorDireccionesAMBA import NormalizadorDireccionesAMBA
 from usig_normalizador_amba.Direccion import Direccion
 from usig_normalizador_amba.settings import CALLE_ALTURA
 
-from test_commons import cargarCallejeroEstatico
+from tests.test_commons import cargarCallejeroEstatico
 
 
 class NormalizadorDireccionesAMBAConCabaTestCase(unittest.TestCase):
@@ -26,62 +26,62 @@ class NormalizadorDireccionesAMBAConCabaTestCase(unittest.TestCase):
         self.assertEqual(direccion.localidad, localidad)
 
     def testDireccionEnCabaYConurbano(self):
-        res = self.nd.normalizar(u'Arenales 806')
+        res = self.nd.normalizar('Arenales 806')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 3, u'Debería haber 3 matching/s. Hay {0}'.format(len(res)))
+        self.assertEqual(len(res), 3, 'Debería haber 3 matching/s. Hay {0}'.format(len(res)))
 
-        self._checkDireccion(res[0], 1104, u'ARENALES', 806, 'caba', u'CABA')
-        self._checkDireccion(res[1], 53565, u'Gral Arenales', 806, 'jose_c_paz', u'José C. Paz')
-        self._checkDireccion(res[2], 360326, u'General Arenales', 806, 'lomas_de_zamora', u'Lomas de Zamora')
+        self._checkDireccion(res[0], 1104, 'ARENALES', 806, 'caba', 'CABA')
+        self._checkDireccion(res[1], 53565, 'Gral Arenales', 806, 'jose_c_paz', 'José C. Paz')
+        self._checkDireccion(res[2], 360326, 'General Arenales', 806, 'lomas_de_zamora', 'Lomas de Zamora')
 
     def testDireccionSoloEnCaba(self):
-        res = self.nd.normalizar(u'Callao 1536')
+        res = self.nd.normalizar('Callao 1536')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self.assertEqual(len(res), 1, 'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
 
-        self._checkDireccion(res[0], 3030, u'CALLAO AV.', 1536, 'caba', u'CABA')
+        self._checkDireccion(res[0], 3030, 'CALLAO AV.', 1536, 'caba', 'CABA')
 
     def testDireccionSoloEnConurbano(self):
-        res = self.nd.normalizar(u'Laprida 890')
+        res = self.nd.normalizar('Laprida 890')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 2, u'Debería haber 2 matching/s. Hay {0}'.format(len(res)))
+        self.assertEqual(len(res), 2, 'Debería haber 2 matching/s. Hay {0}'.format(len(res)))
 
-        self._checkDireccion(res[0], 156179, u'Laprida', 890, 'jose_c_paz', u'José C. Paz')
-        self._checkDireccion(res[1], 18028, u'Laprida', 890, 'lomas_de_zamora', u'Lomas de Zamora')
+        self._checkDireccion(res[0], 156179, 'Laprida', 890, 'jose_c_paz', 'José C. Paz')
+        self._checkDireccion(res[1], 18028, 'Laprida', 890, 'lomas_de_zamora', 'Lomas de Zamora')
 
     def testDireccionEnCabaYConurbanoConFiltroEnCaba(self):
-        res = self.nd.normalizar(u'Arenales 806, caba')
+        res = self.nd.normalizar('Arenales 806, caba')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self.assertEqual(len(res), 1, 'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
 
-        self._checkDireccion(res[0], 1104, u'ARENALES', 806, 'caba', u'CABA')
+        self._checkDireccion(res[0], 1104, 'ARENALES', 806, 'caba', 'CABA')
 
     def testDireccionEnCabaYConurbanoConFiltroEnConurbano1(self):
-        res = self.nd.normalizar(u'Arenales 806, lomas')
+        res = self.nd.normalizar('Arenales 806, lomas')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self.assertEqual(len(res), 1, 'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
 
-        self._checkDireccion(res[0], 360326, u'General Arenales', 806, 'lomas_de_zamora', u'Lomas de Zamora')
+        self._checkDireccion(res[0], 360326, 'General Arenales', 806, 'lomas_de_zamora', 'Lomas de Zamora')
 
     def testDireccionEnCabaYConurbanoConFiltroEnConurbano2(self):
-        res = self.nd.normalizar(u'Arenales 806, Jose c Paz')
+        res = self.nd.normalizar('Arenales 806, Jose c Paz')
         self.assertTrue(isinstance(res, list))
-        self.assertEqual(len(res), 1, u'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
+        self.assertEqual(len(res), 1, 'Debería haber 1 matching/s. Hay {0}'.format(len(res)))
 
-        self._checkDireccion(res[0], 53565, u'Gral Arenales', 806, 'jose_c_paz', u'José C. Paz')
+        self._checkDireccion(res[0], 53565, 'Gral Arenales', 806, 'jose_c_paz', 'José C. Paz')
 
     def testNormalizador_normalizar_calles_como_av_o_pje(self):
         casos = [
-            u'Avenida Paraná 853, caba',
-            u'Paraná avenida 853, caba',
-            u'Paraná avda 853, caba',
-            u'AV. Paraná 853, caba',
-            u'Pasaje Paraná 853, caba',
-            u'Psje. Paraná 853, caba',
-            u'Paraná pje. 853, caba'
+            'Avenida Paraná 853, caba',
+            'Paraná avenida 853, caba',
+            'Paraná avda 853, caba',
+            'AV. Paraná 853, caba',
+            'Pasaje Paraná 853, caba',
+            'Psje. Paraná 853, caba',
+            'Paraná pje. 853, caba'
         ]
         for caso in casos:
             res = self.nd.normalizar(caso)
             self.assertTrue(isinstance(res, list))
-            self.assertEqual(len(res), 1, u'Debería haber 1 matching.')
-            self._checkDireccion(res[0], 17018, u'PARANA', 853, 'caba', u'CABA')
+            self.assertEqual(len(res), 1, 'Debería haber 1 matching.')
+            self._checkDireccion(res[0], 17018, 'PARANA', 853, 'caba', 'CABA')
