@@ -13,8 +13,8 @@ NormalizadorAMBA = ND
 
 __title__ = 'usig-normalizador-amba'
 __description__ = 'Normalizador de Direcciones AMBA'
-__author__ = 'USIG - GCBA'
-__author_email__ = 'Hernán Ogasawara <hogasawara@buenosaires.gob.ar>'
-__version__ = '1.2.5'
+__author__ = 'DGCINF - USIG - GCBA'
+__author_email__ = 'USIG - Desarrollo <mapa@buenosaires.gob.ar>'
+__version__ = '1.3.0'
 __license__ = 'MIT License'
-__copyright__ = 'Copyright (c) 2016 USIG - GCBA'
+__copyright__ = 'MIT License USIG - GCBA'
